@@ -43,7 +43,7 @@ h2 span{font-size:13px;letter-spacing:0;text-transform:none;color:var(--mute);fo
 <body>
 <header>
   <div class="hin"><img src="icon.png" alt=""><h1>Library Staff Home &#x00B7; &#xCB8;&#xCBF;&#xCAC;&#xCCD;&#xCAC;&#xC82;&#xCA6;&#xCBF;<small id="sub">SDM College of Arts, Science and Commerce, Honavar (U.K.)</small></h1></div>
-  <div class="sw"><button data-b="sdmhonavar">Degree &#xCAA;&#xCA6;&#xCB5;&#xCBF;</button><button data-b="sdmpu">P.U. &#xCAA;&#xCBF;.&#xCAF;&#xCC1;.</button></div>
+  <div class="sw" style="display:none"><button data-b="sdmhonavar">Degree &#xCAA;&#xCA6;&#xCB5;&#xCBF;</button><button data-b="sdmpu">P.U. &#xCAA;&#xCBF;.&#xCAF;&#xCC1;.</button></div>
 </header>
 <main id="m"></main>
 <div class="toast" id="toast">Link copied</div>
@@ -53,15 +53,17 @@ var D={"sdmhonavar": {"name": "Honavar", "kn": "\u0cb9\u0cca\u0ca8\u0ccd\u0ca8\u
 D.sdmhonavar.college = 'SDM College of Arts, Science and Commerce, Honavar (U.K.)';
 D.sdmpu = JSON.parse(JSON.stringify(D.sdmhonavar)
   .split('AKfycbxvWo77brTJspEP66dkpeNrefHIirAb3s_uUuWFSHl5ChzrPxvTrx0gigGywB668dPH').join('PASTE_PU_ADMIN_ID')
-  .split('AKfycbxHIlsE8uD3sa6VI-sO8IIFYynICXjsdvaYRyHZyzvyYZh6SvEii4jNq5tRxKLYbeLQRA').join('PASTE_PU_AI_ID')
-  .split('AKfycbwHPOCSCs_GxWzqTw4olfpGHRnuZ6t4XFdkTlVgtxfWpP5PkkLKsDPIr8pmKdBovZ-w').join('PASTE_PU_KARTAVYA_ID')
+  .split('AKfycbxHIlsE8uD3sa6VI-sO8IIFYynICXjsdvaYRyHZyzvyYZh6SvEii4jNq5tRxKLYbeLQRA').join('AKfycbymhTn6kT2SaWYiSflTX8HwgB2YS3zwLTKjcbtSdHgOKUCEoWPvWvMVOXPEPMRmpdLcZw')
+  .split('AKfycbwHPOCSCs_GxWzqTw4olfpGHRnuZ6t4XFdkTlVgtxfWpP5PkkLKsDPIr8pmKdBovZ-w').join('AKfycbzzHjNKVmoDFu8DtfwlDdQHHO-QAr8cSrg5xjbxGkwOkPzTuTnr_WO6BzhDJV9jF5HqEg')
   .split('../sdmhonavar/').join('../sdmpu/'));
 D.sdmpu.name = 'P.U. College'; D.sdmpu.c1 = '#10124a'; D.sdmpu.c2 = '#07081a';
 D.sdmpu.college = 'S.D.M. P.U. College, Honnavar (U.K.)';
 D.sdmhonavar.name = 'Degree College';
+// P.U. repository (sdmpulibrary): this Staff Home is for P.U. only
+delete D.sdmhonavar;
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function show(b){
-  var d=D[b]; if(!d){b='sdmhonavar';d=D[b];}
+  var d=D[b]; if(!d){b='sdmpu';d=D[b];}
   try{localStorage.setItem('staffBranch',b)}catch(e){}
   document.documentElement.style.setProperty('--c1',d.c1);document.documentElement.style.setProperty('--c2',d.c2);
   document.querySelectorAll('.sw button').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-b')===b)});
