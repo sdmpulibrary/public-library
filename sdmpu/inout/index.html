@@ -26,6 +26,7 @@
   .photo svg { width:60%; fill:#b6bfd6; }
   .who .nm { font-size:22px; font-weight:700; text-align:center; margin-top:10px; min-height:30px; }
   .who .meta { font-size:15px; text-align:center; color:#555; min-height:22px; }
+  .mid, .who, .side { min-width:0; }
   .mid { display:flex; flex-direction:column; gap:22px; }
   .box { padding:18px 22px; text-align:center; }
   .box label { font-size:24px; font-weight:600; display:block; margin-bottom:10px; }
@@ -36,6 +37,13 @@
   .msg { flex:1; display:flex; flex-direction:column; justify-content:center; font-size:26px; line-height:1.5; min-height:160px; }
   .msg .hi { color:var(--green); } .msg .bye { color:var(--green); } .msg .err { color:var(--red); }
   .msg small { display:block; font-size:17px; color:#666; }
+  .recent { padding:8px 14px; text-align:left; }
+  .recent h4 { margin:0 0 4px; font-size:14px; color:#666; font-weight:600; letter-spacing:1px; }
+  #recent > div { display:flex; gap:10px; align-items:center; font-size:17px; padding:3px 0; border-top:1px solid #eef1f8; }
+  #recent > div:first-child { border-top:0; }
+  #recent b { min-width:52px; text-align:center; color:#fff; border-radius:3px; font-size:14px; padding:2px 0; background:#8a93ad; }
+  #recent b.in { background:var(--green); } #recent b.out, #recent b.bad { background:var(--red); }
+  #recent span { flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } #recent i { color:#777; font-style:normal; font-size:15px; }
   .side { display:flex; flex-direction:column; gap:22px; }
   .dark { background:linear-gradient(180deg,#2a2a2a,#050505); color:#fff; border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,.3); }
   .clock { padding:18px; text-align:center; }
@@ -80,6 +88,7 @@
     </div>
     <div class="card box"><div class="status wait" id="st">Please scan your card</div></div>
     <div class="card box msg" id="msg"><span style="color:#777">Scan when you come in and when you go out.<small>ಒಳಗೆ ಬರುವಾಗ ಮತ್ತು ಹೊರಗೆ ಹೋಗುವಾಗ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.</small></span></div>
+    <div class="card recent" id="recentBox"><h4>LAST SCANS &middot; &#x0C87;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CC0;&#x0C9A;&#x0CBF;&#x0CA8; &#x0CB8;&#x0CCD;&#x0C95;&#x0CCD;&#x0CAF;&#x0CBE;&#x0CA8;&#x0CCD;</h4><div id="recent"></div></div>
   </section>
 
   <section class="side">
@@ -101,10 +110,10 @@
 
 <script>
 var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
-var RESET_MS = 8000, STATS_MS = 60000;
+var RESET_MS = 6000, STATS_MS = 60000, RECENT_MAX = 4;
 var PERSON = '<svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.5c-3.3 0-9.8 1.6-9.8 4.9v2.4h19.6v-2.4c0-3.3-6.5-4.9-9.8-4.9z"/></svg>';
 var $ = function (id) { return document.getElementById(id); };
-var busy = false, resetTimer = null;
+var resetTimer = null, shownId = '', recent = [], seq = 0;
 
 function call(fn, args) {
   return fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow',
@@ -128,6 +137,7 @@ function showStats(s) {
 function loadStats() { call('gateBoardStats').then(showStats).catch(function () {}); }
 
 function idle() {
+  shownId = '';
   $('photo').innerHTML = PERSON; $('nm').textContent = ''; $('meta').textContent = '';
   $('st').className = 'status wait'; $('st').textContent = 'Please scan your card';
   $('msg').innerHTML = '<span style="color:#777">Scan when you come in and when you go out.<small>&#x0C92;&#x0CB3;&#x0C97;&#x0CC6; &#x0CAC;&#x0CB0;&#x0CC1;&#x0CB5;&#x0CBE;&#x0C97; &#x0CAE;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CC1; &#x0CB9;&#x0CCA;&#x0CB0;&#x0C97;&#x0CC6; &#x0CB9;&#x0CCB;&#x0C97;&#x0CC1;&#x0CB5;&#x0CBE;&#x0C97; &#x0CB8;&#x0CCD;&#x0C95;&#x0CCD;&#x0CAF;&#x0CBE;&#x0CA8;&#x0CCD; &#x0CAE;&#x0CBE;&#x0CA1;&#x0CBF;.</small></span>';
@@ -136,6 +146,15 @@ function idle() {
 function later() { clearTimeout(resetTimer); resetTimer = setTimeout(idle, RESET_MS); }
 function speak(t) { try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.rate = .95; speechSynthesis.speak(u); } catch (e) {} }
 
+function drawRecent() {
+  $('recent').innerHTML = recent.map(function (x) {
+    var cls = x.io === 'IN' ? 'in' : (x.io === 'OUT' ? 'out' : (x.io === 'X' ? 'bad' : ''));
+    return '<div><b class="' + cls + '">' + esc(x.io || '...') + '</b><span>' + esc(x.name || x.id) + '</span><i>' + esc(x.time || '') + '</i></div>';
+  }).join('');
+}
+function addRecent(n, id) { recent.unshift({ n: n, id: id, io: '', name: id + ' - checking', time: '' }); recent = recent.slice(0, RECENT_MAX); drawRecent(); }
+function setRecent(n, v) { recent.forEach(function (x) { if (x.n === n) { for (var k in v) x[k] = v[k]; } }); drawRecent(); }
+
 function show(r) {
   showStats(r.stats);
   if (r.repeat) {
@@ -143,7 +162,11 @@ function show(r) {
     $('msg').innerHTML = '<span class="err">Card ' + esc(r.id) + ' was just scanned.<small>Please wait a few seconds. &middot; &#x0CB8;&#x0CCD;&#x0CB5;&#x0CB2;&#x0CCD;&#x0CAA; &#x0C95;&#x0CBE;&#x0CAF;&#x0CBF;&#x0CB0;&#x0CBF;.</small></span>';
     return later();
   }
+  shownId = r.id;
   $('photo').innerHTML = r.photo ? '<img src="' + esc(r.photo) + '" alt="">' : PERSON;
+  if (r.needPhoto) call('gateBoardPhoto', [r.id]).then(function (p) {
+    if (p && shownId === r.id) $('photo').innerHTML = '<img src="' + esc(p) + '" alt="">';
+  }).catch(function () {});
   $('nm').textContent = r.name || '';
   $('meta').textContent = [r.id, r.staff ? 'Staff' : (r.type === 'Member' ? '' : 'Visitor'), r.course].filter(function (s) { return s; }).join(' · ');
   var isIn = r.inOut === 'IN';
@@ -155,6 +178,7 @@ function show(r) {
   later();
 }
 function fail(e) {
+  shownId = '';
   $('photo').innerHTML = PERSON; $('nm').textContent = ''; $('meta').textContent = '';
   $('st').className = 'status out'; $('st').textContent = 'NOT FOUND';
   $('st').style.fontSize = '54px';
@@ -162,12 +186,22 @@ function fail(e) {
   later();
 }
 
+// Scans do not wait for each other: a whole class can scan one after
+// another, and each result shows as soon as it comes back.
 $('idIn').addEventListener('keydown', function (ev) {
   if (ev.key !== 'Enter') return;
   var id = this.value.trim(); this.value = '';
-  if (!id || busy) return;
-  busy = true; $('st').style.fontSize = ''; $('st').className = 'status wait'; $('st').textContent = 'Checking ' + id + ' ...';
-  call('gateBoardScan', [id, null, null]).then(show).catch(fail).then(function () { busy = false; $('idIn').focus(); });
+  if (!id) return;
+  var n = ++seq;
+  addRecent(n, id.toUpperCase());
+  if (!shownId) { $('st').style.fontSize = ''; $('st').className = 'status wait'; $('st').textContent = 'Checking ' + id + ' ...'; }
+  call('gateBoardScan', [id, null, null]).then(function (r) {
+    setRecent(n, r.repeat ? { io: 'AGAIN', name: r.id } : { io: r.inOut, name: r.name, time: r.time });
+    show(r);
+  }).catch(function (e) {
+    setRecent(n, { io: 'X', name: id + ' - not found' });
+    fail(e);
+  }).then(function () { $('idIn').focus(); });
 });
 document.addEventListener('click', function () { $('idIn').focus(); });
 
