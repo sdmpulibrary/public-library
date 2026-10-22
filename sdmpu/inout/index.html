@@ -44,6 +44,16 @@
   #recent b { min-width:52px; text-align:center; color:#fff; border-radius:3px; font-size:14px; padding:2px 0; background:#8a93ad; }
   #recent b.in { background:var(--green); } #recent b.out, #recent b.bad { background:var(--red); }
   #recent span { flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; } #recent i { color:#777; font-style:normal; font-size:15px; }
+  .ns { margin-top:10px; }
+  .idrow { display:flex; gap:8px; justify-content:center; align-items:stretch; }
+  .idrow #idIn { flex:1; min-width:0; }
+  #goBtn { font-size:22px; font-weight:700; padding:0 18px; border:0; border-radius:4px; background:var(--blue1); color:#fff; cursor:pointer; white-space:nowrap; }
+  #goBtn:active { transform:scale(.97); }
+  #nameIn { width:80%; font-size:17px; padding:7px 12px; text-align:center; border:1px dashed #9fc3ea; border-radius:4px; }
+  #nameRes { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:6px; }
+  #nameRes button { font:inherit; font-size:15px; padding:6px 10px; border:1px solid #c7d2ea; background:#f4f7ff; border-radius:6px; cursor:pointer; }
+  #nameRes button b { color:var(--navy); }
+  #nameRes .none { color:#888; font-size:14px; }
   .side { display:flex; flex-direction:column; gap:22px; }
   .dark { background:linear-gradient(180deg,#2a2a2a,#050505); color:#fff; border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,.3); }
   .clock { padding:18px; text-align:center; }
@@ -58,7 +68,7 @@
   footer a { color:var(--gold); }
   @media (max-width: 900px) {
     header { flex-wrap:wrap; } header .sp { display:none; } header img { width:64px; height:64px; } header .col { font-size:20px; } header .lib { font-size:16px; }
-    main { grid-template-columns:1fr; padding:14px; gap:14px; } .photo { min-height:200px; } .status { font-size:56px; } .clock .tm { font-size:40px; }
+    main { grid-template-columns:1fr; padding:14px; gap:14px; } .mid { order:-1; } .photo { min-height:150px; max-height:220px; } #idIn, #nameIn { width:100%; } #idIn { font-size:24px; } #goBtn { font-size:20px; padding:0 14px; } .status { font-size:56px; } .clock .tm { font-size:40px; }
   }
 </style>
 </head>
@@ -84,7 +94,8 @@
   <section class="mid">
     <div class="card box">
       <label for="idIn">Lib ID <span style="font-weight:400;font-size:18px">&middot; ಗ್ರಂಥಾಲಯ ಸಂಖ್ಯೆ</span></label>
-      <input id="idIn" autocomplete="off" autofocus placeholder="Scan your ID card">
+      <div class="idrow"><input id="idIn" autocomplete="off" autofocus enterkeyhint="go" placeholder="Lib ID"><button type="button" id="goBtn">Enter &#x21B5;</button></div>
+      <div class="ns"><input id="nameIn" autocomplete="off" placeholder="No card? Type your name &middot; &#x0CB9;&#x0CC6;&#x0CB8;&#x0CB0;&#x0CC1;"><div id="nameRes"></div></div>
     </div>
     <div class="card box"><div class="status wait" id="st">Please scan your card</div></div>
     <div class="card box msg" id="msg"><span style="color:#777">Scan when you come in and when you go out.<small>ಒಳಗೆ ಬರುವಾಗ ಮತ್ತು ಹೊರಗೆ ಹೋಗುವಾಗ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.</small></span></div>
@@ -105,7 +116,7 @@
 
 <footer>
   <span>Honnavar - 581334, (U.K.) &middot; Open 9:00 AM to 5:30 PM</span>
-  <span>No card? Use <a href="../gate/">Gate Check-In</a> to search by name</span>
+  <span>No card? Type your name in the box under Lib ID &middot; Phone 9448502393</span>
 </footer>
 
 <script>
@@ -188,22 +199,51 @@ function fail(e) {
 
 // Scans do not wait for each other: a whole class can scan one after
 // another, and each result shows as soon as it comes back.
-$('idIn').addEventListener('keydown', function (ev) {
-  if (ev.key !== 'Enter') return;
-  var id = this.value.trim(); this.value = '';
+var MODE = 'board';            // 'board' = door / counter screen, 'gate' = reader's phone (sends location)
+var LAT = null, LNG = null;
+if (MODE === 'gate' && navigator.geolocation) {
+  try { navigator.geolocation.watchPosition(function (p) { LAT = p.coords.latitude; LNG = p.coords.longitude; }, function () {}, { enableHighAccuracy: true, maximumAge: 60000 }); } catch (e) {}
+}
+function doScan(id) {
+  id = String(id || '').trim();
   if (!id) return;
   var n = ++seq;
   addRecent(n, id.toUpperCase());
   if (!shownId) { $('st').style.fontSize = ''; $('st').className = 'status wait'; $('st').textContent = 'Checking ' + id + ' ...'; }
-  call('gateBoardScan', [id, null, null]).then(function (r) {
+  call('gateBoardScan', [id, LAT, LNG, MODE === 'gate']).then(function (r) {
     setRecent(n, r.repeat ? { io: 'AGAIN', name: r.id } : { io: r.inOut, name: r.name, time: r.time });
     show(r);
   }).catch(function (e) {
     setRecent(n, { io: 'X', name: id + ' - not found' });
     fail(e);
   }).then(function () { $('idIn').focus(); });
+}
+$('idIn').addEventListener('keydown', function (ev) {
+  if (ev.key !== 'Enter') return;
+  var id = this.value; this.value = '';
+  doScan(id);
 });
-document.addEventListener('click', function () { $('idIn').focus(); });
+$('goBtn').addEventListener('click', function () { var b = $('idIn'); var id = b.value; b.value = ''; doScan(id); b.focus(); });
+// Name search for readers without a card
+var nameTimer = null;
+$('nameIn').addEventListener('input', function () {
+  var q = this.value.trim(); clearTimeout(nameTimer);
+  if (q.length < 3) { $('nameRes').innerHTML = ''; return; }
+  nameTimer = setTimeout(function () {
+    $('nameRes').innerHTML = '<span class="none">Searching...</span>';
+    call('searchPeopleByName', [q]).then(function (list) {
+      if (!list || !list.length) { $('nameRes').innerHTML = '<span class="none">No name found. Please meet the counter.</span>'; return; }
+      $('nameRes').innerHTML = list.slice(0, 8).map(function (p) {
+        return '<button type="button" data-id="' + esc(p.id) + '"><b>' + esc(p.name) + '</b> &middot; ' + esc(p.id) + '</button>';
+      }).join('');
+    }).catch(function () { $('nameRes').innerHTML = '<span class="none">Search failed. Try again.</span>'; });
+  }, 450);
+});
+$('nameRes').addEventListener('click', function (ev) {
+  var b = ev.target.closest('button'); if (!b) return;
+  doScan(b.getAttribute('data-id')); $('nameIn').value = ''; $('nameRes').innerHTML = '';
+});
+document.addEventListener('click', function (ev) { if (!ev.target.closest('.ns')) $('idIn').focus(); });
 
 tick(); setInterval(tick, 1000);
 idle(); loadStats(); setInterval(loadStats, STATS_MS);

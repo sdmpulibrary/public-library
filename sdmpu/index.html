@@ -419,6 +419,49 @@
   .faq summary { font-weight:700; cursor:pointer; color:var(--forest-dark); }
   .faq details p { margin-top:8px; color:var(--ink); }
 </style>
+<style id="site-themes">
+  /* 21 Oct 2026: colour choices for the public website. Chosen in the WEB_IMAGES tab (row "theme"),
+     or for a quick look add ?theme=maroon (or teal, saffron, indigo) to the website address. */
+  html[data-site-theme="maroon"] { --ink:#2a1215; --paper:#fbf4ec; --card:#fffdf9; --forest:#7b1023; --forest-dark:#4a0714; --brass:#c9932e; --wine:#7b1023; --muted:#6e5a55; --border:#ead9c8; --rib-gold:#e9c46a; }
+  html[data-site-theme="maroon"] body { background:linear-gradient(180deg,#f6e7d8 0%,#fbf4ec 40%,#fffaf4 100%) fixed; }
+  html[data-site-theme="maroon"] .ribbon-1 { background:#2a0409; }
+  html[data-site-theme="maroon"] .ribbon-2 { background:linear-gradient(180deg,#9b1b30 0%,#6d0f22 55%,#4a0714 100%); }
+  html[data-site-theme="maroon"] .ribbon-3 { background:#3d0610; }
+  html[data-site-theme="maroon"] .ribbon-3 button:hover, html[data-site-theme="maroon"] .ribbon-3 button.active { background:#e9c46a; color:#3d0610; }
+  html[data-site-theme="maroon"] .sx-bar { background:#f4dfb0; border-bottom-color:#d9b46a; }
+  html[data-site-theme="maroon"] .hero-eyebrow { color:#9b1b30; }
+  html[data-site-theme="maroon"] header { background:#4a0714; }
+
+  html[data-site-theme="teal"] { --ink:#0f2a2e; --paper:#eef8f6; --card:#ffffff; --forest:#0f766e; --forest-dark:#134e4a; --brass:#f2994a; --wine:#e4572e; --muted:#4d6a6d; --border:#cfe7e2; --rib-gold:#ffb38a; }
+  html[data-site-theme="teal"] body { background:linear-gradient(180deg,#d7f0ec 0%,#eef8f6 40%,#f8fcfb 100%) fixed; }
+  html[data-site-theme="teal"] .ribbon-1 { background:#062b2a; }
+  html[data-site-theme="teal"] .ribbon-2 { background:linear-gradient(180deg,#14a39a 0%,#0f766e 50%,#0b4f4a 100%); }
+  html[data-site-theme="teal"] .ribbon-3 { background:#083c3a; }
+  html[data-site-theme="teal"] .ribbon-3 button:hover, html[data-site-theme="teal"] .ribbon-3 button.active { background:#ff7a59; color:#fff; }
+  html[data-site-theme="teal"] .sx-bar { background:#ffe3d3; border-bottom-color:#f6b99a; }
+  html[data-site-theme="teal"] .hero-eyebrow { color:#e4572e; }
+  html[data-site-theme="teal"] header { background:#0b4f4a; }
+
+  html[data-site-theme="saffron"] { --ink:#2b1d0e; --paper:#fffaf0; --card:#ffffff; --forest:#1f6f3a; --forest-dark:#14532d; --brass:#f08c00; --wine:#c2410c; --muted:#6b5b45; --border:#f1e3c4; --rib-gold:#ffd166; }
+  html[data-site-theme="saffron"] body { background:linear-gradient(180deg,#fff0d6 0%,#fffaf0 40%,#fffdf8 100%) fixed; }
+  html[data-site-theme="saffron"] .ribbon-1 { background:#0f3d20; }
+  html[data-site-theme="saffron"] .ribbon-2 { background:linear-gradient(180deg,#f59f00 0%,#e8590c 55%,#c2410c 100%); }
+  html[data-site-theme="saffron"] .ribbon-3 { background:#14532d; }
+  html[data-site-theme="saffron"] .ribbon-3 button:hover, html[data-site-theme="saffron"] .ribbon-3 button.active { background:#ffd166; color:#14532d; }
+  html[data-site-theme="saffron"] .sx-bar { background:#fff3bf; border-bottom-color:#ffd166; }
+  html[data-site-theme="saffron"] .hero-eyebrow { color:#c2410c; }
+  html[data-site-theme="saffron"] header { background:#14532d; }
+  html[data-site-theme="saffron"] .ribbon-2 .r2-society { color:#fff4dc; }
+  html[data-site-theme="saffron"] .ribbon-2 .r2-namesake, html[data-site-theme="saffron"] .ribbon-2 .ribbon-2-branch { color:#fffbe8; }
+</style>
+<script>
+  (function () {
+    var ok = { indigo: 1, maroon: 1, teal: 1, saffron: 1 }, t = '';
+    try { t = (new URLSearchParams(location.search).get('theme') || '').toLowerCase(); } catch (e) {}
+    if (!ok[t]) { try { t = localStorage.getItem('sdmpu_site_theme') || ''; } catch (e) {} }
+    if (ok[t] && t !== 'indigo') document.documentElement.setAttribute('data-site-theme', t);
+  })();
+</script>
 </head>
 <body>
 <div class="sx-banner" id="sx-banner" hidden><span id="sx-banner-t"></span><button class="sx-x" type="button" aria-label="Close notice" onclick="this.parentNode.hidden=true">&#x00D7;</button></div>
@@ -796,7 +839,7 @@
         <li>Student Aid Fund (SAF) students: 3 more books</li>
         <li>Staff: 12 books for 6 months</li>
         <li>Others: 2 books for 15 days</li>
-        <li>Fine: &#x20B9;2 per day after the due date</li>
+        <li>Fine: &#x20B9;5 per day after the due date</li>
         <li>Reference and &#x201C;Not for loan&#x201D; books are read in the library only</li>
       </ul>
     </div>
@@ -934,7 +977,7 @@
   <div class="faq" id="fq-list"><div class="empty-note" data-i18n="loadingTxt">Loading&#x2026;</div></div>
   <div class="wp-box" style="margin-top:16px;">
     <b data-i18n="fqMore">Still need help?</b>
-    <p style="margin-top:6px;">Phone: <a href="tel:+919448725643" style="color:var(--forest); font-weight:700;">9448725643</a> &#x00B7; <a href="javascript:void(0)" onclick="sxMailOpen()" style="color:var(--forest); font-weight:700;" data-i18n="fqMail">E-mail us</a> &#x00B7; <a href="javascript:void(0)" onclick="sxOpenFb()" style="color:var(--forest); font-weight:700;" data-i18n="fbTab">Feedback</a></p>
+    <p style="margin-top:6px;">Phone: <a href="tel:+919448502393" style="color:var(--forest); font-weight:700;">9448502393</a> &#x00B7; <a href="javascript:void(0)" onclick="sxMailOpen()" style="color:var(--forest); font-weight:700;" data-i18n="fqMail">E-mail us</a> &#x00B7; <a href="javascript:void(0)" onclick="sxOpenFb()" style="color:var(--forest); font-weight:700;" data-i18n="fbTab">Feedback</a></p>
   </div>
 </section>
 <section id="contact" class="subject-page">
@@ -953,7 +996,7 @@
     <div class="info-card">
       <div class="icon">&#x1F4DE;</div>
       <h3 data-i18n="contactCardTitle">Contact</h3>
-      <p>Phone: <a href="tel:+919448725643" style="color:var(--forest); font-weight:600;">9448725643</a><br><a href="mailto:sdmdlib2211@gmail.com" style="color:var(--forest); font-weight:600;">sdmdlib2211@gmail.com</a></p>
+      <p>Phone: <a href="tel:+919448502393" style="color:var(--forest); font-weight:600;">9448502393</a><br><a href="mailto:libnsdmpu260824@gmail.com" style="color:var(--forest); font-weight:600;">libnsdmpu260824@gmail.com</a></p>
     </div>
     <div class="info-card">
       <div class="icon">&#x1F465;</div>
@@ -1793,6 +1836,7 @@
   // ---- 21 Oct 2026: photos from the WEB_IMAGES tab (logo, building, Library Team; blank cell = keep built-in) ----
   function applyImages_(map) {
     if (!map) return;
+    if (map.theme && map.theme.name && !/[?&]theme=/.test(location.search)) { var th = map.theme.name.toLowerCase(); if (/^(indigo|maroon|teal|saffron)$/.test(th)) { try { localStorage.setItem('sdmpu_site_theme', th); } catch (e) {} if (th === 'indigo') document.documentElement.removeAttribute('data-site-theme'); else document.documentElement.setAttribute('data-site-theme', th); } }
     document.querySelectorAll('img[data-img]').forEach(function(img) {
       var it = map[img.getAttribute('data-img')];
       if (!it) return;
@@ -1918,9 +1962,9 @@ function sxSendFb() {
   <div class="sx-mailcard" role="dialog" aria-label="Email the library">
     <h3>&#x2709; Write to the library</h3>
     <div style="font-size:13.5px;color:#555">We keep the library silent, so please write to us. Staff will reply soon.</div>
-    <div class="addr"><span id="sx-mailaddr">sdmdlib2211@gmail.com</span><button type="button" onclick="sxMailCopy(this)">Copy</button></div>
-    <a class="mb g" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=sdmdlib2211@gmail.com&amp;su=Message%20to%20the%20library" target="_blank" rel="noopener">Open in Gmail</a>
-    <a class="mb o" href="mailto:sdmdlib2211@gmail.com?subject=Message%20to%20the%20library">Open my mail app</a>
+    <div class="addr"><span id="sx-mailaddr">libnsdmpu260824@gmail.com</span><button type="button" onclick="sxMailCopy(this)">Copy</button></div>
+    <a class="mb g" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=libnsdmpu260824@gmail.com&amp;su=Message%20to%20the%20library" target="_blank" rel="noopener">Open in Gmail</a>
+    <a class="mb o" href="mailto:libnsdmpu260824@gmail.com?subject=Message%20to%20the%20library">Open my mail app</a>
     <button type="button" class="mb f" onclick="sxMailClose(); if(typeof sxOpenFb==='function') sxOpenFb();">Send a message here on the website</button>
     <button type="button" class="mb x" onclick="sxMailClose()">Close</button>
   </div>
