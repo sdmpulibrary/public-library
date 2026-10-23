@@ -517,6 +517,7 @@
   <button onclick="showPage('glance')" data-i18n="glanceTileLabel">This Month</button>
   <button onclick="showPage('topbooks')" data-i18n="topBooksTileLabel">Top Books</button>
   <button onclick="showPride()" data-i18n="prideTab">Our Pride</button>
+  <button onclick="location.href='./pratibha/'">Pratibha Corner</button>
   <button onclick="showPage('recognitions')" data-i18n="rcTab">Recognitions</button>
   <button onclick="showPage('gallery')" data-i18n="galleryTileLabel">Gallery</button>
   <button onclick="showPage('moments')" data-i18n="momentsTileLabel">Photo Moments</button>
@@ -565,6 +566,7 @@
   <div class="nb-quick">
     <h3 data-i18n="qkTitle">For Students</h3>
     <div class="qk">
+      <button onclick="location.href='./pratibha/'">&#127912; Pratibha Corner</button>
       <button onclick="showPage('qpapers')" data-i18n="qpTab">Question Papers</button>
       <button onclick="showPage('search')" data-i18n="searchTileLabel">Search Books</button>
       <button onclick="showPride()" data-i18n="prideTab">Our Pride</button>
@@ -575,6 +577,105 @@
   </div>
 </div>
 <div class="shelf" id="shelf1"></div>
+
+<!-- Pratibha Corner + Readers of the Month on the home page (23 Oct 2026) -->
+<style>
+  .pcx{ max-width:1180px; margin:26px auto 8px; padding:0 16px; }
+  .pcx-q{ background:linear-gradient(135deg,#1f3a68,#3b2a6b); color:#fff; border-radius:16px; padding:16px 20px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .pcx-q .l{ font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:#ffd54f; font-weight:700; }
+  .pcx-q .t{ font-size:19px; font-style:italic; line-height:1.4; flex:1 1 400px; }
+  .pcx-q .t span{ font-style:normal; font-size:14px; opacity:.85; }
+  .pcx-g{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:14px; }
+  .pcx-c{ background:var(--card,#fff); border:1px solid var(--border,#e5e1d6); border-radius:16px; padding:14px 16px; }
+  .pcx-c h3{ margin:0 0 8px; font-size:16px; color:var(--accent,#1f3a68); display:flex; justify-content:space-between; gap:6px; align-items:baseline; }
+  .pcx-c h3 small{ font-weight:400; font-size:12px; color:var(--muted,#666); }
+  .pcx-r{ display:flex; gap:8px; align-items:center; padding:5px 0; border-bottom:1px dashed var(--border,#e5e1d6); font-size:14px; }
+  .pcx-r:last-child{ border-bottom:0; }
+  .pcx-r .n{ width:24px; height:24px; border-radius:50%; background:#eef0f6; display:grid; place-items:center; font-size:12px; font-weight:700; flex:none; color:#1f3a68; }
+  .pcx-r.top .n{ background:#ffc107; color:#000; }
+  .pcx-r .nm{ flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pcx-r .nm i{ font-style:normal; color:var(--muted,#666); font-size:12.5px; }
+  .pcx-r b{ color:#b07d00; }
+  .pcx-stu .pcx-r{ background:linear-gradient(90deg,rgba(255,213,79,.18),transparent); border-radius:6px; padding-left:4px; }
+  .pcx-sub{ font-size:12px; font-weight:700; color:var(--muted,#666); text-transform:uppercase; letter-spacing:.06em; margin:10px 0 2px; }
+  .pcx-b{ display:grid; grid-template-columns:80px 1fr 34px; gap:8px; align-items:center; font-size:13.5px; margin:6px 0; }
+  .pcx-b .tr{ height:14px; background:#eef0f6; border-radius:7px; overflow:hidden; }
+  .pcx-b .fi{ height:100%; background:linear-gradient(90deg,#ffb300,#ffd54f); border-radius:7px; }
+  .pcx-b:first-child .fi{ background:linear-gradient(90deg,#2fae6a,#9be15d); }
+  .pcx-w{ display:flex; gap:10px; align-items:center; padding:6px 0; border-bottom:1px dashed var(--border,#e5e1d6); cursor:pointer; text-decoration:none; color:inherit; }
+  .pcx-w img{ width:56px; height:56px; object-fit:cover; border-radius:8px; flex:none; }
+  .pcx-w .ic{ width:56px; height:56px; border-radius:8px; background:#fff3cf; display:grid; place-items:center; font-size:24px; flex:none; }
+  .pcx-w .tt{ font-weight:600; font-size:14px; line-height:1.25; }
+  .pcx-w .by{ font-size:12.5px; color:var(--muted,#666); }
+  .pcx-a{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .pcx-a a{ text-decoration:none; font-size:13.5px; font-weight:600; padding:8px 14px; border-radius:999px; background:var(--accent,#1f3a68); color:#fff; }
+  .pcx-a a.o{ background:transparent; color:var(--accent,#1f3a68); border:1.5px solid var(--accent,#1f3a68); }
+  .pcx-w .vt{ position:relative; flex:none; }
+  .pcx-w .vt::after{ content:'\25B6'; position:absolute; inset:0; display:grid; place-items:center; color:#fff; font-size:18px; text-shadow:0 1px 4px rgba(0,0,0,.7); }
+  .pcx-w .tg{ font-size:12.5px; font-style:italic; color:#6a5200; }
+  .pcx-e{ color:var(--muted,#666); font-size:13.5px; padding:6px 0; }
+</style>
+<div class="pcx" id="pcx">
+  <div class="pcx-q"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjAgMjQwIj4KPGVsbGlwc2UgY3g9IjExMCIgY3k9IjIzMiIgcng9IjkwIiByeT0iNyIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjE4Ii8+CjxyZWN0IHg9IjQwIiB5PSIxOTYiIHdpZHRoPSIxNDAiIGhlaWdodD0iMTgiIHJ4PSIzIiBmaWxsPSIjZTA1MzNkIi8+PHJlY3QgeD0iNDAiIHk9IjE5NiIgd2lkdGg9IjE0MCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIuMzUiLz4KPHJlY3QgeD0iNTAiIHk9IjIxNCIgd2lkdGg9IjEyNCIgaGVpZ2h0PSIxOCIgcng9IjMiIGZpbGw9IiMyZjdkZDEiLz48cmVjdCB4PSI1MCIgeT0iMjE0IiB3aWR0aD0iMTI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii4zNSIvPgo8cmVjdCB4PSI0NiIgeT0iMTgwIiB3aWR0aD0iMTI4IiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iI2YyYjYzMiIvPjxyZWN0IHg9IjQ2IiB5PSIxODAiIHdpZHRoPSIxMjgiIGhlaWdodD0iNCIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjM1Ii8+CjxwYXRoIGQ9Ik04OCAzMCBxLTI2IDQgLTI0IDQwIHEyIDMwIC02IDcwIHEyMCA2IDMwIC02IHoiIGZpbGw9IiMyMjE1MGYiLz4KPHBhdGggZD0iTTc4IDEyMCBxLTEyIDMwIC0yIDYyIGg2OCBxMTAgLTMyIC0yIC02MiBxLTMwIC0xNCAtNjQgMHoiIGZpbGw9IiMxNmEzYTAiLz4KPHBhdGggZD0iTTgwIDE3NiBxMzAgMTAgNjYgMCBsOCAxMCBxLTQwIDE0IC04MiAweiIgZmlsbD0iIzBlN2Y3YyIvPgo8cGF0aCBkPSJNNzYgMTgyIHEtNiA2IC0yIDEyIGg0MCBsLTQgLTEweiIgZmlsbD0iI2M5OGI1ZiIvPjxwYXRoIGQ9Ik0xNTAgMTgyIHE2IDYgMiAxMiBoLTQwIGw0IC0xMHoiIGZpbGw9IiNjOThiNWYiLz4KPHJlY3QgeD0iMTA0IiB5PSI5OCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iNSIgZmlsbD0iI2M5OGI1ZiIvPgo8Y2lyY2xlIGN4PSIxMTIiIGN5PSI3NiIgcj0iMjYiIGZpbGw9IiNjOThiNWYiLz4KPHBhdGggZD0iTTg2IDc0IHEwIC0zMiAyOCAtMzIgcTI2IDAgMjYgMzAgcS0xNCAtMTggLTM2IC0xMiBxLTEwIDQgLTE4IDE0eiIgZmlsbD0iIzIyMTUwZiIvPgo8cGF0aCBkPSJNMTAwIDgyIHE0IDMgOCAwIE0xMTggODIgcTQgMyA4IDAiIHN0cm9rZT0iIzNhMjQxOCIgc3Ryb2tlLXdpZHRoPSIyLjQiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTA2IDkyIHE2IDUgMTIgMCIgc3Ryb2tlPSIjN2EyZTJlIiBzdHJva2Utd2lkdGg9IjIuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxjaXJjbGUgY3g9Ijk5IiBjeT0iODkiIHI9IjQiIGZpbGw9IiNmMDhhN2EiIG9wYWNpdHk9Ii40NSIvPjxjaXJjbGUgY3g9IjEyNyIgY3k9Ijg5IiByPSI0IiBmaWxsPSIjZjA4YTdhIiBvcGFjaXR5PSIuNDUiLz4KPGNpcmNsZSBjeD0iMTEyIiBjeT0iNTgiIHI9IjMiIGZpbGw9IiNlMDUzM2QiLz4KPHBhdGggZD0iTTcwIDE1MCBsNDIgLTEwIGw0MiAxMCBsLTQgMjYgbC0zOCAtOCBsLTM4IDh6IiBmaWxsPSIjOGU0NGFkIi8+CjxwYXRoIGQ9Ik03NSAxNTEgbDM3IC04IHYyNiBsLTM0IDZ6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTE0OSAxNTEgbC0zNyAtOCB2MjYgbDM0IDZ6IiBmaWxsPSIjZjdmM2U4Ii8+CjxwYXRoIGQ9Ik04MiAxNTYgbDI0IC01IE04MiAxNjIgbDI0IC01IE04MiAxNjggbDIwIC00IE0xMTggMTUxIGwyNCA1IE0xMTggMTU3IGwyNCA1IE0xMTggMTYzIGwxOCA0IiBzdHJva2U9IiNiOWIyYTAiIHN0cm9rZS13aWR0aD0iMS42Ii8+CjxjaXJjbGUgY3g9Ijc0IiBjeT0iMTYwIiByPSI3IiBmaWxsPSIjYzk4YjVmIi8+PGNpcmNsZSBjeD0iMTUwIiBjeT0iMTYwIiByPSI3IiBmaWxsPSIjYzk4YjVmIi8+CjxwYXRoIGQ9Ik0xNTAgNDAgbDQgLTEwIGw0IDEwIGwxMCAyIGwtOCA2IGwyIDEwIGwtOCAtNSBsLTggNSBsMiAtMTAgbC04IC02eiIgZmlsbD0iI2ZmZDU0ZiIvPgo8cGF0aCBkPSJNNDAgNzAgbDMgLTcgbDMgNyBsNyAxIGwtNSA0IGwxIDcgbC02IC0zIGwtNiAzIGwxIC03IGwtNSAtNHoiIGZpbGw9IiNmZmQ1NGYiIG9wYWNpdHk9Ii44Ii8+Cjwvc3ZnPg==" alt="" style="height:86px;flex:none"><div style="flex:0 0 auto"><div class="l">Quotation of the Day</div></div><div class="t" id="pcx-quote">&nbsp;</div></div>
+  <div class="pcx-g">
+    <div class="pcx-c"><h3>&#127942; Readers of the Month <small id="pcx-month"></small></h3>
+      <div class="pcx-sub">Students</div><div class="pcx-stu" id="pcx-stu"><div class="pcx-e">Loading...</div></div>
+      <div class="pcx-sub">Teachers and Staff</div><div id="pcx-stf"></div>
+    </div>
+    <div class="pcx-c"><h3>&#128202; Reading Race <small>books this month</small></h3><div id="pcx-race"><div class="pcx-e">Loading...</div></div>
+      <div class="pcx-sub" style="margin-top:12px">Book of the Day</div><div id="pcx-book" class="pcx-e"></div>
+    </div>
+    <div class="pcx-c"><h3>&#127912; Pratibha Corner <small>ಪ್ರತಿಭಾ ಕಾರ್ನರ್</small></h3>
+      <div id="pcx-works"><div class="pcx-e">Loading...</div></div>
+      <div class="pcx-a"><a href="./pratibha/">See all works</a><a class="o" href="./pratibha/#send">Send your work</a><a class="o" href="./tv/" target="_blank" rel="noopener">TV screen</a></div>
+    </div>
+    <div class="pcx-c"><h3>&#127916; Student's &amp; Teacher's Picks <small>one book, one minute</small></h3>
+      <div id="pcx-picks"><div class="pcx-e">Loading...</div></div>
+      <div class="pcx-a"><a href="./pratibha/#picks">Watch the picks</a><a class="o" href="./pratibha/#send">Send your pick</a></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function $(id){ return document.getElementById(id); }
+  var ICON = { 'Poem':'&#9997;&#65039;', 'Story':'&#128214;', 'Essay':'&#128221;', 'Book Review':'&#128218;', 'Photography':'&#128247;', 'Art and Design':'&#127912;', 'Quotation':'&#128172;', 'Achievement':'&#127941;' };
+  function rows(list, empty){
+    if(!list || !list.length) return '<div class="pcx-e">'+empty+'</div>';
+    return list.map(function(r,i){ return '<div class="pcx-r'+(i<3?' top':'')+'"><div class="n">'+(i+1)+'</div><div class="nm">'+esc(r.name)+(r.course?' <i>'+esc(r.course)+'</i>':'')+'</div><b>'+esc(r.books)+'</b></div>'; }).join('');
+  }
+  function show(d){
+    if(d.quote) $('pcx-quote').innerHTML = '&ldquo;'+esc(d.quote.text)+'&rdquo; <span>&mdash; '+esc(d.quote.by)+'</span>';
+    $('pcx-month').textContent = d.month || '';
+    $('pcx-stu').innerHTML = rows((d.students||[]).slice(0,5), 'Borrow a book and your name can be here!');
+    $('pcx-stf').innerHTML = rows((d.staff||[]).slice(0,3), '-');
+    var race = (d.race||[]).slice(0,6), max = race.reduce(function(m,r){ return Math.max(m,r.books); },0) || 1;
+    $('pcx-race').innerHTML = race.length ? race.map(function(r){ return '<div class="pcx-b"><div>'+esc(r.course)+'</div><div class="tr"><div class="fi" style="width:'+Math.round(r.books*100/max)+'%"></div></div><div><b>'+esc(r.books)+'</b></div></div>'; }).join('')
+      : '<div class="pcx-e">The race starts with this month\'s first borrowed book.</div>';
+    var b = d.book;
+    $('pcx-book').innerHTML = b ? '<b style="color:var(--ink,#222)">'+esc(b.title)+'</b><br>'+esc(b.author||'')+' &middot; '+esc(b.acc)+(b.status?' &middot; '+esc(b.status):'') : '';
+    var w = (d.works||[]).slice(0,4);
+    $('pcx-works').innerHTML = w.length ? w.map(function(x){
+      return '<a class="pcx-w" href="./pratibha/">'+(x.img?'<img src="'+esc(x.img.replace(/=w\d+$/,'=w200'))+'" alt="" loading="lazy">':'<div class="ic">'+(ICON[x.cat]||'&#9997;&#65039;')+'</div>')+
+        '<div><div class="tt">'+(x.star?'&#11088; ':'')+esc(x.title)+'</div><div class="by">'+esc(x.cat)+' &middot; '+esc(x.name)+(x.course?', '+esc(x.course):'')+(x.type==='Staff'?' (Staff)':'')+'</div></div></a>'; }).join('')
+      : '<div class="pcx-e">Poems, stories, photographs and art by our students will appear here. Send yours!</div>';
+    var pk = (d.vipPicks||[]).slice(0,1).concat((d.picks||[]).slice(0,2), (d.teacherPicks||[]).slice(0,2)).slice(0,4);
+    $('pcx-picks').innerHTML = pk.length ? pk.map(function(x){
+      var th = x.vid ? (x.poster ? '<span class="vt"><img src="'+esc(x.poster.replace(/sz=w\d+/,'sz=w200'))+'" alt="" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=ic>&#127916;</div>\'"></span>' : '<span class="vt"><div class="ic">&#127916;</div></span>')
+        : x.img ? '<img src="'+esc(x.img.replace(/=w\d+$/,'=w200'))+'" alt="" loading="lazy">' : '<div class="ic">&#128214;</div>';
+      return '<a class="pcx-w" href="./pratibha/#picks">'+th+'<div><div class="tt">'+(x.star?'&#11088; ':'')+'&#128214; '+esc(x.title)+'</div>'+(x.excerpt?'<div class="tg">&ldquo;'+esc(x.excerpt.slice(0,80))+'&rdquo;</div>':'')+
+        '<div class="by">'+(x.type==='VIP'?'&#127775; ನಾನು ಓದಿದ ಅತ್ಯುತ್ತಮ ಪುಸ್ತಕ / The Best Book I Read':x.type==='Staff'?'Teacher\'s Pick':x.type==='Visitor'?'Visitor\'s Pick':'Student\'s Pick')+' &middot; '+esc(x.name)+(x.course?', '+esc(x.course):'')+'</div></div></a>'; }).join('')
+      : '<div class="pcx-e">Tell us about the best book you read, in a one-minute video. Teachers: share your favourite book with a photo and a tagline.</div>';
+  }
+  try{ var s = JSON.parse(localStorage.getItem('sdmpu_pcx')||'null'); if(s) show(s); }catch(e){}
+  fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:'pcShowcase',args:[]})})
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if(j && j.ok){ show(j.result); try{ localStorage.setItem('sdmpu_pcx', JSON.stringify(j.result)); }catch(e){} } else throw 0; })
+    .catch(function(){ if(!$('pcx-quote').textContent.trim()) document.getElementById('pcx').style.display='none'; });
+})();
+</script>
+
 
 <section id="story" style="text-align:center; max-width:760px;">
   <div class="section-eyebrow" style="text-align:center;" data-i18n="storyEyebrow">Our library</div>

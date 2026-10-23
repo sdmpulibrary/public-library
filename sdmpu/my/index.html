@@ -211,6 +211,20 @@ footer a{color:var(--c1)}
   $('verifyBtn').onclick=verify; $('code').addEventListener('keydown',function(e){ if(e.key==='Enter') verify(); });
 
   // ---- account
+  // 23 Oct 2026: reading points and badges (Pratibha.gs, pcMyPoints)
+  function pcLoadPts(){
+    call('pcMyPoints',[token],function(p){
+      var box=$('pcPts'); if(!box) return;
+      var col={Bronze:'#e0a676',Silver:'#d7dce2',Gold:'#ffd700'}, ic={Bronze:'&#129353;',Silver:'&#129352;',Gold:'&#129351;'};
+      var nx=p.next, need=nx?nx.need:p.booksYear||1, pct=Math.min(100,Math.round((p.booksYear*100)/(need||1)));
+      box.innerHTML='<h2>My reading points</h2><div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><div style="font-size:34px;font-weight:800;color:var(--ok)">'+esc(p.points)+'</div><div class="a">points this reading year (from '+esc(p.yearFrom)+')</div></div>'+
+        '<div style="display:flex;gap:8px;margin:10px 0">'+p.badges.map(function(b){ return '<div style="flex:1;text-align:center;padding:8px 4px;border-radius:12px;background:'+col[b.name]+';opacity:'+(b.got?1:.35)+'"><div style="font-size:22px">'+ic[b.name]+'</div><b>'+b.name+'</b><div class="meta" style="color:#333">'+b.need+' books</div></div>'; }).join('')+'</div>'+
+        (nx?'<div class="a">'+esc(p.booksYear)+' books read. '+esc(nx.left)+' more for <b>'+esc(nx.name)+'</b>.</div>':'<div class="a"><b>All badges won. Wonderful!</b></div>')+
+        '<div style="height:10px;background:#eee;border-radius:6px;margin:6px 0 10px"><div style="height:10px;width:'+pct+'%;background:var(--ok);border-radius:6px"></div></div>'+
+        '<div class="meta">On time: '+esc(p.onTime)+' &#xB7; Late: '+esc(p.late)+' &#xB7; Book reviews: '+esc(p.reviews)+' &#xB7; Pratibha works: '+esc(p.works)+(p.stars?' &#xB7; Stars: '+esc(p.stars):'')+'</div>'+
+        '<div class="meta">Points: book returned on time '+esc(p.rules.onTime)+', late '+esc(p.rules.late)+', book review '+esc(p.rules.review)+', Pratibha work '+esc(p.rules.work)+'. <a href="../pratibha/#send">Send a work to Pratibha Corner</a></div>';
+    },function(){ var box=$('pcPts'); if(box) box.style.display='none'; });
+  }
   function loadAccount(){
     $('login').style.display='none'; var box=$('acct'); box.style.display='block'; box.innerHTML='<div class="card">Loading your account...</div>';
     call('mpMyAccount',[token],function(a){ me=a; renderAccount(); },function(m){ box.innerHTML='<div class="card msg bad">'+esc(m)+'</div>'; });
@@ -219,6 +233,7 @@ footer a{color:var(--c1)}
     var a=me, h='';
     h+='<div class="card hello"><div><h2 style="margin:0">Namaskara, '+esc(a.name)+'</h2><div class="a">Card No '+esc(a.card)+(a.membEnd?' &#xB7; Membership valid till '+esc(a.membEnd):'')+'</div>'+
        (a.expired?'<div class="msg bad">Your membership has expired. Please renew it at the library.</div>':'')+'</div><button class="b2" id="logout">Log out</button></div>';
+    h+='<div class="card" id="pcPts"><h2>My reading points</h2><p class="a">Loading...</p></div>';
     h+='<div class="card"><h2>Books with me ('+a.loans.length+')</h2>'+(a.loans.length? a.loans.map(function(l){
         return '<div class="item"><div><div class="t">'+esc(l.title)+'</div><div class="a">'+esc(l.author)+'</div><div class="meta">Acc No '+esc(l.acc)+' &#xB7; taken '+esc(l.issueDate)+'</div>'+
           '<div style="margin-top:4px"><span class="pill '+(l.overdue?'is':'av')+'">'+(l.overdue?'Overdue &#xB7; was due ':'Due ')+esc(l.dueDate)+'</span>'+(l.reason?' <span class="meta">'+esc(l.reason)+'</span>':'')+'</div></div>'+
@@ -237,7 +252,7 @@ footer a{color:var(--c1)}
           return '<div class="item"><div><div class="t">'+esc(s.title)+'</div><div class="meta">'+esc(s.author)+' &#xB7; '+esc(s.date)+'</div></div><span class="pill gr">'+esc(s.status)+'</span></div>'; }).join('')+'</details>':'')+'</div>';
     h+='<div class="card"><details><summary>My reading history ('+a.historyCount+' books)</summary>'+(a.history.length? a.history.map(function(x){
         return '<div class="item"><div><div class="t">'+esc(x.title)+'</div><div class="meta">'+esc(x.author)+' &#xB7; '+esc(x.issueDate)+' to '+esc(x.returnDate)+'</div></div></div>'; }).join('') : '<p class="a">No history yet.</p>')+'</details></div>';
-    $('acct').innerHTML=h;
+    $('acct').innerHTML=h; pcLoadPts();
     $('logout').onclick=function(){ call('mpLogout',[token],function(){}); logoutLocal(); showLogin(); };
     $('sBtn').onclick=function(){
       var t=$('sTitle').value.trim(); if(t.length<2){ msg('sMsg','Please type the title.','bad'); return; }
