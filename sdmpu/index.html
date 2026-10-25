@@ -361,6 +361,14 @@
   .wp-sel select, .wp-sel input { width:100%; padding:10px; border:2px solid var(--border); border-radius:9px; font-size:14px; font-family:inherit; background:var(--card); color:var(--ink); }
   .wp-count { font-size:13px; color:var(--muted); margin:6px 0 10px; }
   .wp-group { font-family:var(--pu-serif,serif); font-size:17px; font-weight:700; color:var(--forest-dark); margin:18px 0 6px; border-bottom:2px solid var(--rib-gold); padding-bottom:3px; }
+  .wp-sel .qp-subj { grid-column:span 2; }
+  .wp-sel .qp-clr { display:flex; align-items:flex-end; }
+  .wp-sel .qp-clr button { width:100%; padding:10px; border:2px solid var(--forest); border-radius:9px; background:var(--card); color:var(--forest); font-size:13px; font-weight:700; font-family:inherit; cursor:pointer; white-space:nowrap; }
+  .wp-sel .qp-clr button:hover { background:var(--forest); color:#fff; }
+  .wp-group small { font-family:inherit; font-size:12.5px; font-weight:600; color:var(--muted); margin-left:6px; }
+  @media (max-width:520px) { .wp-sel .qp-subj { grid-column:1 / -1; } }
+  .ft-credit { text-align:center; font-size:13px; letter-spacing:.2px; opacity:.9; margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,.18); }
+  @media (max-width:700px) { .ft-credit { padding-bottom:56px; } }
   .qp-row { display:flex; gap:12px; align-items:center; justify-content:space-between; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:6px; }
   .qp-row b { font-size:15px; }
   .qp-meta { font-size:12.5px; color:var(--muted); }
@@ -1019,11 +1027,12 @@
     <p data-i18n="qpDesc">Old question papers of I PUC and II PUC (Science, Commerce, Arts) and entrance exams (CET, NEET, JEE). Choose your stream, class and year, or type a subject.</p>
   </div>
   <div class="wp-sel">
-    <div><label data-i18n="qpCourse">Class / Course</label><select id="qp-course" onchange="qpFill_('course')"></select></div>
-    <div><label data-i18n="qpSem">Semester / Year</label><select id="qp-sem" onchange="qpFill_('sem')"></select></div>
-    <div><label data-i18n="qpYear">Exam year</label><select id="qp-year" onchange="qpDraw_()"></select></div>
-    <div><label data-i18n="qpType">Type</label><select id="qp-type" onchange="qpDraw_()"></select></div>
-    <div style="grid-column:span 2;"><label data-i18n="qpFind">Subject or paper code</label><input type="text" id="qp-find" oninput="qpDraw_()" placeholder="e.g. Accountancy, History, 21BCOM1"></div>
+    <div><label data-i18n="qpCourse">Class / Course</label><input type="text" id="qp-course" list="qp-course-l" autocomplete="off" oninput="qpFill_()" onchange="qpFill_()" placeholder="All, or type: Science, CET"><datalist id="qp-course-l"></datalist></div>
+    <div><label data-i18n="qpSem">Semester / Year</label><select id="qp-sem" onchange="qpFill_()"></select></div>
+    <div><label data-i18n="qpYear">Exam year</label><select id="qp-year" onchange="qpFill_()"></select></div>
+    <div><label data-i18n="qpType">Type</label><input type="text" id="qp-type" list="qp-type-l" autocomplete="off" oninput="qpFill_()" onchange="qpFill_()" placeholder="All, or type: CET, RRB"><datalist id="qp-type-l"></datalist></div>
+    <div class="qp-subj"><label data-i18n="qpFind">Subject or paper code</label><input type="text" id="qp-find" list="qp-find-l" autocomplete="off" oninput="qpDraw_()" onchange="qpDraw_()" placeholder="e.g. Physics, Accountancy, 33"><datalist id="qp-find-l"></datalist></div>
+    <div class="qp-clr"><button type="button" onclick="qpClear_()">&#x21BA; <span data-i18n="qpClear">Clear / New search</span></button></div>
   </div>
   <div class="wp-count" id="qp-count"></div>
   <div id="qp-list"><div class="empty-note" data-i18n="loadingTxt">Loading&#x2026;</div></div>
@@ -1142,6 +1151,7 @@
     </div>
   </div>
   <div class="sx-visits" id="sx-visits" hidden>Website visitors &#x2014; Today: <b id="sx-vt">0</b> &#x00B7; Total: <b id="sx-va">0</b></div>
+  <div class="ft-credit" data-i18n="footerCredit">Created and maintained by: J. S. Vinuta, Librarian</div>
 </footer>
 
 <script>
@@ -1397,7 +1407,7 @@
       topReaderEyebrow: "Recognition", topReaderTitle: "Top Reader", topReaderDesc: "Shown by Member ID to protect privacy.", topReaderEmpty: "No borrowing activity recorded yet.",
       mostVisitedEyebrow: "Footfall", mostVisitedTitle: "Most Visited Person", mostVisitedDesc: "Shown by ID to protect privacy.", mostVisitedEmpty: "No visits recorded yet.",
       aboutTileLabel: "Membership", galleryTileLabel: "Gallery", contactTileLabel: "Visit Us",
-      footerText: "© Advocate Shri V. G. Hegde Kaikatgeri Memorial Library and Information Centre · S.D.M. P.U. College, Honnavar (U.K.)", staffLogin: "Staff Login \u2192", gateEntryLink: "Gate Check-In", memberFormLink: "Apply for Membership",
+      qpClear: "Clear / New search", footerCredit: "Created and maintained by: J. S. Vinuta, Librarian", footerText: "© Advocate Shri V. G. Hegde Kaikatgeri Memorial Library and Information Centre · S.D.M. P.U. College, Honnavar (U.K.)", staffLogin: "Staff Login \u2192", gateEntryLink: "Gate Check-In", memberFormLink: "Apply for Membership",
       brandNameBig: "S.D.M. P.U. College, Honnavar (U.K.)<span class=\"ribbon-2-branch\">V. G. Hegde Kaikatgeri Memorial Library</span><span class=\"ribbon-2-address\">Honnavar - 581334, (U.K.)</span>",
       branchHighlight: "Memorial Library and Information Centre",
       vsName: "Advocate Shri V. G. Hegde Kaikatgeri",
@@ -1509,7 +1519,7 @@
       topReaderEyebrow: "\u0C97\u0CCC\u0CB0\u0CB5", topReaderTitle: "\u0C9F\u0CBE\u0CAA\u0CCD \u0C93\u0CA6\u0CC1\u0C97", topReaderDesc: "\u0C97\u0CCC\u0CAA\u0CCD\u0CAF\u0CA4\u0CC6 \u0CB0\u0C95\u0CCD\u0CB7\u0CBF\u0CB8\u0CB2\u0CC1 \u0CB8\u0CA6\u0CB8\u0CCD\u0CAF \u0C90\u0CA1\u0CBF \u0CAE\u0CC2\u0CB2\u0C95 \u0CA4\u0CCB\u0CB0\u0CBF\u0CB8\u0CB2\u0CBE\u0C97\u0CBF\u0CA6\u0CC6.", topReaderEmpty: "\u0C87\u0CA8\u0CCD\u0CA8\u0CC2 \u0CAF\u0CBE\u0CB5\u0CC1\u0CA6\u0CC7 \u0C8E\u0CB0\u0CB5\u0CB2\u0CC1 \u0C9A\u0C9F\u0CC1\u0CB5\u0C9F\u0CBF\u0C95\u0CC6 \u0CA6\u0CBE\u0C96\u0CB2\u0CBE\u0C97\u0CBF\u0CB2\u0CCD\u0CB2.",
       mostVisitedEyebrow: "\u0CAD\u0CC7\u0C9F\u0CBF\u0C97\u0CB3\u0CC1", mostVisitedTitle: "\u0CB9\u0CC6\u0C9A\u0CCD\u0C9A\u0CC1 \u0CAD\u0CC7\u0C9F\u0CBF \u0CA8\u0CC0\u0CA1\u0CBF\u0CA6 \u0CB5\u0CCD\u0CAF\u0C95\u0CCD\u0CA4\u0CBF", mostVisitedDesc: "\u0C97\u0CCC\u0CAA\u0CCD\u0CAF\u0CA4\u0CC6 \u0CB0\u0C95\u0CCD\u0CB7\u0CBF\u0CB8\u0CB2\u0CC1 \u0C90\u0CA1\u0CBF \u0CAE\u0CC2\u0CB2\u0C95 \u0CA4\u0CCB\u0CB0\u0CBF\u0CB8\u0CB2\u0CBE\u0C97\u0CBF\u0CA6\u0CC6.", mostVisitedEmpty: "\u0C87\u0CA8\u0CCD\u0CA8\u0CC2 \u0CAF\u0CBE\u0CB5\u0CC1\u0CA6\u0CC7 \u0CAD\u0CC7\u0C9F\u0CBF\u0C97\u0CB3\u0CC1 \u0CA6\u0CBE\u0C96\u0CB2\u0CBE\u0C97\u0CBF\u0CB2\u0CCD\u0CB2.",
       aboutTileLabel: "\u0CB8\u0CA6\u0CB8\u0CCD\u0CAF\u0CA4\u0CCD\u0CB5", galleryTileLabel: "\u0C97\u0CCD\u0CAF\u0CBE\u0CB2\u0CB0\u0CBF", contactTileLabel: "\u0CAD\u0CC7\u0C9F\u0CBF \u0CA8\u0CC0\u0CA1\u0CBF",
-      footerText: "© ನ್ಯಾಯವಾದಿ ಶ್ರೀ ವಿ. ಜಿ. ಹೆಗಡೆ ಕೈಕಟಗೇರಿ ಸ್ಮಾರಕ ಗ್ರಂಥಾಲಯ ಮತ್ತು ಮಾಹಿತಿ ಕೇಂದ್ರ · ಎಸ್.ಡಿ.ಎಂ. ಪದವಿ ಪೂರ್ವ ಕಾಲೇಜು, ಹೊನ್ನಾವರ (ಉ.ಕ.)", staffLogin: "\u0CB8\u0CBF\u0CAC\u0CCD\u0CAC\u0C82\u0CA6\u0CBF \u0CB2\u0CBE\u0C97\u0CBF\u0CA8\u0CCD \u2192", gateEntryLink: "\u0C97\u0CC7\u0C9F\u0CCD \u0C9A\u0C82\u0CA6\u0CBE", memberFormLink: "\u0CB8\u0CAD\u0CB8\u0CCD\u0CAF\u0CA4\u0CCD\u0CB5\u0C95\u0CCD\u0C95\u0CC6 \u0C85\u0CB0\u0CCD\u0C9C\u0CBF \u0CB8\u0CB2\u0CCD\u0CB2\u0CBF\u0CB8\u0CBF",
+      qpClear: "\u0CB9\u0CCA\u0CB8 \u0CB9\u0CC1\u0CA1\u0CC1\u0C95\u0CBE\u0C9F", footerCredit: "\u0CB0\u0C9A\u0CA8\u0CC6 \u0CAE\u0CA4\u0CCD\u0CA4\u0CC1 \u0CA8\u0CBF\u0CB0\u0CCD\u0CB5\u0CB9\u0CA3\u0CC6: \u0C9C\u0CC6. \u0C8E\u0CB8\u0CCD. \u0CB5\u0CBF\u0CA8\u0CC1\u0CA4\u0CBE, \u0C97\u0CCD\u0CB0\u0C82\u0CA5\u0CAA\u0CBE\u0CB2\u0C95\u0CBF", footerText: "© ನ್ಯಾಯವಾದಿ ಶ್ರೀ ವಿ. ಜಿ. ಹೆಗಡೆ ಕೈಕಟಗೇರಿ ಸ್ಮಾರಕ ಗ್ರಂಥಾಲಯ ಮತ್ತು ಮಾಹಿತಿ ಕೇಂದ್ರ · ಎಸ್.ಡಿ.ಎಂ. ಪದವಿ ಪೂರ್ವ ಕಾಲೇಜು, ಹೊನ್ನಾವರ (ಉ.ಕ.)", staffLogin: "\u0CB8\u0CBF\u0CAC\u0CCD\u0CAC\u0C82\u0CA6\u0CBF \u0CB2\u0CBE\u0C97\u0CBF\u0CA8\u0CCD \u2192", gateEntryLink: "\u0C97\u0CC7\u0C9F\u0CCD \u0C9A\u0C82\u0CA6\u0CBE", memberFormLink: "\u0CB8\u0CAD\u0CB8\u0CCD\u0CAF\u0CA4\u0CCD\u0CB5\u0C95\u0CCD\u0C95\u0CC6 \u0C85\u0CB0\u0CCD\u0C9C\u0CBF \u0CB8\u0CB2\u0CCD\u0CB2\u0CBF\u0CB8\u0CBF",
       brandNameBig: "ಎಸ್.ಡಿ.ಎಂ. ಪದವಿ ಪೂರ್ವ ಕಾಲೇಜು, ಹೊನ್ನಾವರ (ಉ.ಕ.)<span class=\"ribbon-2-branch\">ವಿ. ಜಿ. ಹೆಗಡೆ ಕೈಕಟಗೇರಿ ಸ್ಮಾರಕ ಗ್ರಂಥಾಲಯ ಮತ್ತು ಮಾಹಿತಿ ಕೇಂದ್ರ</span><span class=\"ribbon-2-address\">ಹೊನ್ನಾವರ - 581334, (ಉ.ಕ.)</span>",
       branchHighlight: "ಸ್ಮಾರಕ ಗ್ರಂಥಾಲಯ ಮತ್ತು ಮಾಹಿತಿ ಕೇಂದ್ರ",
       vsName: "ನ್ಯಾಯವಾದಿ ಶ್ರೀ ವಿ. ಜಿ. ಹೆಗಡೆ ಕೈಕಟಗೇರಿ",
@@ -2146,61 +2156,93 @@ function sxMailCopy(b){
     if (NB.length <= 5) tr.style.animation = 'none';
   }, function () { document.getElementById('nb-body').innerHTML = '<tr><td colspan="4" class="empty-note">Notices could not be loaded. Please try again later.</td></tr>'; });
 
-  // ---------- question papers
+  // ---------- question papers (25 Oct 2026: writable lists, Clear, year range, subject headings)
   var QP = [], QP_SHOW = 60;
-  var COURSE_ORDER = ['Science', 'Commerce', 'Arts', 'CET', 'NEET', 'JEE', 'Competitive Exams', 'Other'];
+  var COURSE_ORDER = ['Science', 'Commerce', 'Arts', 'CET', 'NEET', 'JEE', 'NDA', 'UPSC', 'KPSC', 'SSC', 'RRB / Railways', 'Banking (IBPS / SBI)', 'Police / Defence', 'Competitive Exams', 'Other'];
+  var QP_SEMS = ['I PUC', 'II PUC'];
+  var QP_TYPES = ['Annual Exam (I PUC)', 'Board Exam (II PUC)', 'Supplementary Exam', 'Mid-term / Preparatory', 'Model / Question Bank', 'Syllabus', 'Entrance Exam', 'Competitive Exam', 'CET', 'NEET', 'JEE', 'NDA', 'UPSC', 'KPSC', 'SSC', 'RRB / Railways', 'Banking (IBPS / SBI)', 'Police / Defence', 'Other'];
   var uniq = function (a) { return a.filter(function (x, i) { return x && a.indexOf(x) === i; }); };
+  var low = function (x) { return String(x == null ? '' : x).toLowerCase().trim(); };
   var opts = function (id, list, all) {
     var el = document.getElementById(id), keep = el.value;
     el.innerHTML = '<option value="">' + all + '</option>' + list.map(function (x) { return '<option>' + esc(x) + '</option>'; }).join('');
     if (list.indexOf(keep) >= 0) el.value = keep;
   };
+  var dl = function (id, list) { document.getElementById(id).innerHTML = list.slice(0, 500).map(function (x) { return '<option value="' + esc(x) + '"></option>'; }).join(''); };
   var semKey = function (s) { var m = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8 }, w = String(s).split(' ')[0]; return (m[w] || 50) + (/year/i.test(s) ? 20 : 0); };
-  window.qpFill_ = function (from) {
-    var c = document.getElementById('qp-course').value;
-    var inC = QP.filter(function (r) { return !c || r[0] === c; });
-    if (from !== 'sem') opts('qp-sem', uniq(inC.map(function (r) { return r[1]; })).sort(function (a, b) { return semKey(a) - semKey(b) || (a < b ? -1 : 1); }), 'All');
-    var sm = document.getElementById('qp-sem').value;
-    var inS = inC.filter(function (r) { return !sm || r[1] === sm; });
-    opts('qp-year', uniq(inS.map(function (r) { return r[5]; })).sort().reverse(), 'All years');
-    opts('qp-type', uniq(inS.map(function (r) { return r[6]; })).sort(), 'All types');
-    QP_SHOW = 60; qpDraw_();
+  var cKey = function (c) { var i = COURSE_ORDER.indexOf(c); return i < 0 ? 99 : i; };
+  // A typed word matches exactly when it is a full name in the list, else as part of the name (so "B.A." is not "B.B.A.").
+  var qpMatch = function (typed, known) {
+    var t = low(typed); if (!t) return function () { return true; };
+    var exact = known.some(function (k) { return low(k) === t; });
+    return function (v) { v = low(v); return exact ? v === t : v.indexOf(t) >= 0; };
+  };
+  var qpVal = function (id) { return document.getElementById(id).value; };
+  var qpPick = function (skipFind) {
+    var cs = COURSE_ORDER.concat(QP.map(function (r) { return r[0]; })), ts = QP_TYPES.concat(QP.map(function (r) { return r[6]; }));
+    var mc = qpMatch(qpVal('qp-course'), cs), mt = qpMatch(qpVal('qp-type'), ts), sm = qpVal('qp-sem'), y = qpVal('qp-year');
+    var t = low(qpVal('qp-type')), c = low(qpVal('qp-course'));
+    var mcT = qpMatch(qpVal('qp-course'), ts), mtC = qpMatch(qpVal('qp-type'), cs);
+    var q = skipFind ? [] : low(qpVal('qp-find')).split(/\s+/).filter(String);
+    return QP.filter(function (r) {
+      if (c && !(mc(r[0]) || mcT(r[6]))) return false;
+      if (t && !(mt(r[6]) || mtC(r[0]))) return false;
+      if (sm && r[1] !== sm) return false; if (y && r[5] !== y) return false;
+      var hay = low(r[2] + ' ' + r[3] + ' ' + r[4] + ' ' + r[0] + ' ' + r[1] + ' ' + r[6]);
+      return q.every(function (w) { return hay.indexOf(w) >= 0; });
+    });
+  };
+  window.qpFill_ = function () {
+    var subj = [];
+    qpPick(true).forEach(function (r) { subj.push(r[2]); if (r[3]) subj.push(r[3]); });
+    dl('qp-find-l', uniq(subj).sort(function (a, b) { return low(a) < low(b) ? -1 : 1; }));
+    qpDraw_();
+  };
+  window.qpClear_ = function () {
+    ['qp-course', 'qp-sem', 'qp-year', 'qp-type', 'qp-find'].forEach(function (id) { document.getElementById(id).value = ''; });
+    qpFill_();
+    document.getElementById('qp-course').focus();
   };
   window.qpDraw_ = function (more) {
     if (!more) QP_SHOW = 60;
-    var c = document.getElementById('qp-course').value, sm = document.getElementById('qp-sem').value, y = document.getElementById('qp-year').value,
-        t = document.getElementById('qp-type').value, q = document.getElementById('qp-find').value.toLowerCase().trim().split(/\s+/).filter(String);
-    var rows = QP.filter(function (r) {
-      if (c && r[0] !== c) return false; if (sm && r[1] !== sm) return false; if (y && r[5] !== y) return false; if (t && r[6] !== t) return false;
-      var hay = (r[2] + ' ' + r[3] + ' ' + r[4] + ' ' + r[0] + ' ' + r[1]).toLowerCase();
-      return q.every(function (w) { return hay.indexOf(w) >= 0; });
-    });
+    var rows = qpPick(false);
     rows.sort(function (a, b) {
-      return (COURSE_ORDER.indexOf(a[0]) + 100) % 100 - (COURSE_ORDER.indexOf(b[0]) + 100) % 100 || semKey(a[1]) - semKey(b[1]) ||
-        (b[5] > a[5] ? 1 : b[5] < a[5] ? -1 : 0) || (a[2] < b[2] ? -1 : 1);
+      return cKey(a[0]) - cKey(b[0]) || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0) || semKey(a[1]) - semKey(b[1]) ||
+        (low(a[2]) < low(b[2]) ? -1 : low(a[2]) > low(b[2]) ? 1 : 0) || (b[5] > a[5] ? 1 : b[5] < a[5] ? -1 : 0);
     });
     document.getElementById('qp-count').textContent = rows.length + ' question paper' + (rows.length === 1 ? '' : 's') + ' found';
     var html = '', last = '';
     rows.slice(0, QP_SHOW).forEach(function (r) {
-      var g = r[0] + (r[1] ? ' · ' + r[1] : '');
-      if (g !== last) { html += '<div class="wp-group">' + esc(g) + '</div>'; last = g; }
+      var g = r[2] + '|' + r[0] + '|' + r[1];
+      if (g !== last) { html += '<div class="wp-group">' + esc(r[2]) + '<small>' + esc(r[0] + (r[1] ? ' \u00B7 ' + r[1] : '')) + '</small></div>'; last = g; }
       var view = r[8] || ('https://drive.google.com/file/d/' + r[7] + '/view');
-      html += '<div class="qp-row"><div><b>' + esc(r[2]) + '</b><div class="qp-meta">' + esc([r[3], r[4] || r[5], r[6]].filter(String).join(' · ')) + '</div></div><div class="qp-btns">' +
+      html += '<div class="qp-row"><div><b>' + esc(r[4] || r[5] || r[2]) + '</b><div class="qp-meta">' + esc([r[3] ? 'Code ' + r[3] : '', r[6]].filter(String).join(' \u00B7 ')) + '</div></div><div class="qp-btns">' +
         '<a href="' + esc(view) + '" target="_blank" rel="noopener">View</a>' +
         (r[7] ? '<a class="dl" href="https://drive.google.com/uc?export=download&id=' + encodeURIComponent(r[7]) + '" target="_blank" rel="noopener">Download</a>' : '') + '</div></div>';
     });
     if (rows.length > QP_SHOW) html += '<button class="wp-more" onclick="QP_MORE_()">Show more (' + (rows.length - QP_SHOW) + ' more)</button>';
-    document.getElementById('qp-list').innerHTML = html || '<div class="empty-note">No question papers match. Try "All" or another year.</div>';
+    document.getElementById('qp-list').innerHTML = html || '<div class="empty-note">No question papers match. Press "Clear / New search" and try again.</div>';
   };
   window.QP_MORE_ = function () { QP_SHOW += 60; qpDraw_(true); };
   var LOADERS = {
     qpapers: function () {
       call('getQuestionPapers', function (rows) {
         QP = rows || [];
+        var cs = uniq(COURSE_ORDER.concat(QP.map(function (r) { return r[0]; }).sort(function (a, b) { return cKey(a) - cKey(b); })));
+        dl('qp-course-l', cs);
+        dl('qp-type-l', uniq(QP_TYPES.concat(QP.map(function (r) { return r[6]; }).sort())));
+        var sems = uniq(QP_SEMS.concat(QP.map(function (r) { return r[1]; }).sort(function (a, b) { return semKey(a) - semKey(b); })));
+        opts('qp-sem', sems, 'All');
+        var now = new Date().getFullYear(), past = [], next = [], dy = uniq(QP.map(function (r) { return r[5]; }));
+        for (var yy = now; yy >= now - 15; yy--) past.push(String(yy));
+        for (yy = now + 1; yy <= now + 25; yy++) next.push(String(yy));
+        dy.forEach(function (x) { if (past.indexOf(x) < 0 && next.indexOf(x) < 0) past.push(x); });
+        past.sort().reverse();
+        var ye = document.getElementById('qp-year');
+        ye.innerHTML = '<option value="">All years</option>' + past.map(function (x) { return '<option>' + esc(x) + '</option>'; }).join('') +
+          '<optgroup label="Coming years">' + next.map(function (x) { return '<option>' + x + '</option>'; }).join('') + '</optgroup>';
         if (!QP.length) { empty('qp-list', 'Question papers will be added soon.'); return; }
-        var cs = uniq(QP.map(function (r) { return r[0]; })).sort(function (a, b) { return (COURSE_ORDER.indexOf(a) + 100) % 100 - (COURSE_ORDER.indexOf(b) + 100) % 100; });
-        opts('qp-course', cs, 'All classes');
-        qpFill_('course');
+        qpFill_();
       }, function () { empty('qp-list', 'Question papers could not be loaded. Please try again later.'); });
     },
     recognitions: function () {
