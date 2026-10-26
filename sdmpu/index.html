@@ -480,6 +480,7 @@
 <div class="ribbon-1">
   <a class="my-library-link" href="my/" target="_blank" rel="noopener" style="background:#d4a017; color:#1b1408; font-size:12px; font-weight:700; padding:4px 10px; border-radius:6px; text-decoration:none; display:flex; align-items:center; gap:4px;">&#x1F4DA; My Library</a>
   <a class="pc-top-link" href="pratibha/" style="background:#6a3fb5; color:#fff; font-size:12px; font-weight:700; padding:4px 10px; border-radius:6px; text-decoration:none; display:flex; align-items:center; gap:4px;">&#127912; Pratibha Corner</a>
+  <a class="sp-top-link" href="staffpanel/" style="background:#8a1c1c; color:#fff; font-size:12px; font-weight:700; padding:4px 10px; border-radius:6px; text-decoration:none; display:flex; align-items:center; gap:4px;">&#128272; Staff Panel</a>
   <a href="https://script.google.com/macros/s/AKfycbymhTn6kT2SaWYiSflTX8HwgB2YS3zwLTKjcbtSdHgOKUCEoWPvWvMVOXPEPMRmpdLcZw/exec" target="_blank" rel="noopener" style="background:transparent; border:1px solid rgba(255,255,255,0.25); color:#e8e4d8; font-size:12px; padding:4px 10px; border-radius:6px; text-decoration:none; display:flex; align-items:center; gap:4px;">&#x1F464; <span data-i18n="navAdmin">Staff Login</span></a>
   <button onclick="toggleLanguage()">EN / &#x0C95;&#x0CA8;&#x0CCD;&#x0CA8;&#x0CA1;</button>
   <div class="font-ctrl">
@@ -530,6 +531,7 @@
   <button onclick="showPage('topbooks')" data-i18n="topBooksTileLabel">Top Books</button>
   <button onclick="showPride()" data-i18n="prideTab">Our Pride</button>
   <button onclick="location.href='./pratibha/'">Pratibha Corner</button>
+  <button onclick="location.href='./honours/'">&#127942; Library Honours</button>
   <button onclick="showPage('recognitions')" data-i18n="rcTab">Recognitions</button>
   <button onclick="showPage('gallery')" data-i18n="galleryTileLabel">Gallery</button>
   <button onclick="showPage('moments')" data-i18n="momentsTileLabel">Photo Moments</button>
@@ -2303,6 +2305,28 @@ function sxMailCopy(b){
   };
   // a link ending in #qpapers (or #noticeboard ...) opens that page; the page's own load handler already ran showPage before this
   window.addEventListener('load', function () { var id = (location.hash || '').slice(1); if (LOADERS[id] && !loaded[id]) { loaded[id] = 1; LOADERS[id](); tabOn("showPage('" + id + "')"); } if (id === 'pride') showPride(); });
+})();
+</script>
+
+<script>
+// 26 Oct 2026: pages hidden from the Staff Panel (Admin Only > Manage Tabs) are not shown.
+(function () {
+  var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+  var SPECIAL = { pride: 'showPride(', pratibha: 'pratibha/', honours: 'honours/', feedback: 'sxOpenFb(' };
+  fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+               body: JSON.stringify({ fn: 'stpHiddenTabs', args: [] }) })
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      var hidden = (j && j.ok && j.result) || [];
+      if (!hidden.length) return;
+      document.querySelectorAll('[onclick], a[href]').forEach(function (el) {
+        var t = (el.getAttribute('onclick') || '') + ' ' + (el.getAttribute('href') || '');
+        hidden.forEach(function (k) {
+          var hit = SPECIAL[k] ? t.indexOf(SPECIAL[k]) >= 0 : t.indexOf("showPage('" + k + "')") >= 0;
+          if (hit) el.style.display = 'none';
+        });
+      });
+    }).catch(function () {});
 })();
 </script>
 </body>
