@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Staff Panel - S.D.M. P.U. College Library, Honnavar</title>
+<style>
+:root{--c1:#1c1f6b;--c2:#0b0d3a;--gold:#d4a017;--bg:#f6f1e4;--card:#fff;--ink:#1d1a14;--mute:#6b6255;--line:#e4d9bd;--ok:#0f6b3a;--bad:#a8261b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Roboto,"Noto Sans Kannada",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.45}
+header{background:linear-gradient(160deg,var(--c1),var(--c2));color:#fff;padding:16px;border-bottom:4px solid var(--gold)}
+.hin{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+h1{font-size:21px}h1 small{display:block;font-size:12.5px;font-weight:400;opacity:.85}
+.hb{display:flex;gap:8px}
+.back{color:#fff;font-size:13px;text-decoration:none;border:1px solid rgba(255,255,255,.45);padding:6px 12px;border-radius:999px;white-space:nowrap;background:none;cursor:pointer;font-family:inherit}
+main{max-width:960px;margin:0 auto;padding:16px 16px 30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+h2{font-size:17px;color:var(--c1);margin-bottom:6px}
+p.sub{font-size:13px;color:var(--mute);margin-bottom:10px}
+label{display:block;font-size:13px;font-weight:600;color:var(--c1);margin:8px 0 4px}
+input,textarea,select{width:100%;font:inherit;padding:10px 12px;border:1px solid #cfc4a6;border-radius:10px;background:#fff;color:#1d1a14}
+textarea{min-height:80px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>input,.row>select{flex:1;min-width:180px}
+button.b{background:var(--c1);color:#fff;border:0;font:600 14.5px inherit;font-family:inherit;padding:10px 16px;border-radius:10px;cursor:pointer;margin-top:8px}
+button.b2{background:#fff;color:var(--c1);border:1.5px solid var(--c1);font:600 13px inherit;font-family:inherit;padding:6px 11px;border-radius:9px;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+.msg{font-size:13.5px;margin-top:8px}.msg.bad{color:var(--bad)}.msg.ok{color:var(--ok)}
+.banner{background:#fff3cd;border:2px solid #ffc107;padding:12px 14px;border-radius:10px;margin-bottom:16px;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f1ead6;color:var(--c1)}
+.tw{overflow-x:auto}
+td.ok{color:var(--ok);font-weight:600}td.bad{color:var(--bad);font-weight:600}
+.mem{border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:10px}
+.mem b{color:var(--c1)}
+.od{color:var(--bad);font-weight:700}
+.tabs label{display:flex;align-items:center;gap:8px;font-weight:500;color:var(--ink);margin:4px 0}
+.tabs input{width:auto}
+.tabs{columns:2}
+.man{border-left:4px solid var(--gold);background:#fbf7ea;padding:8px 10px;border-radius:6px;margin-top:8px;font-size:13.5px}
+.man b{display:block;color:var(--c1)}
+#gate{max-width:420px;margin:30px auto}
+.hide{display:none}
+@media (max-width:600px){.tabs{columns:1}}
+@media print{header,.card:not(#odCard),.banner{display:none}#odCard{border:0}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+  <h1>&#128272; Staff Panel<small>V. G. Hegde Kaikatgeri Memorial Library &middot; S.D.M. P.U. College, Honnavar</small></h1>
+  <div class="hb"><button class="back hide" id="outBtn" onclick="logout()">Log out</button><a class="back" href="../">&#8592; Home</a></div>
+</div></header>
+
+<main>
+  <div class="card" id="gate">
+    <h2>Staff Login</h2>
+    <p class="sub">Library staff only. Use the staff password of the library admin app.</p>
+    <input type="password" id="pw" placeholder="Staff password" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+    <button class="b" id="loginBtn" onclick="login()">Login</button>
+    <div class="msg bad" id="loginMsg"></div>
+  </div>
+
+  <div id="tools" class="hide">
+    <div class="banner hide" id="pendBanner"></div>
+
+    <div class="card">
+      <h2>&#128214; User Manual &mdash; How do I...?</h2>
+      <p class="sub">Type what you want to do, for example: issue, return, overdue, reserve, hide page, award, photo.</p>
+      <input type="text" id="manQ" placeholder="Type what you want to do..." oninput="manual()">
+      <div id="manOut"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128274; Admin Only</h2>
+      <div id="adGate">
+        <p class="sub">Hiding or showing website pages needs the separate admin password.</p>
+        <div class="row"><input type="password" id="adPw" placeholder="Admin password" onkeydown="if(event.key==='Enter')adminLogin()"><button class="b" style="margin-top:0" onclick="adminLogin()">Unlock</button></div>
+        <div class="msg bad" id="adMsg"></div>
+      </div>
+      <div id="adTools" class="hide">
+        <h2 style="margin-top:6px">&#128065; Manage Tabs</h2>
+        <p class="sub">Tick = the page shows on the website for everyone. Untick to hide it. It changes at once, no deploy needed.</p>
+        <div class="tabs" id="tabList"></div>
+        <div class="msg" id="tabMsg"></div>
+        <h2 style="margin-top:16px">&#128190; Code Backup</h2>
+        <p class="sub">See and copy the current code of these website pages. The Apps Script files are kept in the Apps Script projects (script.google.com).</p>
+        <div class="row">
+          <button class="b2" onclick="viewCode('../')">Home page (sdmpu/index.html)</button>
+          <button class="b2" onclick="viewCode('../honours/')">Library Honours page</button>
+          <button class="b2" onclick="viewCode('./')">This Staff Panel page</button>
+        </div>
+        <textarea id="codeOut" class="hide" readonly rows="14" style="font-family:monospace;font-size:12px;margin-top:10px"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128100; Member Lookup</h2>
+      <p class="sub">Search by Lib ID or name to see the books the member holds now.</p>
+      <div class="row"><input type="text" id="memQ" placeholder="Lib ID or name" onkeydown="if(event.key==='Enter')memberLookup()"><button class="b" style="margin-top:0" id="memBtn" onclick="memberLookup()">Search</button></div>
+      <div id="memOut"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128203; Manage Book Reservations</h2>
+      <p class="sub">Reservations made on My Library and at the counter. "Kept aside" e-mails the member that the book is ready.</p>
+      <div class="row"><button class="b" id="resBtn" onclick="loadRes('active')">Load Active Reservations</button><button class="b2" style="margin-top:8px" onclick="loadRes('all')">Show all (old ones too)</button></div>
+      <div class="tw" id="resOut"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128229; Bulk Issue</h2>
+      <p class="sub">Write LibID:AccNo, one per line or comma separated. Example: 252614994:1018, 252614995:2210</p>
+      <label for="issDue">Due date for this batch (leave blank for the normal loan days)</label>
+      <input type="date" id="issDue">
+      <label for="issText">Entries</label>
+      <textarea id="issText" placeholder="252614994:1018, 252614995:2210"></textarea>
+      <button class="b" id="issBtn" onclick="bulk('issue')">Submit Bulk Issue</button>
+      <div class="tw" id="issOut"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128228; Bulk Return</h2>
+      <p class="sub">Accession numbers, comma or new line. Example: 1018, 2210</p>
+      <textarea id="retText" placeholder="1018, 2210"></textarea>
+      <button class="b" id="retBtn" onclick="bulk('return')">Submit Bulk Return</button>
+      <div class="tw" id="retOut"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128465; Bulk Discard</h2>
+      <p class="sub">Accession numbers to write in the Decard Books register. Example: 188, 228</p>
+      <div class="row">
+        <select id="disReason"><option value="">Choose a reason</option></select>
+        <input type="text" id="disStaff" placeholder="Your name (staff)">
+      </div>
+      <textarea id="disText" placeholder="188, 228" style="margin-top:8px"></textarea>
+      <button class="b" id="disBtn" onclick="bulk('discard')">Submit Bulk Discard</button>
+      <div class="tw" id="disOut"></div>
+    </div>
+
+    <div class="card" id="odCard">
+      <h2>&#9200; Overdue Books</h2>
+      <p class="sub">Every book still issued after its due date, the oldest first.</p>
+      <div class="row"><button class="b" id="odBtn" onclick="overdue()">Load Overdue List</button><button class="b2 hide" style="margin-top:8px" id="odPrint" onclick="window.print()">Print</button></div>
+      <div class="tw" id="odOut"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+var KEY = '';
+try { KEY = sessionStorage.getItem('stpKey') || ''; } catch (e) {}
+
+function api(fn, args) {
+  return fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                      body: JSON.stringify({ fn: fn, args: args || [] }) })
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      if (j && j.ok) return j.result;
+      var m = (j && j.error) || 'Server error';
+      if (/Login expired/.test(m)) { showGate('Your login has expired. Please log in again.'); }
+      throw new Error(m);
+    });
+}
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function busy(btn, on) { if (btn) btn.disabled = !!on; }
+
+function showGate(msg) {
+  KEY = ''; try { sessionStorage.removeItem('stpKey'); } catch (e) {}
+  $('tools').classList.add('hide'); $('outBtn').classList.add('hide'); $('gate').classList.remove('hide');
+  $('loginMsg').textContent = msg || '';
+}
+function showTools(pending) {
+  $('gate').classList.add('hide'); $('tools').classList.remove('hide'); $('outBtn').classList.remove('hide');
+  if (pending) { $('pendBanner').innerHTML = '&#128276; <b>' + pending + '</b> reservation' + (pending === 1 ? ' is' : 's are') + ' waiting. Open "Manage Book Reservations" below.'; $('pendBanner').classList.remove('hide'); }
+  api('stpDiscardReasons', [KEY]).then(function (list) {
+    $('disReason').innerHTML = '<option value="">Choose a reason</option>' + list.map(function (r) { return '<option>' + esc(r) + '</option>'; }).join('');
+  }).catch(function () {});
+  manual();
+}
+function login() {
+  var pw = $('pw').value;
+  if (!pw) { $('loginMsg').textContent = 'Type the staff password.'; return; }
+  busy($('loginBtn'), 1); $('loginMsg').textContent = '';
+  api('stpLogin', [pw]).then(function (r) {
+    busy($('loginBtn'), 0); $('pw').value = '';
+    if (!r || !r.ok) { $('loginMsg').textContent = 'Wrong password.'; return; }
+    KEY = r.key; try { sessionStorage.setItem('stpKey', KEY); } catch (e) {}
+    showTools(r.pending);
+  }).catch(function (e) { busy($('loginBtn'), 0); $('loginMsg').textContent = e.message; });
+}
+function logout() { api('stpLogout', [KEY]).catch(function () {}); showGate(''); }
+
+function adminLogin() {
+  $('adMsg').textContent = '';
+  api('stpAdminLogin', [KEY, $('adPw').value]).then(function (r) {
+    $('adPw').value = '';
+    if (!r || !r.ok) { $('adMsg').textContent = 'Wrong admin password.'; return; }
+    $('adGate').classList.add('hide'); $('adTools').classList.remove('hide'); drawTabs(r.tabs);
+  }).catch(function (e) { $('adMsg').textContent = e.message; });
+}
+function drawTabs(tabs) {
+  $('tabList').innerHTML = tabs.map(function (t) {
+    return '<label><input type="checkbox" ' + (t.visible ? 'checked' : '') + ' onchange="setTab(\'' + t.key + '\', this)"> ' + esc(t.label) + '</label>';
+  }).join('');
+}
+function setTab(key, box) {
+  $('tabMsg').textContent = 'Saving...'; $('tabMsg').className = 'msg';
+  api('stpSetTab', [KEY, key, box.checked]).then(function (tabs) {
+    drawTabs(tabs); $('tabMsg').textContent = 'Saved. The website shows this change on the next page load.'; $('tabMsg').className = 'msg ok';
+  }).catch(function (e) { box.checked = !box.checked; $('tabMsg').textContent = e.message; $('tabMsg').className = 'msg bad'; });
+}
+function viewCode(path) {
+  var out = $('codeOut'); out.classList.remove('hide'); out.value = 'Loading...';
+  fetch(path, { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) { out.value = t; })
+    .catch(function () { out.value = 'Could not load this page.'; });
+}
+
+function memberLookup() {
+  var q = $('memQ').value.trim(); if (!q) return;
+  busy($('memBtn'), 1); $('memOut').innerHTML = '<p class="msg">Searching...</p>';
+  api('stpMemberLookup', [KEY, q]).then(function (list) {
+    busy($('memBtn'), 0);
+    if (!list.length) { $('memOut').innerHTML = '<p class="msg bad">No member found.</p>'; return; }
+    $('memOut').innerHTML = list.map(function (m) {
+      var books = m.books.length ? '<table><tr><th>Acc No</th><th>Title</th><th>Issued</th><th>Due</th></tr>' + m.books.map(function (b) {
+        return '<tr><td>' + esc(b.acc) + '</td><td>' + esc(b.title) + '</td><td>' + esc(b.issued) + '</td><td' + (b.overdue ? ' class="od"' : '') + '>' + esc(b.due) + (b.overdue ? ' (overdue)' : '') + '</td></tr>';
+      }).join('') + '</table>' : '<p class="msg">No books with this member now.</p>';
+      return '<div class="mem"><b>' + esc(m.name) + '</b> &middot; Lib ID ' + esc(m.id) + ' &middot; ' + esc(m.type) + (m.course ? ' &middot; ' + esc(m.course) : '') +
+        (m.status ? ' &middot; ' + esc(m.status) : '') + (m.phone ? ' &middot; Phone ' + esc(m.phone) : '') + books + '</div>';
+    }).join('');
+  }).catch(function (e) { busy($('memBtn'), 0); $('memOut').innerHTML = '<p class="msg bad">' + esc(e.message) + '</p>'; });
+}
+
+function loadRes(filter) {
+  busy($('resBtn'), 1); $('resOut').innerHTML = '<p class="msg">Loading...</p>';
+  api('stpReservations', [KEY, filter]).then(function (list) {
+    busy($('resBtn'), 0);
+    if (!list.length) { $('resOut').innerHTML = '<p class="msg">No reservations.</p>'; return; }
+    $('resOut').innerHTML = '<table><tr><th>Placed</th><th>Member</th><th>Book</th><th>Status</th><th>Book now</th><th></th></tr>' + list.map(function (r) {
+      var act = /waiting|ready/i.test(r.status) ?
+        (/waiting/i.test(r.status) && r.bookNow === 'On shelf' ? '<button class="b2" onclick="resAct(\'' + esc(r.id) + '\',\'ready\',this)">Kept aside</button> ' : '') +
+        '<button class="b2" onclick="resAct(\'' + esc(r.id) + '\',\'cancel\',this)">Cancel</button>' : '';
+      return '<tr><td>' + esc(r.placed) + '</td><td>' + esc(r.name) + '<br><small>' + esc(r.memberId) + '</small></td><td>' + esc(r.title) + '<br><small>' + esc(r.acc) + '</small></td><td>' +
+        esc(r.status) + (r.position ? ' (#' + r.position + ')' : '') + (r.collectBy ? '<br><small>collect by ' + esc(r.collectBy) + '</small>' : '') + '</td><td>' + esc(r.bookNow) + '</td><td>' + act + '</td></tr>';
+    }).join('') + '</table>';
+  }).catch(function (e) { busy($('resBtn'), 0); $('resOut').innerHTML = '<p class="msg bad">' + esc(e.message) + '</p>'; });
+}
+function resAct(id, action, btn) {
+  if (action === 'cancel' && !confirmBox('Cancel reservation ' + id + '?')) return;
+  busy(btn, 1);
+  api('stpReservationAction', [KEY, id, action]).then(function () { loadRes('active'); })
+    .catch(function (e) { busy(btn, 0); $('resOut').insertAdjacentHTML('afterbegin', '<p class="msg bad">' + esc(e.message) + '</p>'); });
+}
+function confirmBox(t) { return window.confirm(t); }
+
+function table(rows) {
+  if (!rows.length) return '<p class="msg">Nothing to show.</p>';
+  return '<table><tr><th>Entry</th><th>Result</th></tr>' + rows.map(function (r) {
+    return '<tr><td>' + esc(r.entry) + '</td><td class="' + (r.ok ? 'ok' : 'bad') + '">' + esc(r.result) + '</td></tr>';
+  }).join('') + '</table>';
+}
+function bulk(kind) {
+  var map = { issue: ['issText', 'issBtn', 'issOut'], 'return': ['retText', 'retBtn', 'retOut'], discard: ['disText', 'disBtn', 'disOut'] }[kind];
+  var text = $(map[0]).value.trim(), out = $(map[2]);
+  if (!text) { out.innerHTML = '<p class="msg bad">Type at least one entry.</p>'; return; }
+  var call;
+  if (kind === 'issue') call = api('stpBulkIssue', [KEY, $('issDue').value, text]);
+  else if (kind === 'return') call = api('stpBulkReturn', [KEY, text]);
+  else {
+    if (!$('disReason').value) { out.innerHTML = '<p class="msg bad">Choose a reason.</p>'; return; }
+    if (!$('disStaff').value.trim()) { out.innerHTML = '<p class="msg bad">Type your name.</p>'; return; }
+    call = api('stpBulkDiscard', [KEY, text, $('disReason').value, $('disStaff').value.trim()]);
+  }
+  busy($(map[1]), 1); out.innerHTML = '<p class="msg">Working... please wait.</p>';
+  call.then(function (rows) {
+    busy($(map[1]), 0); out.innerHTML = table(rows);
+    if (rows.some(function (r) { return r.ok; })) $(map[0]).value = '';
+  }).catch(function (e) { busy($(map[1]), 0); out.innerHTML = '<p class="msg bad">' + esc(e.message) + '</p>'; });
+}
+
+function overdue() {
+  busy($('odBtn'), 1); $('odOut').innerHTML = '<p class="msg">Loading...</p>';
+  api('stpOverdue', [KEY]).then(function (list) {
+    busy($('odBtn'), 0);
+    if (!list.length) { $('odOut').innerHTML = '<p class="msg ok">No overdue books.</p>'; $('odPrint').classList.add('hide'); return; }
+    $('odPrint').classList.remove('hide');
+    $('odOut').innerHTML = '<p class="msg"><b>' + list.length + '</b> overdue book' + (list.length === 1 ? '' : 's') + '.</p><table><tr><th>#</th><th>Member</th><th>Lib ID</th><th>Book</th><th>Acc No</th><th>Due</th><th>Days late</th></tr>' +
+      list.map(function (r, i) {
+        return '<tr><td>' + (i + 1) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.id) + '</td><td>' + esc(r.title) + '</td><td>' + esc(r.acc) + '</td><td>' + esc(r.due) + '</td><td class="od">' + r.days + '</td></tr>';
+      }).join('') + '</table>';
+  }).catch(function (e) { busy($('odBtn'), 0); $('odOut').innerHTML = '<p class="msg bad">' + esc(e.message) + '</p>'; });
+}
+
+var MANUAL = [
+  ['issue book many bulk', 'Issue many books at once', 'Bulk Issue on this page: type LibID:AccNo pairs, pick a due date (or leave it blank for the normal loan days), Submit. One e-mail goes to each member.'],
+  ['return bulk', 'Return many books at once', 'Bulk Return on this page: type only the Acc Nos. The fine is worked out and written in Book Issue.'],
+  ['discard decard withdraw damaged lost', 'Discard books', 'Bulk Discard: choose a reason, type your name and the Acc Nos. They are written in the Decard Books register and stop showing on the website.'],
+  ['overdue late fine reminder', 'See overdue books', 'Overdue Books > Load Overdue List. Print gives a paper list. Reminder e-mails go from the admin app.'],
+  ['member lookup find student teacher id', 'Find a member and their books', 'Member Lookup: type the Lib ID or a part of the name.'],
+  ['reserve reservation hold kept aside', 'Handle reservations', 'Manage Book Reservations > Load. For a book on the shelf press "Kept aside" after you keep it at the counter; the member gets an e-mail. A returned book is kept aside automatically.'],
+  ['hide tab page show website menu', 'Hide or show a website page', 'Admin Only > Unlock with the admin password > untick the page. Tick it again to show it.'],
+  ['award best library user teacher student', 'Best Library User award', 'Admin app > Website Content > Recognitions: add a row with Recognition "Best Library User - Teacher" (or "- Student"), the Name and the Year. It shows on the Library Honours page.'],
+  ['recognition topper rank prize', 'Add a recognition or topper', 'Admin app > Website Content > Recognitions: add the name, class, recognition, level, year and a photo.'],
+  ['photo picture winner', 'Photos on the Honours page', 'The photo comes from the member photo folder (file named by Lib ID, like 252614994.jpg). The file must be shared "Anyone with the link" to show on the website.'],
+  ['footfall gate visitor count', 'Footfall and top visitor numbers', 'They come from the gate register (GATE_ENTRY) and the old website records. Every scan at the gate counts. Numbers refresh every 5 minutes.'],
+  ['password change staff admin', 'Change a password', 'Staff password: StaffGate.gs in the admin project. Admin password: StaffPanel.gs (STP_ADMIN_PASSWORD_). Save, then Deploy > Manage deployments > New version.'],
+  ['notice news ticker', 'Add a notice', 'Admin app > Website Content > Notice Board, or the NOTICES tab for the running news.'],
+  ['question paper upload', 'Add question papers', 'Admin app > Website Content > Question Papers.'],
+  ['timing hours open close holiday', 'Change library timings', 'SITE_INFO tab in the library sheet (opening and closing times, holidays).']
+];
+function manual() {
+  var q = ($('manQ').value || '').trim().toLowerCase();
+  var list = MANUAL.filter(function (m) { return !q || (m[0] + ' ' + m[1] + ' ' + m[2]).toLowerCase().indexOf(q) >= 0; });
+  $('manOut').innerHTML = list.length ? list.map(function (m) { return '<div class="man"><b>' + esc(m[1]) + '</b>' + esc(m[2]) + '</div>'; }).join('') : '<p class="msg">Nothing found. Try another word.</p>';
+}
+
+if (KEY) showTools(0); else showGate('');
+</script>
+</body>
+</html>
