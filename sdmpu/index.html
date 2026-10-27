@@ -532,6 +532,7 @@
   <button onclick="showPride()" data-i18n="prideTab">Our Pride</button>
   <button onclick="location.href='./pratibha/'">Pratibha Corner</button>
   <button onclick="location.href='./honours/'">&#127942; Library Honours</button>
+  <button onclick="location.href='./ourlibrary/'">&#127963; Our Library</button>
   <button onclick="showPage('recognitions')" data-i18n="rcTab">Recognitions</button>
   <button onclick="showPage('gallery')" data-i18n="galleryTileLabel">Gallery</button>
   <button onclick="showPage('moments')" data-i18n="momentsTileLabel">Photo Moments</button>
@@ -2312,7 +2313,7 @@ function sxMailCopy(b){
 // 26 Oct 2026: pages hidden from the Staff Panel (Admin Only > Manage Tabs) are not shown.
 (function () {
   var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
-  var SPECIAL = { pride: 'showPride(', pratibha: 'pratibha/', honours: 'honours/', feedback: 'sxOpenFb(' };
+  var SPECIAL = { pride: 'showPride(', pratibha: 'pratibha/', honours: 'honours/', ourlibrary: 'ourlibrary/', feedback: 'sxOpenFb(' };
   fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                body: JSON.stringify({ fn: 'stpHiddenTabs', args: [] }) })
     .then(function (r) { return r.json(); })

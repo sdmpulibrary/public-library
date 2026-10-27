@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Library - S.D.M. P.U. College Library, Honnavar</title>
+<meta name="description" content="Messages, library history, Library Advisory Committee, teaching staff, class-wise statistics and Young Writers - S.D.M. P.U. College, Honnavar.">
+<style>
+:root{--c1:#1c1f6b;--c2:#0b0d3a;--gold:#d4a017;--bg:#f6f1e4;--card:#fff;--ink:#1d1a14;--mute:#6b6255;--line:#e4d9bd;--green:#0f6b3a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{font-family:"Segoe UI",Roboto,"Noto Sans Kannada",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5}
+header{background:linear-gradient(160deg,var(--c1),var(--c2));color:#fff;padding:16px;border-bottom:4px solid var(--gold)}
+.hin{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-size:21px}h1 small{display:block;font-size:12.5px;font-weight:400;opacity:.85}
+.back{color:#fff;font-size:13px;text-decoration:none;border:1px solid rgba(255,255,255,.45);padding:6px 12px;border-radius:999px;white-space:nowrap}
+nav{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+nav .in{max-width:1060px;margin:0 auto;padding:8px 12px;display:flex;gap:6px}
+nav a{display:inline-block;font-size:13px;font-weight:600;color:var(--c1);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);flex:none}
+nav a:hover{background:var(--c1);color:#fff}
+main{max-width:1060px;margin:0 auto;padding:6px 16px 30px}
+section{padding-top:8px}
+section[hidden]{display:none}
+h2{font-size:18px;color:var(--c1);margin:24px 0 10px;border-left:4px solid var(--gold);padding-left:10px}
+.msgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;gap:12px}
+.msg .tx{font-size:14px}
+.msg .who{font-weight:700;color:var(--c1)}
+.msg .role{font-size:12.5px;color:var(--green);font-weight:600;margin-bottom:6px}
+.hist p{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.pc .nm{font-weight:700;color:var(--c1);margin-top:8px}
+.pc .ds{font-size:13px;color:var(--green);font-weight:600}
+.pc .sm{font-size:12.5px;color:var(--mute);margin-top:4px}
+.av{width:84px;height:84px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);display:inline-flex;align-items:center;justify-content:center;background:#efe6cc;color:var(--c1);font-size:26px;font-weight:700;flex:none}
+.msg .av{width:64px;height:64px;font-size:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.ic{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.ic h3{font-size:14px;color:var(--c1);margin-bottom:4px}
+.ic p{font-size:14px;white-space:pre-line}
+.ic .meta{font-size:12.5px;color:var(--mute);margin-top:6px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{background:var(--c1);color:#fff;font-weight:600}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:var(--gold);border-radius:4px;margin-top:3px}
+.wr{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.w{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.w .t{font-weight:700;color:var(--c1)}
+.w .by{font-size:13px;color:var(--mute)}
+.w a.rd{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:#fff;background:var(--green);padding:5px 12px;border-radius:999px;text-decoration:none}
+.stars{margin-top:8px;display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+.stars button{background:none;border:0;font-size:22px;line-height:1;cursor:pointer;color:#c9bd9c;padding:2px}
+.stars button.on{color:var(--gold)}
+.stars button:disabled{cursor:default}
+.stars .avg{font-size:12.5px;color:var(--mute);margin-left:6px}
+.empty,.load{color:var(--mute);padding:6px 0}
+.note{font-size:12.5px;color:var(--mute);margin-top:22px;text-align:center}
+footer{text-align:center;font-size:12px;color:var(--mute);padding:16px;border-top:1px solid var(--line)}
+@media (prefers-color-scheme:dark){:root{--bg:#14151f;--card:#1e2030;--ink:#ece8dc;--mute:#a59f90;--line:#33364a}h2,.msg .who,.pc .nm,.ic h3,.w .t,nav a{color:#c9cdf7}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+  <h1>&#127963; Our Library<small>V. G. Hegde Kaikatgeri Memorial Library &middot; S.D.M. P.U. College, Honnavar</small></h1>
+  <a class="back" href="../">&#8592; Home</a>
+</div></header>
+<nav><div class="in" id="nav"></div></nav>
+
+<main>
+  <section id="about" hidden><h2>Messages from our Leaders</h2><div class="msgs" id="aboutBox"></div></section>
+  <section id="history" hidden><h2>Library History</h2><div class="hist" id="histBox"></div></section>
+  <section id="lac" hidden><h2>Library Advisory Committee</h2><div class="people" id="lacBox"></div></section>
+  <section id="teaching" hidden><h2>Teaching Staff</h2><div class="people" id="teachBox"></div></section>
+  <section id="classwise" hidden><h2>Class-wise Statistics</h2><div id="classBox"></div></section>
+  <section id="writers" hidden><h2>Young Writers</h2><div class="wr" id="writerBox"></div></section>
+  <p class="load" id="loading">Loading&hellip;</p>
+  <p class="note" id="note"></p>
+</main>
+<footer>&copy; <span id="yr"></span> M.P.E. Society's S.D.M. P.U. College Library, Honnavar. All rights reserved.</footer>
+
+<script>
+(function () {
+  var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+  var $ = function (id) { return document.getElementById(id); };
+  $('yr').textContent = new Date().getFullYear();
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function safeUrl(u) { u = String(u || '').trim(); return /^https?:\/\//i.test(u) ? u : ''; }
+  function ini(name) { return esc(String(name || '?').replace(/^(dr|mr|mrs|ms|shri|smt|sri)\.?\s+/i, '').trim().split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0); }).join('').toUpperCase()); }
+  function av(url, name) {
+    var i = '<span class="av">' + ini(name) + '</span>';
+    if (!safeUrl(url)) return i;
+    return '<img class="av" src="' + esc(url) + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'inline-flex\'">' +
+      i.replace('class="av"', 'class="av" style="display:none"');
+  }
+  function api(fn, args) {
+    return fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({ fn: fn, args: args || [] }) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (!j || !j.ok) throw new Error((j && j.error) || 'Server error'); return j.result; });
+  }
+  var NAV = [];
+  function show(id, label, html) {
+    if (!html) return;
+    $(id).hidden = false;
+    $(id).querySelector('div').innerHTML = html;
+    NAV.push('<a href="#' + id + '">' + label + '</a>');
+  }
+  function person(p, extra) {
+    return '<div class="pc">' + av(p.photo, p.name) + '<div class="nm">' + esc(p.name) + '</div>' +
+      (p.designation ? '<div class="ds">' + esc(p.designation) + '</div>' : '') + extra + '</div>';
+  }
+  function line(v, pre) { return v ? '<div class="sm">' + (pre ? '<b>' + pre + ':</b> ' : '') + esc(v) + '</div>' : ''; }
+
+  // star rating: one rating per entry from this device
+  function rated(id) { try { return localStorage.getItem('ol_rated_' + id); } catch (e) { return null; } }
+  function remember(id, n) { try { localStorage.setItem('ol_rated_' + id, String(n)); } catch (e) {} }
+  function starsHtml(w) {
+    var mine = rated(w.id), h = '<div class="stars" data-id="' + esc(w.id) + '">';
+    for (var i = 1; i <= 5; i++) h += '<button type="button" data-n="' + i + '" aria-label="' + i + ' star' + (i > 1 ? 's' : '') + '"' +
+      (i <= Math.round(mine ? Number(mine) : w.avg) ? ' class="on"' : '') + (mine ? ' disabled' : '') + '>&#9733;</button>';
+    return h + '<span class="avg">' + (w.votes ? w.avg + ' / 5 (' + w.votes + ' rating' + (w.votes > 1 ? 's' : '') + ')' : 'Not rated yet') +
+      (mine ? ' &middot; you rated ' + esc(mine) : '') + '</span></div>';
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.stars button');
+    if (!b || b.disabled) return;
+    var box = b.parentNode, id = box.getAttribute('data-id'), n = Number(b.getAttribute('data-n'));
+    box.querySelectorAll('button').forEach(function (x) { x.disabled = true; x.className = Number(x.getAttribute('data-n')) <= n ? 'on' : ''; });
+    box.querySelector('.avg').textContent = 'Saving...';
+    api('olRate', [id, n]).then(function (r) {
+      remember(id, n);
+      box.querySelector('.avg').textContent = r.avg + ' / 5 (' + r.votes + ' rating' + (r.votes > 1 ? 's' : '') + ') · thank you!';
+    }).catch(function (err) {
+      box.querySelectorAll('button').forEach(function (x) { x.disabled = false; });
+      box.querySelector('.avg').textContent = err.message || 'Could not save. Please try again.';
+    });
+  });
+
+  api('olPage').then(function (d) {
+    $('loading').hidden = true;
+    show('about', 'Messages', (d.about || []).map(function (m) {
+      return '<div class="msg">' + av(m.photo, m.name) + '<div><div class="who">' + esc(m.name) + '</div>' +
+        (m.role ? '<div class="role">' + esc(m.role) + '</div>' : '') + '<div class="tx">' + esc(m.message) + '</div></div></div>';
+    }).join(''));
+    show('history', 'History', (d.history || []).map(function (t) { return '<p>' + esc(t) + '</p>'; }).join(''));
+    show('lac', 'Advisory Committee', (d.lac || []).map(function (p) { return person(p, line(p.subject) + line(p.bio) + line(p.note)); }).join(''));
+    show('teaching', 'Teaching Staff', (d.teaching || []).map(function (p) { return person(p, line(p.subject, 'Subject') + line(p.bio) + line(p.note)); }).join(''));
+
+    var cw = d.classwise || [], max = Math.max.apply(null, cw.map(function (c) { return c.count; }).concat([1]));
+    var total = cw.reduce(function (a, c) { return a + c.count; }, 0);
+    show('classwise', 'Class-wise Statistics', cw.length ? '<table><thead><tr><th>Class</th><th>Subject / Combination</th><th style="text-align:right">Students</th></tr></thead><tbody>' +
+      cw.map(function (c) { return '<tr><td>' + esc(c.cls) + '</td><td>' + esc(c.subject) + '<div class="bar" style="width:' + Math.round(c.count / max * 100) + '%"></div></td><td class="n">' + c.count.toLocaleString('en-IN') + '</td></tr>'; }).join('') +
+      '<tr><td colspan="2"><b>Total</b></td><td class="n"><b>' + total.toLocaleString('en-IN') + '</b></td></tr></tbody></table>' : '');
+    show('writers', 'Young Writers', (d.writers || []).map(function (w) {
+      var link = safeUrl(w.link);
+      return '<div class="w"><div class="t">' + esc(w.title || 'Writing') + '</div><div class="by">' + esc(w.name) + (w.cls ? ' &middot; ' + esc(w.cls) : '') + '</div>' +
+        (link ? '<a class="rd" href="' + esc(link) + '" target="_blank" rel="noopener">&#128214; Read</a>' : '') + starsHtml(w) + '</div>';
+    }).join(''));
+
+    $('nav').innerHTML = NAV.join('');
+    if (!NAV.length) $('note').textContent = 'Nothing to show yet.';
+    else $('note').textContent = 'Updated ' + d.updated + '.';
+    if (location.hash && document.querySelector(location.hash)) document.querySelector(location.hash).scrollIntoView();
+  }).catch(function () {
+    $('loading').hidden = true;
+    $('note').textContent = 'This page could not load just now. Please try again in a little while.';
+  });
+})();
+</script>
+</body>
+</html>
