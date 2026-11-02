@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Judge&#8217;s Marks - S.D.M. P.U. College Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0f5c63;--c2:#07363b;--acc:#d4a017;--bg:#fbf8ef;--line:#e4d9bd;--mut:#6b6255}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Source Sans 3','Noto Sans Kannada',sans-serif;background:var(--bg);color:#1d1a14;font-size:16px}
+.kn{font-family:'Noto Sans Kannada',sans-serif}
+header{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff;padding:14px 16px;border-bottom:5px solid var(--acc)}
+header b{font-size:20px}
+main{max-width:1000px;margin:auto;padding:12px 16px 40px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+input{font:inherit;padding:8px;border:1px solid #cfc3a5;border-radius:8px}
+.btn{background:var(--c1);color:#fff;border:0;border-radius:99px;padding:10px 20px;font:inherit;font-weight:800;cursor:pointer;margin:6px 6px 0 0}
+.btn.alt{background:#fff;color:var(--c1);border:2px solid var(--c1)}
+.btn.red{background:#b3261e}
+.btn:disabled{opacity:.5}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{background:var(--c1);color:#fff;padding:6px;text-align:left;font-size:14px;vertical-align:bottom}
+td{border-bottom:1px solid var(--line);padding:6px;vertical-align:middle}
+td input[type=number]{width:70px}
+td.tot{font-weight:800;font-size:17px;color:var(--c1)}
+tr.abs td{opacity:.45}
+.scroll{overflow-x:auto}
+.msg{padding:10px 12px;border-radius:8px;margin-top:10px;display:none}
+.msg.ok{display:block;background:#eaf6ea;border:1px solid #9bd09b}
+.msg.err{display:block;background:#fdecea;border:1px solid #e7a19b;color:#8a1c14}
+.lockbar{background:#eaf6ea;border:1px solid #9bd09b;border-radius:8px;padding:10px 12px;font-weight:700}
+.mut{color:var(--mut);font-size:14px}
+@media print{header,.noprint{display:none}body{background:#fff}.card{border:0;padding:0}td input{border:0}}
+.sig{display:none}
+@media print{.sig{display:flex;justify-content:space-between;margin-top:40px}.sig div{border-top:1px solid #333;width:40%;text-align:center;padding-top:4px}}
+</style>
+</head>
+<body>
+<header><b>Judge&#8217;s Marks</b> <span class="kn">ತೀರ್ಪುಗಾರರ ಅಂಕಗಳು</span><br><span style="font-size:13px;opacity:.85">S.D.M. P.U. College, Honnavar &middot; Advocate Shri V. G. Hegde Kaikatgeri Memorial Library and Information Centre</span></header>
+<main>
+  <div class="card noprint" id="loginBox">
+    <p>Type the 6-digit PIN the library gave you for your competition. <span class="kn">ಗ್ರಂಥಾಲಯ ನೀಡಿದ 6 ಅಂಕಿಯ ಪಿನ್ ಹಾಕಿ.</span></p>
+    <input type="password" id="pin" inputmode="numeric" maxlength="6" placeholder="PIN" style="width:140px;font-size:20px;letter-spacing:.2em">
+    <button class="btn" id="go">Open <span class="kn">ತೆರೆಯಿರಿ</span></button>
+    <div class="msg" id="lmsg"></div>
+  </div>
+  <div id="sheet" style="display:none">
+    <div class="card">
+      <div style="font-size:13px;color:var(--mut)">S.D.M. P.U. College, Honnavar</div>
+      <h2 style="margin:2px 0;color:var(--c1)" id="iName"></h2>
+      <div class="mut" id="iMeta"></div>
+      <div id="iRules" class="mut"></div>
+      <div style="margin-top:6px">Judge: <b id="jName"></b></div>
+      <div id="lockInfo"></div>
+    </div>
+    <div class="card">
+      <div class="scroll"><table id="tbl"></table></div>
+      <div class="noprint">
+        <p class="mut">Type marks for every point. Tick <b>Absent</b> if the person did not come. <b>Save</b> keeps your marks (you can still change them). <b>Submit final</b> locks them: after that nobody can change them without the Librarian writing a reason in the proof log.<br>
+        <span class="kn">ಪ್ರತಿ ಅಂಶಕ್ಕೆ ಅಂಕ ಹಾಕಿ. ಬರದಿದ್ದರೆ Absent ಗುರುತು. Save = ಉಳಿಸಿ (ಬದಲಿಸಬಹುದು). Submit final = ಅಂತಿಮ, ಲಾಕ್ ಆಗುತ್ತದೆ.</span></p>
+        <button class="btn alt" id="save">Save <span class="kn">ಉಳಿಸಿ</span></button>
+        <button class="btn red" id="final">Submit final &#128274; <span class="kn">ಅಂತಿಮಗೊಳಿಸಿ</span></button>
+        <button class="btn alt" onclick="window.print()">Print my sheet <span class="kn">ಮುದ್ರಿಸಿ</span></button>
+        <div class="msg" id="smsg"></div>
+      </div>
+      <div class="sig"><div>Judge&#8217;s signature <span class="kn">ತೀರ್ಪುಗಾರರ ಸಹಿ</span></div><div>Date and time <span class="kn">ದಿನಾಂಕ ಮತ್ತು ಸಮಯ</span></div></div>
+    </div>
+  </div>
+</main>
+<script>
+var API='https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function call(fn,args){return fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:fn,args:args||[]})})
+  .then(function(r){return r.json();}).then(function(j){if(j&&j.ok)return j.result;throw new Error((j&&j.error)||'Server error');})
+  .catch(function(e){throw new Error(/fetch|network|load failed/i.test(String(e))?'No connection. Please check your internet and try again.':String(e.message||e));});}
+var PIN='',D=null;
+function load(){
+  $('lmsg').className='msg';
+  call('evJudgeLoad',[PIN]).then(function(d){D=d;
+    try{sessionStorage.setItem('evpin',PIN);}catch(e){}
+    $('loginBox').style.display='none';$('sheet').style.display='block';
+    $('iName').innerHTML=esc(d.item.name)+(d.item.kn?' <span class="kn" style="font-size:16px">'+esc(d.item.kn)+'</span>':'');
+    $('iMeta').textContent=d.event+' · '+(d.item.when||'')+(d.item.venue?' · '+d.item.venue:'')+' · Maximum '+d.item.max;
+    $('iRules').textContent=d.item.rules||'';
+    $('jName').textContent=d.judge.name+(d.judge.name==='Judge '+d.judge.no?'':' (Judge '+d.judge.no+')');
+    var locked=d.judge.submitted;
+    $('lockInfo').innerHTML=locked?'<div class="lockbar">&#128274; Submitted and locked on '+esc(d.judge.submittedOn)+'. <span class="kn">ಅಂತಿಮಗೊಳಿಸಲಾಗಿದೆ.</span></div>':'';
+    var c=d.item.criteria;
+    var h='<tr><th>Chest No</th><th>Name / Class</th>'+c.map(function(x){return '<th>'+esc(x.n)+'<br>/ '+x.max+'</th>';}).join('')+'<th>Total<br>/ '+d.item.max+'</th><th>Remark</th><th class="noprint">Absent</th></tr>';
+    h+=d.entries.map(function(e){var s=e.saved||{},m=s.marks||[],abs=e.status==='Absent';
+      return '<tr data-id="'+esc(e.id)+'" class="'+(abs?'abs':'')+'"><td><b>'+esc(e.chest)+'</b></td><td>'+esc(e.name)+'<div class="mut">'+esc(e.cls)+(e.team?' · '+esc(e.team):'')+'</div></td>'+
+        c.map(function(x,i){return '<td><input type="number" min="0" max="'+x.max+'" step="0.5" value="'+(m[i]!=null&&!isNaN(m[i])?m[i]:'')+'" '+(locked||abs?'disabled':'')+'></td>';}).join('')+
+        '<td class="tot">'+(m.length?m.reduce(function(a,b){return a+b;},0):'')+'</td><td><input type="text" value="'+esc(s.remark||'')+'" style="width:120px" '+(locked?'disabled':'')+'></td>'+
+        '<td class="noprint"><input type="checkbox" class="ab" '+(abs?'checked':'')+' '+(locked?'disabled':'')+'></td></tr>';}).join('');
+    $('tbl').innerHTML=h;
+    document.querySelectorAll('#tbl input').forEach(function(inp){inp.oninput=recalc;inp.onchange=recalc;});
+    $('save').disabled=$('final').disabled=!!locked;
+  }).catch(function(e){$('lmsg').className='msg err';$('lmsg').textContent=e.message;$('loginBox').style.display='block';$('sheet').style.display='none';});
+}
+function recalc(){
+  document.querySelectorAll('#tbl tr[data-id]').forEach(function(tr){
+    var ab=tr.querySelector('.ab').checked;tr.classList.toggle('abs',ab);
+    var nums=tr.querySelectorAll('input[type=number]'),t=0,any=false;
+    nums.forEach(function(n,i){n.disabled=ab;var v=parseFloat(n.value);var mx=D.item.criteria[i].max;n.style.background=(!isNaN(v)&&(v<0||v>mx))?'#fdecea':'';if(!isNaN(v)){t+=v;any=true;}});
+    tr.querySelector('.tot').textContent=any&&!ab?t:'';
+  });
+}
+function collect(){
+  var out={};
+  document.querySelectorAll('#tbl tr[data-id]').forEach(function(tr){
+    var ab=tr.querySelector('.ab').checked,marks=[];
+    tr.querySelectorAll('input[type=number]').forEach(function(n){marks.push(n.value===''?'':Number(n.value));});
+    out[tr.getAttribute('data-id')]={marks:marks,remark:tr.querySelector('input[type=text]').value,absent:ab};
+  });return out;
+}
+function send(final){
+  var m=$('smsg');m.className='msg';
+  if(final&&!confirm('Submit final? After this your marks are locked.\nಅಂತಿಮಗೊಳಿಸಿದ ನಂತರ ಬದಲಿಸಲು ಆಗುವುದಿಲ್ಲ.'))return;
+  $('save').disabled=$('final').disabled=true;
+  call('evJudgeSave',[PIN,collect(),!!final]).then(function(r){
+    m.className='msg ok';m.innerHTML=final?'&#128274; Submitted and locked at '+esc(r.on)+'. Proof code <b>'+esc(r.code)+'</b>. Thank you! <span class="kn">ಧನ್ಯವಾದಗಳು!</span>':'Saved at '+esc(r.on)+' ('+r.saved+' entries). You can still change them. <span class="kn">ಉಳಿಸಲಾಗಿದೆ.</span>';
+    if(final)load();else $('save').disabled=$('final').disabled=false;
+  }).catch(function(e){m.className='msg err';m.textContent=e.message;$('save').disabled=$('final').disabled=false;});
+}
+$('save').onclick=function(){send(false);};
+$('final').onclick=function(){send(true);};
+$('go').onclick=function(){PIN=$('pin').value.trim();load();};
+$('pin').onkeydown=function(e){if(e.key==='Enter')$('go').click();};
+try{var sp=sessionStorage.getItem('evpin');if(sp){PIN=sp;load();}}catch(e){}
+</script>
+</body>
+</html>

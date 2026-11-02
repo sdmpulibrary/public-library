@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Events &amp; Competitions - S.D.M. P.U. College Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0f5c63;--c2:#07363b;--acc:#d4a017;--bg:#fbf8ef;--card:#fff;--ink:#1d1a14;--mut:#6b6255;--line:#e4d9bd}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Source Sans 3','Noto Sans Kannada',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.45}
+.kn{font-family:'Noto Sans Kannada',sans-serif}
+header{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff;padding:18px 16px 14px;border-bottom:5px solid var(--acc)}
+header .w{max-width:960px;margin:auto}
+header small{letter-spacing:.15em;opacity:.85;font-size:12px}
+header h1{margin:2px 0 0;font-size:22px}
+header .lib{color:#ffd77a;font-size:14px}
+header .t{font-size:26px;font-weight:800;margin-top:10px}
+header .t .kn{font-size:17px;color:#ffd77a;font-weight:700;display:block}
+nav{max-width:960px;margin:12px auto 0;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap}
+nav button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 16px;font:inherit;font-weight:700;color:var(--c1);cursor:pointer}
+nav button.on{background:var(--c1);color:#fff;border-color:var(--c1)}
+main{max-width:960px;margin:auto;padding:12px 16px 40px}
+.pane{display:none}.pane.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.card h2{margin:0;color:var(--c1);font-size:20px}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;background:var(--c1);color:#fff;margin:2px 4px 2px 0}
+.pill.g{background:var(--acc);color:#1b1408}.pill.r{background:#b3261e}.pill.gr{background:#2e7d32}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:10px}
+.it{border:1px solid var(--line);border-top:4px solid var(--c1);border-radius:10px;padding:10px 12px;background:#fffdf8}
+.it b{color:var(--c1)}
+.mut{color:var(--mut);font-size:14px}
+label{display:block;font-weight:700;margin:10px 0 4px}
+input[type=text],input[type=tel],select,textarea{width:100%;font:inherit;padding:9px 10px;border:1px solid #cfc3a5;border-radius:8px;background:#fff}
+.chk{display:flex;gap:8px;align-items:flex-start;font-weight:400;margin:6px 0}
+.chk input{margin-top:4px;width:18px;height:18px;flex:none}
+.btn{background:var(--c1);color:#fff;border:0;border-radius:99px;padding:11px 22px;font:inherit;font-weight:800;cursor:pointer;margin-top:12px}
+.btn:disabled{opacity:.5}
+.msg{margin-top:10px;padding:10px 12px;border-radius:8px;display:none}
+.msg.ok{display:block;background:#eaf6ea;border:1px solid #9bd09b}
+.msg.err{display:block;background:#fdecea;border:1px solid #e7a19b;color:#8a1c14}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.row2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:15px}
+th{background:var(--c1);color:#fff;text-align:left;padding:7px 8px}
+td{border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}
+tr.r1 td{background:#fff6d6}tr.r2 td{background:#f3f3f3}tr.r3 td{background:#fbeee3}
+.proof{font-family:monospace;background:#f1efe8;border-radius:6px;padding:2px 6px}
+.scroll{overflow-x:auto}
+.typ{display:flex;gap:8px;flex-wrap:wrap}
+.typ label{margin:0;border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-weight:700;cursor:pointer;background:#fff}
+.typ input{margin-right:4px}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:20px}
+.load{color:var(--mut);padding:20px;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="w">
+  <small>M.P.E. SOCIETY&#8217;S</small>
+  <h1>S.D.M. P.U. College, Honnavar</h1>
+  <div class="lib">Advocate Shri V. G. Hegde Kaikatgeri Memorial Library and Information Centre</div>
+  <div class="t">Events &amp; Competitions <span class="kn">ಕಾರ್ಯಕ್ರಮಗಳು ಮತ್ತು ಸ್ಪರ್ಧೆಗಳು</span></div>
+</div></header>
+<nav>
+  <button data-p="events" class="on">Events <span class="kn">ಕಾರ್ಯಕ್ರಮಗಳು</span></button>
+  <button data-p="register">Register <span class="kn">ನೋಂದಣಿ</span></button>
+  <button data-p="results">Results <span class="kn">ಫಲಿತಾಂಶ</span></button>
+</nav>
+<main>
+  <section class="pane on" id="p-events"><div id="evList" class="load">Loading... <span class="kn">ತೆರೆಯುತ್ತಿದೆ...</span></div></section>
+
+  <section class="pane" id="p-register">
+    <div class="card">
+      <h2>Register for a competition <span class="kn" style="font-size:15px">ಸ್ಪರ್ಧೆಗೆ ನೋಂದಣಿ</span></h2>
+      <p class="mut">Use the Lib ID on your library card. Parents use their child&#8217;s Lib ID. <span class="kn">ನಿಮ್ಮ ಲೈಬ್ರರಿ ಐಡಿ ಬಳಸಿ. ಪೋಷಕರು ಮಗುವಿನ ಐಡಿ ಬಳಸಿ.</span></p>
+      <label>Event <span class="kn">ಕಾರ್ಯಕ್ರಮ</span></label>
+      <select id="rEvent"></select>
+      <label>I am <span class="kn">ನಾನು</span></label>
+      <div class="typ" id="rType">
+        <label><input type="radio" name="typ" value="Student" checked>Student <span class="kn">ವಿದ್ಯಾರ್ಥಿ</span></label>
+        <label><input type="radio" name="typ" value="Staff">Teacher / Staff <span class="kn">ಸಿಬ್ಬಂದಿ</span></label>
+        <label><input type="radio" name="typ" value="Parent">Parent <span class="kn">ಪೋಷಕರು</span></label>
+      </div>
+      <div class="row2">
+        <div><label id="lLib">Lib ID <span class="kn">ಲೈಬ್ರರಿ ಐಡಿ</span></label><input type="text" id="rLib" autocomplete="off" inputmode="text"></div>
+        <div><label id="lName">Your name (as on the card) <span class="kn">ನಿಮ್ಮ ಹೆಸರು</span></label><input type="text" id="rName" autocomplete="name"></div>
+      </div>
+      <div id="parentBox">
+        <div class="row2">
+          <div><label>Parent / guardian name <span class="kn">ಪೋಷಕರ ಹೆಸರು</span></label><input type="text" id="rParent"></div>
+          <div><label>Relation <span class="kn">ಸಂಬಂಧ</span></label><select id="rRel"><option>Mother</option><option>Father</option><option>Guardian</option><option>Grandparent</option><option>Other</option></select></div>
+        </div>
+        <label>Phone (only the library sees it) <span class="kn">ಫೋನ್ (ಗ್ರಂಥಾಲಯಕ್ಕೆ ಮಾತ್ರ)</span></label><input type="tel" id="rPhone" maxlength="13">
+      </div>
+      <label>Competitions <span class="kn">ಸ್ಪರ್ಧೆಗಳು</span></label>
+      <div id="rItems" class="mut">Choose the event first.</div>
+      <div id="teamBox" style="display:none"><label>Team members (name and Lib ID) <span class="kn">ತಂಡದ ಸದಸ್ಯರು</span></label><input type="text" id="rTeam" placeholder="e.g. Rahul Naik 262715633"></div>
+      <div id="consentBox" style="display:none" class="card" >
+        <label class="chk"><input type="checkbox" id="rConsent"><span><b>My parent / guardian agrees</b> that I take part, and that my photo, video or work may be shown on the library website and TV with my <b>first name and class only</b>. The signed paper consent slip will reach the library. <span class="kn">ನನ್ನ ಪೋಷಕರು ಒಪ್ಪಿದ್ದಾರೆ; ಸಹಿ ಮಾಡಿದ ಒಪ್ಪಿಗೆ ಪತ್ರವನ್ನು ಗ್ರಂಥಾಲಯಕ್ಕೆ ನೀಡುತ್ತೇನೆ.</span></span></label>
+      </div>
+      <label class="chk"><input type="checkbox" id="rAgree"><span>I have read the rules. The judges&#8217; decision is final. <span class="kn">ನಿಯಮಗಳನ್ನು ಓದಿದ್ದೇನೆ. ತೀರ್ಪುಗಾರರ ನಿರ್ಧಾರವೇ ಅಂತಿಮ.</span></span></label>
+      <button class="btn" id="rGo">Register <span class="kn">ನೋಂದಾಯಿಸಿ</span></button>
+      <div class="msg" id="rMsg"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-results"><div id="resList" class="load">Loading... <span class="kn">ತೆರೆಯುತ್ತಿದೆ...</span></div></section>
+</main>
+<footer>Advocate Shri V. G. Hegde Kaikatgeri Memorial Library and Information Centre, S.D.M. P.U. College &middot; <a href="../">Library website</a></footer>
+
+<script>
+var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function call(fn,args){return fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:fn,args:args||[]})})
+  .then(function(r){return r.json();}).then(function(j){if(j&&j.ok)return j.result;throw new Error((j&&j.error)||'Server error');})
+  .catch(function(e){throw new Error(/fetch|network|load failed/i.test(String(e))?'No connection. Please check your internet and try again.':String(e.message||e));});}
+function show(p){document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-p')===p);});
+  document.querySelectorAll('.pane').forEach(function(s){s.classList.toggle('on',s.id==='p-'+p);});
+  if(location.hash.slice(1)!==p)history.replaceState(null,'','#'+p); if(p==='results')loadResults();}
+document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){show(b.getAttribute('data-p'));};});
+function nice(d){if(!d)return'';var m=String(d).match(/^(\d{4})-(\d\d)-(\d\d)/);if(!m)return d;return +m[3]+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2]-1]+' '+m[1];}
+
+var DATA=null;
+function loadEvents(){
+  call('evPublicEvents').then(function(d){DATA=d;
+    var evs=d.events||[];
+    var WAIT='<div class="card" style="text-align:center;padding:28px 18px"><div style="font-size:40px">&#128197;</div><h2>Waiting for the next event</h2><div class="kn" style="font-size:16px;font-weight:700">ಮುಂದಿನ ಕಾರ್ಯಕ್ರಮಕ್ಕಾಗಿ ಕಾಯುತ್ತಿದ್ದೇವೆ</div><p>There is no event or competition just now. The next one will be shown here with its dates and registration.<br><span class="kn">ಈಗ ಯಾವುದೇ ಕಾರ್ಯಕ್ರಮ ಅಥವಾ ಸ್ಪರ್ಧೆ ಇಲ್ಲ. ಮುಂದಿನದು ದಿನಾಂಕ ಮತ್ತು ನೋಂದಣಿಯೊಂದಿಗೆ ಇಲ್ಲೇ ಕಾಣುತ್ತದೆ.</span></p><button class="btn" onclick="show(\'results\')">See past results <span class="kn">ಹಿಂದಿನ ಫಲಿತಾಂಶ</span></button></div>';
+    var card=function(e){
+      return '<div class="card"><h2>'+esc(e.name)+(e.kn?' <span class="kn" style="font-size:16px">'+esc(e.kn)+'</span>':'')+'</h2>'+
+        '<div class="mut">'+esc(nice(e.from))+(e.to&&e.to!==e.from?' &ndash; '+esc(nice(e.to)):'')+' &middot; Open to: '+esc(e.openTo)+'</div>'+
+        (e.fnWhen?'<div><b>Function:</b> '+esc(e.fnWhen)+' <span class="kn">ಸಮಾರಂಭ</span></div>':'')+
+        (e.phase==='over'?'<span class="pill g">&#10003; Completed <span class="kn">ಮುಗಿದಿದೆ</span></span> <button class="btn alt" style="padding:3px 10px;font-size:13px" onclick="show(\'results\')">Results</button>':
+         e.phase==='soon'?'<span class="pill g">Registration opens on '+esc(nice(e.regFrom))+' <span class="kn">ನೋಂದಣಿ ಆರಂಭ</span></span>':
+         e.regOpen?'<span class="pill gr">Registration open'+(e.regTo?' till '+esc(nice(e.regTo)):'')+' <span class="kn">ನೋಂದಣಿ ತೆರೆದಿದೆ</span></span>':
+         '<span class="pill r">Registration closed <span class="kn">ನೋಂದಣಿ ಮುಗಿದಿದೆ</span></span>')+(e.consent?'<span class="pill g">Parent consent needed</span>':'')+
+        (e.notes?'<p>'+esc(e.notes)+'</p>':'')+
+        '<div class="items">'+e.items.map(function(i){return '<div class="it"><b>'+esc(i.name)+'</b>'+(i.kn?'<div class="kn mut">'+esc(i.kn)+'</div>':'')+
+          '<div class="mut">'+esc(i.when||'')+(i.venue?' &middot; '+esc(i.venue):'')+'</div><div>'+esc(i.openTo)+(i.team>1?' &middot; teams of '+i.team:'')+'</div>'+
+          '<div class="mut">Judging: '+i.criteria.map(function(c){return esc(c.n)+' '+c.max;}).join(', ')+' &middot; '+i.judges+' judge'+(i.judges>1?'s':'')+'</div>'+
+          (i.rules?'<details><summary>Rules <span class="kn">ನಿಯಮಗಳು</span></summary><div class="mut">'+esc(i.rules)+'</div></details>':'')+
+          (i.status==='Published'?'<span class="pill gr">Results out</span>':'')+'</div>';}).join('')+'</div>'+
+        (e.regOpen?'<button class="btn" onclick="pick(\''+esc(e.id)+'\')">Register <span class="kn">ನೋಂದಾಯಿಸಿ</span></button>':'')+'</div>';
+    };
+    var cur=evs.filter(function(e){return e.phase!=='over';}),past=evs.filter(function(e){return e.phase==='over';});
+    $('evList').innerHTML=(cur.length?cur.map(card).join(''):WAIT)+(past.length?'<h2 style="margin:26px 4px 8px">Past events <span class="kn" style="font-size:16px">ಹಿಂದಿನ ಕಾರ್ಯಕ್ರಮಗಳು</span></h2>'+past.map(card).join(''):'');
+    var open=evs.filter(function(e){return e.regOpen;});
+    $('rEvent').innerHTML=open.length?open.map(function(e){return '<option value="'+esc(e.id)+'">'+esc(e.name)+'</option>';}).join(''):'<option value="">No event is taking registrations now / ಈಗ ನೋಂದಣಿ ಇಲ್ಲ</option>';
+    $('rGo').style.display=open.length?'':'none';
+    fillItems();
+  }).catch(function(e){$('evList').innerHTML='<div class="msg err" style="display:block">'+esc(e.message)+'</div>';});
+}
+function pick(id){$('rEvent').value=id;fillItems();show('register');}
+function typ(){var r=document.querySelector('input[name=typ]:checked');return r?r.value:'Student';}
+function curEv(){return DATA?(DATA.events||[]).filter(function(e){return e.id===$('rEvent').value;})[0]:null;}
+function fillItems(){
+  var e=curEv(),t=typ();
+  var isP=t==='Parent';
+  $('lLib').innerHTML=isP?'Child&#8217;s Lib ID <span class="kn">ಮಗುವಿನ ಲೈಬ್ರರಿ ಐಡಿ</span>':'Lib ID <span class="kn">ಲೈಬ್ರರಿ ಐಡಿ</span>';
+  $('lName').innerHTML=isP?'Child&#8217;s name (as on the card) <span class="kn">ಮಗುವಿನ ಹೆಸರು</span>':'Your name (as on the card) <span class="kn">ನಿಮ್ಮ ಹೆಸರು</span>';
+  var needParent=isP||(e&&e.consent&&t==='Student');
+  $('parentBox').style.display=needParent?'block':'none';
+  $('consentBox').style.display=(e&&e.consent&&t!=='Staff')?'block':'none';
+  if(!e){$('rItems').innerHTML='Choose the event first.';return;}
+  var list=e.items.filter(function(i){return i.status==='Open'&&i.openTo.indexOf(t)>=0;});
+  $('rItems').innerHTML=list.length?list.map(function(i){return '<label class="chk"><input type="checkbox" class="ri" value="'+esc(i.id)+'" data-team="'+i.team+'"><span><b>'+esc(i.name)+'</b> '+(i.kn?'<span class="kn">'+esc(i.kn)+'</span> ':'')+'<span class="mut">'+esc(i.when||'')+(i.team>1?' &middot; team of '+i.team:'')+'</span></span></label>';}).join(''):'<span class="mut">No competition open for this group.</span>';
+  document.querySelectorAll('.ri').forEach(function(c){c.onchange=teamShow;});teamShow();
+}
+function teamShow(){var any=false;document.querySelectorAll('.ri:checked').forEach(function(c){if(+c.getAttribute('data-team')>1)any=true;});$('teamBox').style.display=any?'block':'none';}
+$('rEvent').onchange=fillItems;
+document.querySelectorAll('input[name=typ]').forEach(function(r){r.onchange=fillItems;});
+$('rGo').onclick=function(){
+  var ids=[];document.querySelectorAll('.ri:checked').forEach(function(c){ids.push(c.value);});
+  var t=typ(),m=$('rMsg');m.className='msg';
+  var p={eventId:$('rEvent').value,itemIds:ids,type:t,libId:$('rLib').value,name:$('rName').value,childName:$('rName').value,team:$('rTeam').value,
+    parent:$('rParent').value,relation:$('rRel').value,phone:$('rPhone').value,consent:$('rConsent').checked,agree:$('rAgree').checked};
+  $('rGo').disabled=true;
+  call('evRegister',[p]).then(function(r){
+    m.className='msg ok';
+    m.innerHTML='<b>Registered! ನೋಂದಣಿ ಆಯಿತು!</b> '+esc(r.name)+'<br>'+r.entries.map(function(x){return esc(x.item)+': Chest No <b>'+esc(x.chest)+'</b>';}).join('<br>')+
+      (r.mailed?'<br><span class="mut">A note was also sent to the e-mail in the library record. <span class="kn">ಗ್ರಂಥಾಲಯದ ದಾಖಲೆಯ ಇ-ಮೇಲ್‌ಗೆ ಸಂದೇಶ ಕಳುಹಿಸಲಾಗಿದೆ.</span></span>':'')+
+      '<br><span class="mut">Please note your Chest No and come on time. Take a screenshot of this. <span class="kn">ನಿಮ್ಮ ಚೆಸ್ಟ್ ನಂಬರ್ ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ.</span></span>';
+    document.querySelectorAll('.ri:checked').forEach(function(c){c.checked=false;});$('rAgree').checked=false;
+  }).catch(function(e){m.className='msg err';m.textContent=e.message;}).then(function(){$('rGo').disabled=false;});
+};
+
+var RES=null;
+function loadResults(){
+  if(RES)return;
+  call('evPublicResults',['']).then(function(evs){RES=evs;
+    if(!evs.length){$('resList').innerHTML='<div class="card">No results published yet. <span class="kn">ಇನ್ನೂ ಫಲಿತಾಂಶ ಪ್ರಕಟವಾಗಿಲ್ಲ.</span></div>';return;}
+    $('resList').innerHTML=evs.map(function(e){return '<div class="card"><h2>'+esc(e.name)+(e.kn?' <span class="kn" style="font-size:16px">'+esc(e.kn)+'</span>':'')+'</h2>'+
+      e.items.map(function(i){return '<h3 style="margin:14px 0 2px;color:var(--c1)">'+esc(i.name)+(i.kn?' <span class="kn mut" style="font-size:14px">'+esc(i.kn)+'</span>':'')+'</h3>'+
+        '<div class="mut">Judging: '+i.criteria.map(function(c){return esc(c.n)+' '+c.max;}).join(', ')+' = '+i.max+' &middot; '+i.judges+' judge'+(i.judges>1?'s':'')+' &middot; average of the judges &middot; tie: '+esc(i.tie)+'</div>'+
+        '<div class="scroll"><table><tr><th>Rank</th><th>Chest No</th><th>Name</th><th>Class</th><th>Each judge</th><th>Average</th><th>Prize</th></tr>'+
+        i.rows.map(function(r){return '<tr class="r'+esc(r.rank)+'"><td><b>'+esc(r.rank)+'</b></td><td>'+esc(r.chest)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.cls)+'</td><td>'+esc(r.judgeTotals)+'</td><td><b>'+r.avg+'</b></td><td>'+esc(r.prize)+'</td></tr>';}).join('')+
+        '</table></div><div class="mut" style="margin-top:4px">Published '+esc(i.resultsOn)+' &middot; Proof code <span class="proof">'+esc(i.proof)+'</span> &middot; <a href="#" onclick="details(\''+esc(i.id)+'\',this);return false">See every judge&#8217;s marks <span class="kn">ಎಲ್ಲಾ ಅಂಕಗಳು</span></a><div></div></div>';}).join('')+'</div>';}).join('');
+  }).catch(function(e){$('resList').innerHTML='<div class="msg err" style="display:block">'+esc(e.message)+'</div>';});
+}
+function details(id,a){
+  var box=a.nextElementSibling;box.innerHTML='Loading...';
+  call('evPublicScoreDetails',[id]).then(function(d){
+    var js=d.judges.map(function(j){return j.no;});
+    box.innerHTML='<div class="scroll"><table><tr><th>Chest No</th><th>Name</th><th>Judge</th>'+d.criteria.map(function(c){return '<th>'+esc(c.n)+' /'+c.max+'</th>';}).join('')+'<th>Total</th></tr>'+
+      d.scores.sort(function(a,b){return a.chest<b.chest?-1:a.chest>b.chest?1:a.judge-b.judge;}).map(function(s){var j=d.judges.filter(function(x){return x.no===s.judge;})[0]||{};
+        return '<tr><td>'+esc(s.chest)+'</td><td>'+esc(s.name)+'</td><td>'+esc(j.name||('Judge '+s.judge))+'</td>'+s.marks.map(function(m){return '<td>'+m+'</td>';}).join('')+'<td><b>'+s.total+'</b></td></tr>';}).join('')+
+      '</table></div><div class="mut">Each judge submitted on: '+d.judges.map(function(j){return esc(j.name)+' '+esc(j.submitted);}).join('; ')+'</div>';
+  }).catch(function(e){box.textContent=e.message;});
+}
+loadEvents();
+if(location.hash){var h=location.hash.slice(1);if(['events','register','results'].indexOf(h)>=0)show(h);}
+</script>
+</body>
+</html>

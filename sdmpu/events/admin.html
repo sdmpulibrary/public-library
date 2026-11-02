@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Events Admin - S.D.M. P.U. College Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0f5c63;--c2:#07363b;--acc:#d4a017;--bg:#fbf8ef;--line:#e4d9bd;--mut:#6b6255}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Source Sans 3','Noto Sans Kannada',sans-serif;background:var(--bg);color:#1d1a14;font-size:15px}
+.kn{font-family:'Noto Sans Kannada',sans-serif}
+header{background:linear-gradient(150deg,var(--c1),var(--c2));color:#fff;padding:12px 16px;border-bottom:5px solid var(--acc);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header b{font-size:19px}
+main{max-width:1150px;margin:auto;padding:10px 16px 50px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+h2{margin:4px 0 8px;color:var(--c1);font-size:19px}
+h3{margin:4px 0;color:var(--c1)}
+label{font-weight:700;display:block;margin:8px 0 3px;font-size:14px}
+input,select,textarea{font:inherit;padding:7px 8px;border:1px solid #cfc3a5;border-radius:7px;width:100%;background:#fff}
+input[type=checkbox]{width:auto}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 12px}
+.btn{background:var(--c1);color:#fff;border:0;border-radius:99px;padding:8px 15px;font:inherit;font-weight:700;cursor:pointer;margin:4px 4px 0 0;white-space:nowrap}
+.btn.alt{background:#fff;color:var(--c1);border:1.5px solid var(--c1)}
+.btn.red{background:#b3261e}.btn.gr{background:#2e7d32}.btn.sm{padding:5px 10px;font-size:13px}
+.btn:disabled{opacity:.45}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--c1);color:#fff;text-align:left;padding:6px;font-size:13px}
+td{border-bottom:1px solid var(--line);padding:6px;vertical-align:top}
+.scroll{overflow-x:auto}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:1px 8px;background:#eee;color:#333;margin:1px}
+.pill.Open{background:#e3f1e3;color:#1f5f1f}.pill.Judging{background:#fff3cd;color:#7a5a00}.pill.Results{background:#dbe8ff;color:#1c3d7a}.pill.Published{background:#2e7d32;color:#fff}.pill.Cancelled{background:#fdecea;color:#8a1c14}
+.ok{color:#2e7d32;font-weight:700}.no{color:#b3261e;font-weight:700}
+.msg{padding:9px 12px;border-radius:8px;margin:8px 0;display:none;white-space:pre-wrap}
+.msg.ok{display:block;background:#eaf6ea;border:1px solid #9bd09b;color:#1d1a14;font-weight:400}
+.msg.err{display:block;background:#fdecea;border:1px solid #e7a19b;color:#8a1c14;font-weight:400}
+.mut{color:var(--mut);font-size:13px}
+.hide{display:none}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:7px 14px;font:inherit;font-weight:700;color:var(--c1);cursor:pointer}
+.tabs button.on{background:var(--c1);color:#fff}
+code{background:#f1efe8;padding:1px 5px;border-radius:5px;font-size:15px;letter-spacing:.1em}
+</style>
+</head>
+<body>
+<header><div><b>Events &amp; Competitions &ndash; Admin</b> <span class="kn">ಕಾರ್ಯಕ್ರಮ ನಿರ್ವಹಣೆ</span><br><span style="font-size:13px;opacity:.85">S.D.M. P.U. College, Honnavar &middot; staff only</span></div>
+<div><a href="./" style="color:#ffd77a">Public page</a> &middot; <a href="judge.html" style="color:#ffd77a">Judge page</a> <button class="btn alt sm hide" id="logout" style="background:#fff">Log out</button></div></header>
+<main>
+<div class="card" id="loginBox">
+  <h2>Staff password <span class="kn" style="font-size:15px">ಸಿಬ್ಬಂದಿ ಪಾಸ್‌ವರ್ಡ್</span></h2>
+  <input type="password" id="pw" style="max-width:260px"> <button class="btn" id="login">Log in</button>
+  <div class="msg" id="lmsg"></div>
+</div>
+
+<div id="app" class="hide">
+  <div class="card">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end">
+      <div style="flex:1;min-width:240px"><label>Event <span class="kn">ಕಾರ್ಯಕ್ರಮ</span></label><select id="evSel"></select></div>
+      <button class="btn alt" id="newEv">+ New event <span class="kn">ಹೊಸ ಕಾರ್ಯಕ್ರಮ</span></button>
+      <button class="btn alt" id="seed">Make Library Week 2026 (ready list)</button>
+      <button class="btn alt" id="reload">&#x21bb; Refresh</button>
+    </div>
+    <div class="msg" id="gmsg"></div>
+    <div class="tabs">
+      <button data-t="comp" class="on">Competitions &amp; judges</button>
+      <button data-t="event">Event details</button>
+      <button data-t="paper">Add paper entries <span class="kn">ಕಾಗದದ ನೋಂದಣಿ</span></button>
+      <button data-t="entries">Entries <span class="kn">ನೋಂದಣಿಗಳು</span></button>
+    </div>
+  </div>
+
+  <div class="card t" id="t-event">
+    <h2 id="evTitle">Event details</h2>
+    <div class="g">
+      <div><label>Event name</label><input id="eName"></div>
+      <div><label>Kannada name</label><input id="eKn" class="kn"></div>
+      <div><label>Event from <span class="kn">ಆರಂಭ</span></label><input id="eFrom" type="date"></div>
+      <div><label>Event to <span class="kn">ಮುಕ್ತಾಯ</span></label><input id="eTo" type="date"></div>
+      <div><label>Function date / time (shown) <span class="kn">ಸಮಾರಂಭದ ದಿನಾಂಕ</span></label><input id="eFn" placeholder="e.g. 14 Nov 2026, 10:30 AM, College Hall"></div>
+      <div><label>Registration opens <span class="kn">ನೋಂದಣಿ ಆರಂಭ</span></label><input id="eRF" type="date"></div>
+      <div><label>Registration closes <span class="kn">ನೋಂದಣಿ ಕೊನೆ</span></label><input id="eRT" type="date"></div>
+      <div><label>After the event ends <span class="kn">ಮುಗಿದ ನಂತರ</span></label><select id="eKeep"><option value="keep">Keep on the website as a past event</option><option value="hide">Hide from the website (results stay)</option></select></div>
+      <div><label>Status</label><select id="eStatus"><option>Draft</option><option>Open</option><option>Closed</option><option>Results Published</option></select></div>
+    </div>
+    <label>Open to</label>
+    <label style="display:inline;font-weight:400"><input type="checkbox" class="eOT" value="Student"> Students</label> &nbsp;
+    <label style="display:inline;font-weight:400"><input type="checkbox" class="eOT" value="Staff"> Teachers / staff</label> &nbsp;
+    <label style="display:inline;font-weight:400"><input type="checkbox" class="eOT" value="Parent"> Parents</label>
+    <div style="margin-top:8px"><label style="display:inline;font-weight:400"><input type="checkbox" id="eReg"> Registration open on the website</label> &nbsp;
+    <label style="display:inline;font-weight:400"><input type="checkbox" id="eCons"> Parent consent needed (students under 18; first names only on the website)</label> &nbsp;
+    <label style="display:inline;font-weight:400"><input type="checkbox" id="eMail"> E-mail a note to the member after online registration (only if an e-mail is in the member record; never needed to register)</label></div>
+    <label>Notes shown on the website</label><textarea id="eNotes" rows="2"></textarea>
+    <button class="btn" id="saveEv">Save event</button>
+    <p class="mut">Draft = not on the website. Open = on the website; people can register between the opening and closing dates (empty = any day). Closed = shown, no new registrations. After the &ldquo;Event to&rdquo; day: <b>Keep</b> shows it under &ldquo;Past events&rdquo; with its competitions (good for UGC / NAAC visits); <b>Hide</b> removes it. Published results always stay. Paper entries can be added by staff any time.<br><span class="kn">ಮುಕ್ತಾಯದ ನಂತರ: Keep = "ಹಿಂದಿನ ಕಾರ್ಯಕ್ರಮಗಳು" ಅಡಿ ಕಾಣುತ್ತದೆ (ಯುಜಿಸಿ / ನ್ಯಾಕ್ ಭೇಟಿಗೆ ಉಪಯುಕ್ತ); Hide = ಮರೆಯಾಗುತ್ತದೆ. ಫಲಿತಾಂಶ ಯಾವಾಗಲೂ ಉಳಿಯುತ್ತದೆ.</span></p>
+  </div>
+
+  <div class="card t" id="t-comp">
+    <h2>Competitions &amp; judges <span class="kn" style="font-size:15px">ಸ್ಪರ್ಧೆಗಳು ಮತ್ತು ತೀರ್ಪುಗಾರರು</span></h2>
+    <div class="scroll"><table id="itTbl"></table></div>
+    <button class="btn" id="addIt">+ Add competition</button>
+    <button class="btn alt" id="pinSlips">Print judge PIN slips</button>
+    <div class="card hide" id="itForm" style="background:#fffdf6">
+      <h3 id="itTitle">Competition</h3>
+      <div class="g">
+        <div><label>Competition name</label><input id="iName"></div>
+        <div><label>Kannada name</label><input id="iKn" class="kn"></div>
+        <div><label>Date / time</label><input id="iWhen" placeholder="Mon 16 Nov 2:30 PM"></div>
+        <div><label>Venue</label><input id="iVenue"></div>
+        <div><label>Team size (1 = single)</label><input id="iTeam" type="number" min="1" max="10" value="1"></div>
+        <div><label>Number of judges</label><input id="iJudges" type="number" min="1" max="5" value="3"></div>
+        <div><label>Status</label><select id="iStatus"><option>Open</option><option>Judging</option><option>Cancelled</option></select></div>
+      </div>
+      <label>Open to</label>
+      <label style="display:inline;font-weight:400"><input type="checkbox" class="iOT" value="Student"> Students</label> &nbsp;
+      <label style="display:inline;font-weight:400"><input type="checkbox" class="iOT" value="Staff"> Staff</label> &nbsp;
+      <label style="display:inline;font-weight:400"><input type="checkbox" class="iOT" value="Parent"> Parents</label>
+      <label>Judging points and maximum marks (one per line, Name:marks) <span class="kn">ತೀರ್ಪಿನ ಅಂಶಗಳು</span></label>
+      <textarea id="iCrit" rows="4" placeholder="Content:40&#10;Delivery:30&#10;Language:20&#10;Time:10"></textarea>
+      <label>Judges&#8217; names (one per line)</label><textarea id="iJN" rows="3"></textarea>
+      <label>Tie rule</label><input id="iTie" value="Points in order">
+      <label>Rules (shown on the website)</label><textarea id="iRules" rows="3"></textarea>
+      <button class="btn" id="saveIt">Save competition</button> <button class="btn alt" id="cancelIt">Close</button>
+    </div>
+  </div>
+
+  <div class="card t hide" id="t-paper">
+    <h2>Add paper entries <span class="kn" style="font-size:15px">ಕಾಗದದ ಫಾರಂ ನೋಂದಣಿ</span></h2>
+    <p class="mut">Type the rows from the class registration forms. With a Lib ID the name and class come from the register. P.U.: tick Consent only when the signed slip is in the file.</p>
+    <div class="scroll"><table id="pTbl"></table></div>
+    <button class="btn alt" id="pMore">+ 10 more rows</button> <button class="btn" id="pSave">Save these entries</button>
+    <div class="msg" id="pmsg"></div>
+  </div>
+
+  <div class="card t hide" id="t-entries">
+    <h2>Entries <span class="kn" style="font-size:15px">ನೋಂದಣಿಗಳು</span></h2>
+    <select id="enItem" style="max-width:420px"></select> <button class="btn alt sm" id="enPrint">Print attendance list</button>
+    <div class="scroll"><table id="enTbl"></table></div>
+  </div>
+</div>
+</main>
+
+<script>
+var API='https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function call(fn,args){return fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:fn,args:args||[]})})
+  .then(function(r){return r.json();}).then(function(j){if(j&&j.ok)return j.result;throw new Error((j&&j.error)||'Server error');})
+  .catch(function(e){var s=String(e.message||e);if(/log in again/i.test(s)){try{sessionStorage.removeItem('evkey');}catch(x){}}throw new Error(/fetch|network|load failed/i.test(s)?'No connection. Please check your internet and try again.':s);});}
+function msg(id,ok,t){var m=$(id);m.className='msg '+(ok?'ok':'err');m.textContent=t;}
+var KEY='',D=null,CUR='';
+function login(){
+  call('evStaffLogin',[$('pw').value]).then(function(k){KEY=k;try{sessionStorage.setItem('evkey',k);}catch(e){}start();}).catch(function(e){msg('lmsg',false,e.message);});
+}
+$('login').onclick=login;$('pw').onkeydown=function(e){if(e.key==='Enter')login();};
+$('logout').onclick=function(){try{sessionStorage.removeItem('evkey');}catch(e){}location.reload();};
+function start(){$('loginBox').classList.add('hide');$('app').classList.remove('hide');$('logout').classList.remove('hide');refresh();}
+function refresh(){
+  return call('evAdminData',[KEY]).then(function(d){D=d;
+    var evs=d.events;
+    $('evSel').innerHTML=evs.length?evs.map(function(e){return '<option value="'+esc(e.id)+'">'+esc(e.name)+' ('+esc(e.status)+' &middot; '+({draft:'not on website',soon:'registration not yet open',open:'registration open',closed:'registration closed',over:(e.keep===false?'finished, hidden':'finished, shown as past event')}[e.phase]||'')+')</option>';}).join(''):'<option value="">No event yet: press New event or Make Library Week 2026</option>';
+    if(CUR&&evs.some(function(e){return e.id===CUR;}))$('evSel').value=CUR;CUR=$('evSel').value;
+    drawEvent();drawItems();drawPaper();drawEntriesSel();
+  }).catch(function(e){if(/log in again/i.test(e.message)){$('app').classList.add('hide');$('loginBox').classList.remove('hide');}msg('gmsg',false,e.message);});
+}
+$('reload').onclick=refresh;
+$('evSel').onchange=function(){CUR=this.value;drawEvent();drawItems();drawPaper();drawEntriesSel();};
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){tab(b.getAttribute('data-t'));};});
+function tab(t){document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-t')===t);});
+  document.querySelectorAll('.t').forEach(function(s){s.classList.toggle('hide',s.id!=='t-'+t);});if(t==='entries')loadEntries();}
+function ev(){return D?D.events.filter(function(e){return e.id===CUR;})[0]:null;}
+function items(){return D?D.items.filter(function(i){return i.eventId===CUR;}):[];}
+
+// ---- event
+var NEWEV=false;
+function drawEvent(){var e=NEWEV?null:ev();
+  $('evTitle').textContent=e?'Event details: '+e.name:'New event';
+  $('eName').value=e?e.name:'';$('eKn').value=e?e.kn:'';$('eFrom').value=e?e.from:'';$('eTo').value=e?e.to:'';$('eStatus').value=e?e.status:'Draft';$('eFn').value=e?e.fnWhen||'':'';$('eRF').value=e?e.regFrom||'':'';$('eRT').value=e?e.regTo||'':'';$('eMail').checked=e?e.mail!==false:true;$('eKeep').value=e&&e.keep===false?'hide':'keep';
+  document.querySelectorAll('.eOT').forEach(function(c){c.checked=e?e.openTo.indexOf(c.value)>=0:true;});
+  $('eReg').checked=e?e.regOpen:true;$('eCons').checked=e?e.consent:(D&&D.info.consentDefault==='Yes');$('eNotes').value=e?e.notes:'';}
+$('newEv').onclick=function(){NEWEV=true;drawEvent();tab('event');};
+$('saveEv').onclick=function(){
+  var ot=[];document.querySelectorAll('.eOT:checked').forEach(function(c){ot.push(c.value);});
+  var e=NEWEV?null:ev();
+  call('evAdminSaveEvent',[KEY,{id:e?e.id:'',name:$('eName').value,kn:$('eKn').value,from:$('eFrom').value,to:$('eTo').value,status:$('eStatus').value,openTo:ot.join(', '),regOpen:$('eReg').checked,consent:$('eCons').checked,notes:$('eNotes').value,fnWhen:$('eFn').value,regFrom:$('eRF').value,regTo:$('eRT').value,mail:$('eMail').checked,keep:$('eKeep').value!=='hide'}])
+   .then(function(r){NEWEV=false;CUR=r.id;msg('gmsg',true,'Event saved ('+r.id+').');refresh();tab('comp');}).catch(function(x){msg('gmsg',false,x.message);});
+};
+$('seed').onclick=function(){if(!confirm('Make the event "Library Week 2026" with its competitions?'))return;
+  call('evAdminSeedLibraryWeek',[KEY]).then(function(r){CUR=r.id;msg('gmsg',true,'Library Week 2026 is ready. Check each competition: judges’ names, times. Judge PINs are made.');refresh();}).catch(function(x){msg('gmsg',false,x.message);});};
+
+// ---- competitions
+function drawItems(){
+  var L=items();
+  $('itTbl').innerHTML='<tr><th>Competition</th><th>Open to</th><th>Entries</th><th>Judges: PIN and marks</th><th>Status</th><th>Do</th></tr>'+(L.length?L.map(function(i){
+    var all=i.judgeList.length>=i.judges&&i.judgeList.every(function(j){return j.submitted;});
+    return '<tr><td><b>'+esc(i.name)+'</b><div class="kn mut">'+esc(i.kn)+'</div><div class="mut">'+esc(i.when)+' &middot; '+esc(i.critText)+' = '+i.max+'</div>'+(i.proof?'<div class="mut">Proof code <b>'+esc(i.proof)+'</b></div>':'')+'</td>'+
+      '<td>'+esc(i.openTo)+(i.team>1?'<div class="mut">teams of '+i.team+'</div>':'')+'</td><td><b>'+i.entries+'</b></td><td>'+
+      i.judgeList.map(function(j){return '<div>'+esc(j.name)+' &middot; PIN <code>'+esc(j.pin)+'</code> '+(j.submitted?'<span class="ok">&#10003; '+esc(j.submitted)+'</span> '+(i.status!=='Published'?'<button class="btn red sm" onclick="unlock(\''+i.id+'\','+j.no+')">Unlock</button>':''):'<span class="no">waiting</span>')+(j.unlocked?'<div class="mut">unlocked '+esc(j.unlocked)+'</div>':'')+'</div>';}).join('')+'</td>'+
+      '<td><span class="pill '+esc(i.status.split(' ')[0])+'">'+esc(i.status)+'</span></td><td>'+
+      (i.status!=='Published'?'<button class="btn alt sm" onclick="editIt(\''+i.id+'\')">Edit</button>':'')+
+      '<button class="btn alt sm" onclick="showEntries(\''+i.id+'\')">Entries</button>'+
+      (i.status!=='Published'&&i.status!=='Cancelled'?'<button class="btn sm" '+(all?'':'disabled title="Waiting for every judge to submit"')+' onclick="compute(\''+i.id+'\')">Work out results</button>':'')+
+      (i.status==='Results Ready'?'<button class="btn gr sm" onclick="publish(\''+i.id+'\')">Publish</button>':'')+
+      (i.status==='Results Ready'||i.status==='Published'?'<button class="btn alt sm" onclick="sheet(\''+i.id+'\')">Result Sheet</button><button class="btn alt sm" onclick="certs(\''+i.id+'\',\'merit\')">Merit certificates</button>':'')+
+      '<button class="btn alt sm" onclick="markSheet(\''+i.id+'\')">Paper mark sheet</button>'+
+      '<button class="btn alt sm" onclick="certs(\''+i.id+'\',\'part\')">Participation certificates</button></td></tr>';
+  }).join(''):'<tr><td colspan="6" class="mut">No competition yet.</td></tr>');
+}
+var EDIT='';
+function itById(id){return D.items.filter(function(i){return i.id===id;})[0];}
+function editIt(id){EDIT=id||'';var i=id?itById(id):null;$('itForm').classList.remove('hide');$('itTitle').textContent=i?'Edit: '+i.name:'New competition';
+  $('iName').value=i?i.name:'';$('iKn').value=i?i.kn:'';$('iWhen').value=i?i.when:'';$('iVenue').value=i?i.venue:'Library';$('iTeam').value=i?i.team:1;$('iJudges').value=i?i.judges:3;
+  $('iStatus').value=i&&['Open','Judging','Cancelled'].indexOf(i.status)>=0?i.status:'Open';
+  document.querySelectorAll('.iOT').forEach(function(c){c.checked=i?i.openTo.indexOf(c.value)>=0:c.value==='Student';});
+  $('iCrit').value=i?i.critText.split('; ').join('\n'):'';$('iJN').value=i?i.judgeList.map(function(j){return j.name;}).join('\n'):'';$('iTie').value=i?i.tie:'Points in order';$('iRules').value=i?i.rules:'';
+  $('itForm').scrollIntoView({behavior:'smooth'});}
+$('addIt').onclick=function(){if(!CUR){msg('gmsg',false,'Make or choose an event first.');return;}editIt('');};
+$('cancelIt').onclick=function(){$('itForm').classList.add('hide');};
+$('saveIt').onclick=function(){var ot=[];document.querySelectorAll('.iOT:checked').forEach(function(c){ot.push(c.value);});
+  call('evAdminSaveItem',[KEY,{id:EDIT,eventId:CUR,name:$('iName').value,kn:$('iKn').value,when:$('iWhen').value,venue:$('iVenue').value,team:$('iTeam').value,judges:$('iJudges').value,status:$('iStatus').value,
+    openTo:ot.join(', '),criteria:$('iCrit').value.split('\n').join('; '),judgeNames:$('iJN').value.split('\n').map(function(s){return s.trim();}).filter(String),tie:$('iTie').value,rules:$('iRules').value}])
+   .then(function(){$('itForm').classList.add('hide');msg('gmsg',true,'Competition saved.');refresh();}).catch(function(x){msg('gmsg',false,x.message);});};
+function unlock(id,no){var r=prompt('Why unlock Judge '+no+'’s marks? (kept in the proof log)');if(!r)return;
+  call('evAdminUnlockJudge',[KEY,id,no,r]).then(function(){msg('gmsg',true,'Unlocked. The judge can change marks and must Submit final again.');refresh();}).catch(function(x){msg('gmsg',false,x.message);});}
+function compute(id){call('evAdminCompute',[KEY,id]).then(function(r){msg('gmsg',true,'Results worked out for '+r.rows+' entries. Proof code '+r.proof+'. Print the Result Sheet, get it signed, then Publish.');refresh();}).catch(function(x){msg('gmsg',false,x.message);});}
+function publish(id){if(!confirm('Publish this result on the website? After this nothing in this competition can be changed.'))return;
+  var nb=confirm('Also put a line on the website Notice Board?'),rc=confirm('Also add 1st, 2nd and 3rd to Recognitions on the website?');
+  call('evAdminPublish',[KEY,id,{notice:nb,recognitions:rc}]).then(function(){msg('gmsg',true,'Published.');refresh();}).catch(function(x){msg('gmsg',false,x.message);});}
+
+// ---- paper entries
+var PROWS=10;
+function drawPaper(){
+  var opts=items().filter(function(i){return i.status!=='Published'&&i.status!=='Cancelled';}).map(function(i){return '<option value="'+esc(i.id)+'">'+esc(i.name)+'</option>';}).join('');
+  var h='<tr><th>#</th><th>Competition</th><th>Type</th><th>Lib ID</th><th>Name</th><th>Class</th><th>Team members</th><th>Parent / guardian</th><th>Consent slip</th></tr>';
+  for(var r=0;r<PROWS;r++)h+='<tr class="pr"><td>'+(r+1)+'</td><td><select>'+opts+'</select></td><td><select><option>Student</option><option>Staff</option><option>Parent</option></select></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input type="checkbox"></td></tr>';
+  $('pTbl').innerHTML=h;}
+$('pMore').onclick=function(){PROWS+=10;drawPaper();};
+$('pSave').onclick=function(){var rows=[];
+  document.querySelectorAll('#pTbl tr.pr').forEach(function(tr){var s=tr.querySelectorAll('select'),i=tr.querySelectorAll('input');
+    if(!i[0].value.trim()&&!i[1].value.trim())return;
+    rows.push({itemId:s[0].value,type:s[1].value,libId:i[0].value,name:i[1].value,cls:i[2].value,team:i[3].value,parent:i[4].value,consent:i[5].checked});});
+  if(!rows.length){msg('pmsg',false,'Nothing typed.');return;}
+  call('evAdminAddEntries',[KEY,CUR,rows]).then(function(r){msg('pmsg',!r.problems.length,'Added '+r.added.length+' entries: '+r.added.map(function(a){return a.chest+' '+a.name;}).join(', ')+(r.problems.length?'\nNot added:\n'+r.problems.join('\n'):''));
+    if(!r.problems.length)drawPaper();refresh();}).catch(function(x){msg('pmsg',false,x.message);});};
+
+// ---- entries
+function drawEntriesSel(){$('enItem').innerHTML=items().map(function(i){return '<option value="'+esc(i.id)+'">'+esc(i.name)+' ('+i.entries+')</option>';}).join('');}
+function showEntries(id){tab('entries');$('enItem').value=id;loadEntries();}
+$('enItem').onchange=loadEntries;
+var ENT=null;
+function loadEntries(){var id=$('enItem').value;if(!id){$('enTbl').innerHTML='';return;}
+  $('enTbl').innerHTML='<tr><td>Loading...</td></tr>';
+  call('evAdminEntries',[KEY,id]).then(function(d){ENT=d;
+    $('enTbl').innerHTML='<tr><th>Chest No</th><th>Type</th><th>Lib ID</th><th>Name</th><th>Class</th><th>Team</th><th>Parent</th><th>Phone</th><th>Consent</th><th>From</th><th>Registered</th><th>Status</th></tr>'+
+    d.entries.map(function(e){return '<tr><td><b>'+esc(e.chest)+'</b></td><td>'+esc(e.type)+'</td><td>'+esc(e.libId)+'</td><td>'+esc(e.name)+'</td><td>'+esc(e.cls)+'</td><td>'+esc(e.team)+'</td><td>'+esc(e.parent)+(e.relation?' ('+esc(e.relation)+')':'')+'</td><td>'+esc(e.phone)+'</td><td class="'+(/^NO/.test(e.consent)?'no':'')+'">'+esc(e.consent)+'</td><td>'+esc(e.source)+'</td><td>'+esc(e.on)+'</td><td>'+
+      (d.item.status==='Published'?esc(e.status):'<select onchange="setEn(\''+e.id+'\',this.value)">'+['Registered','Present','Absent','Withdrawn'].map(function(s){return '<option'+(s===e.status?' selected':'')+'>'+s+'</option>';}).join('')+'</select>')+'</td></tr>';}).join('');
+  }).catch(function(x){$('enTbl').innerHTML='<tr><td class="no">'+esc(x.message)+'</td></tr>';});}
+function setEn(id,st){var r=st==='Withdrawn'?prompt('Reason (kept in the proof log)'):'';if(st==='Withdrawn'&&!r){loadEntries();return;}
+  call('evAdminSetEntry',[KEY,id,st,r||'']).then(function(){refresh();}).catch(function(x){alert(x.message);loadEntries();});}
+
+// ---- printing
+function head(t,land){return '<!doctype html><html><head><meta charset="utf-8"><title>'+esc(t)+'</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700&family=Source+Sans+3:wght@400;700;800&family=Fraunces:wght@700;800&display=swap" rel="stylesheet"><style>'+
+  '@page{size:A4 '+(land?'landscape':'portrait')+';margin:12mm}body{font-family:"Source Sans 3","Noto Sans Kannada",sans-serif;font-size:11pt;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}.kn{font-family:"Noto Sans Kannada"}'+
+  'table{width:100%;border-collapse:collapse;margin:6px 0}th,td{border:1px solid #555;padding:4px 6px;text-align:left;font-size:10pt}th{background:#eee}.hd{text-align:center;border-bottom:2px solid #0f5c63;padding-bottom:6px;margin-bottom:8px}'+
+  '.hd .c{font-weight:800;font-size:15pt;color:#0f5c63}.sig{display:flex;justify-content:space-between;margin-top:36px;gap:20px}.sig div{flex:1;border-top:1px solid #333;text-align:center;padding-top:3px;font-size:10pt}.mut{color:#555;font-size:9.5pt}'+
+  '</style></head><body>';}
+function hdr(info,t){return '<div class="hd"><div style="font-size:9pt;letter-spacing:.2em">M.P.E. SOCIETY&#8217;S</div><div class="c">'+esc(info.college)+'</div><div>'+esc(info.library)+'</div><div style="font-weight:800;margin-top:4px">'+t+'</div></div>';}
+function openPrint(html){var w=window.open('','_blank');if(!w){alert('Please allow pop-ups for this page to print.');return;}w.document.write(html);w.document.close();setTimeout(function(){w.focus();w.print();},900);}
+function sheet(id){call('evAdminResultSheet',[KEY,id]).then(function(d){
+  var it=d.item,c=it.criteria,js=d.judges,en={};d.entries.forEach(function(e){en[e.id]=e;});
+  var h=head('Result Sheet '+it.name,true)+hdr(d.info,'RESULT SHEET &middot; <span class="kn">ಫಲಿತಾಂಶ ಪಟ್ಟಿ</span>');
+  h+='<div><b>Event:</b> '+esc(d.event?d.event.name:'')+' &nbsp; <b>Competition:</b> '+esc(it.name)+' &nbsp; <b>When:</b> '+esc(it.when)+' &nbsp; <b>Judging points:</b> '+esc(it.critText)+' = '+it.max+' &nbsp; <b>Judges:</b> '+js.map(function(j){return esc(j.name);}).join(', ')+'</div>';
+  h+='<h3>1. Every judge&#8217;s marks</h3><table><tr><th>Chest No</th><th>Name</th><th>Class</th>'+js.map(function(j){return '<th colspan="'+(c.length+1)+'">'+esc(j.name)+'</th>';}).join('')+'</tr><tr><th></th><th></th><th></th>'+
+    js.map(function(){return c.map(function(x){return '<th>'+esc(x.n)+'<br>/'+x.max+'</th>';}).join('')+'<th>Total</th>';}).join('')+'</tr>';
+  d.entries.filter(function(e){return e.status!=='Withdrawn';}).sort(function(a,b){return a.chest<b.chest?-1:1;}).forEach(function(e){
+    h+='<tr><td>'+esc(e.chest)+'</td><td>'+esc(e.name)+'</td><td>'+esc(e.cls)+'</td>'+js.map(function(j){var s=d.scores.filter(function(x){return x.entry===e.id&&x.judge===j.no;})[0];
+      if(e.status==='Absent')return '<td colspan="'+(c.length+1)+'">Absent</td>';return s?s.marks.map(function(m){return '<td>'+m+'</td>';}).join('')+'<td><b>'+s.total+'</b></td>':'<td colspan="'+(c.length+1)+'">-</td>';}).join('')+'</tr>';});
+  h+='</table><h3>2. Result (average of the judges) <span class="kn">ಫಲಿತಾಂಶ</span></h3><table><tr><th>Rank</th><th>Chest No</th><th>Name</th><th>Class</th><th>Each judge</th><th>Average</th><th>Prize</th></tr>'+
+    d.results.sort(function(a,b){return a.rank-b.rank;}).map(function(r){return '<tr><td><b>'+r.rank+'</b></td><td>'+esc(r.chest)+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.cls)+'</td><td>'+esc(r.judgeTotals)+'</td><td><b>'+r.avg+'</b></td><td>'+esc(r.prize)+'</td></tr>';}).join('')+'</table>';
+  h+='<div class="mut">Tie rule: '+esc(it.tie)+' (higher total of the first judging point, then the next). Marks submitted: '+js.map(function(j){return esc(j.name)+' '+esc(j.submitted)+(j.unlocked?' (unlocked '+esc(j.unlocked)+': '+esc(j.reason)+')':'');}).join('; ')+'.<br>'+
+    '<b>Proof code '+esc(it.proof)+'</b> (made from every final mark; the same code is on the website). '+esc(d.logCheck)+'</div>';
+  h+='<h3>3. Proof log for this competition</h3><table><tr><th>Time</th><th>By</th><th>Action</th><th>Chain code</th></tr>'+d.log.map(function(l){return '<tr><td>'+esc(l.t)+'</td><td>'+esc(l.by)+'</td><td>'+esc(l.action)+'</td><td>'+esc(l.code)+'</td></tr>';}).join('')+'</table>';
+  h+='<div class="sig">'+js.map(function(j){return '<div>'+esc(j.name)+'<br>Judge</div>';}).join('')+'<div>'+esc(d.info.librarian)+'<br>Librarian (Convener)</div><div>'+esc(d.info.principal)+'<br>Principal</div></div></body></html>';
+  openPrint(h);}).catch(function(x){msg('gmsg',false,x.message);});}
+function certs(id,kind){call('evAdminResultSheet',[KEY,id]).then(function(d){
+  var it=d.item,info=d.info,list;
+  if(kind==='merit')list=d.results.filter(function(r){return r.rank<=3;}).map(function(r){return {name:r.name,cls:r.cls,prize:r.prize};});
+  else list=d.entries.filter(function(e){return e.status!=='Withdrawn'&&e.status!=='Absent';}).map(function(e){return {name:e.name,cls:e.cls};});
+  if(!list.length){msg('gmsg',false,'No names for these certificates yet.');return;}
+  var ev=d.event||{},yr=(ev.from||'').slice(0,4);
+  var h=head('Certificates '+it.name,true).replace('@page{size:A4 landscape;margin:12mm}','@page{size:A4 landscape;margin:0}')+'<style>html,body{margin:0!important;padding:0!important;background:#fff}.ct{width:297mm;height:209mm;padding:9mm;page-break-after:always;box-sizing:border-box;overflow:hidden}.ct:last-child{page-break-after:auto}.in{height:100%;box-sizing:border-box;border:2.5mm double #0f5c63;outline:.6mm solid #d4a017;outline-offset:-5mm;padding:12mm 18mm;text-align:center;display:flex;flex-direction:column;background:#fffdf6}.ttl{font-family:Fraunces,serif;font-weight:800;font-size:32pt;color:#0f5c63;margin-top:8mm}.nm{font-family:Fraunces,serif;font-size:24pt;font-weight:700;border-bottom:1px solid #333;display:inline-block;min-width:150mm;margin:4mm 0}.sg{margin-top:auto;display:flex;justify-content:space-between;gap:12mm}.sg div{flex:1;border-top:1px solid #333;padding-top:2mm;font-size:11pt}</style>';
+  list.forEach(function(p){h+='<div class="ct"><div class="in"><div style="font-size:9pt;letter-spacing:.2em">M.P.E. SOCIETY&#8217;S</div><div style="font-family:Fraunces;font-weight:800;font-size:18pt;color:#0f5c63">'+esc(info.college)+'</div><div style="color:#7a5a00;font-weight:700">'+esc(info.library)+'</div>'+
+    '<div class="ttl">'+(kind==='merit'?'CERTIFICATE OF MERIT':'CERTIFICATE OF PARTICIPATION')+'</div><div class="kn" style="font-size:15pt;font-weight:700;color:#7a5a00">'+(kind==='merit'?'ಪ್ರತಿಭಾ ಪ್ರಮಾಣಪತ್ರ':'ಭಾಗವಹಿಸುವಿಕೆ ಪ್ರಮಾಣಪತ್ರ')+'</div>'+
+    '<div style="font-size:13pt;margin-top:6mm">This is to certify that</div><div class="nm">'+esc(p.name)+'</div><div style="font-size:13pt">of <b>'+esc(p.cls||'-')+'</b> '+(kind==='merit'?'won the <b>'+esc(p.prize)+' prize</b> in':'took part in')+' <b>'+esc(it.name)+'</b><br>during <b>'+esc(ev.name||'')+'</b>'+(yr&&String(ev.name||'').indexOf(yr)<0?' ('+esc(yr)+')':'')+', organised by the college library.</div>'+
+    '<div class="kn" style="font-size:11pt;color:#555;margin-top:2mm">'+esc(ev.kn||'')+' &middot; '+esc(it.kn||'')+'</div>'+
+    '<div class="sg"><div>'+esc(info.librarian)+'<br>Librarian</div><div>'+esc(info.principal)+'<br>Principal</div><div>'+esc(info.president)+'<br>President, M.P.E. Society</div></div></div></div>';});
+  openPrint(h+'</body></html>');}).catch(function(x){msg('gmsg',false,x.message);});}
+$('pinSlips').onclick=function(){var L=items();if(!L.length)return;var site=location.href.replace(/admin\.html.*$/,'judge.html');
+  var h=head('Judge PIN slips',false)+'<style>.s{border:1px dashed #555;padding:8px 10px;margin:6px 0;page-break-inside:avoid}</style>'+hdr(D.info,'JUDGE PIN SLIPS (cut and give to each judge)');
+  L.forEach(function(i){i.judgeList.forEach(function(j){h+='<div class="s"><b>'+esc(i.name)+'</b> &middot; '+esc(i.when)+'<br>Judge: <b>'+esc(j.name)+'</b> &nbsp; PIN: <b style="font-size:15pt;letter-spacing:.15em">'+esc(j.pin)+'</b><br>Open on your phone: '+esc(site)+'<br><span class="kn">ಫೋನ್‌ನಲ್ಲಿ ಈ ಪುಟ ತೆರೆದು ಪಿನ್ ಹಾಕಿ, ಅಂಕ ನೀಡಿ, Submit final ಒತ್ತಿ.</span></div>';});});
+  openPrint(h+'</body></html>');};
+$('enPrint').onclick=function(){if(!ENT)return;var it=ENT.item;var h=head('Attendance '+it.name,false)+hdr(D.info,'ATTENDANCE &middot; '+esc(it.name))+'<table><tr><th>Chest No</th><th>Name</th><th>Class</th><th>Team</th><th>Signature</th></tr>'+
+  ENT.entries.filter(function(e){return e.status!=='Withdrawn';}).map(function(e){return '<tr><td>'+esc(e.chest)+'</td><td>'+esc(e.name)+'</td><td>'+esc(e.cls)+'</td><td>'+esc(e.team)+'</td><td style="height:24px"></td></tr>';}).join('')+'</table></body></html>';openPrint(h);};
+
+function markSheet(id){var it=itById(id);call('evAdminEntries',[KEY,id]).then(function(d){
+  var L=d.entries.filter(function(e){return e.status!=='Withdrawn';}),cr=it.criteria||[],js=it.judgeList.length?it.judgeList:[{no:1,name:'Judge 1'}];
+  var big=cr.length>4;var h=head('Mark sheet '+it.name,big)+'<style>.pg{page-break-after:always}.pg:last-child{page-break-after:auto}td.b{height:26px}</style>';
+  js.forEach(function(j){h+='<div class="pg">'+hdr(D.info,'JUDGE&#8217;S MARK SHEET &middot; <span class="kn">ತೀರ್ಪುಗಾರರ ಅಂಕ ಪಟ್ಟಿ</span>')+
+   '<p><b>'+esc(it.name)+'</b> <span class="kn">'+esc(it.kn||'')+'</span> &middot; '+esc(it.when||'')+' &middot; Maximum '+it.max+'<br>Judge '+j.no+': <b>'+esc(j.name)+'</b> &nbsp; PIN ________ (type these marks on the judge page with your PIN)</p>'+
+   '<table><tr><th>Chest No</th><th>Name / Class</th>'+cr.map(function(c){return '<th>'+esc(c.n)+'<br>/'+c.max+'</th>';}).join('')+'<th>Total<br>/'+it.max+'</th><th>Remark</th></tr>'+
+   L.map(function(e){return '<tr><td><b>'+esc(e.chest)+'</b></td><td>'+esc(e.name)+'<div class="mut">'+esc(e.cls)+'</div></td>'+cr.map(function(){return '<td class="b"></td>';}).join('')+'<td></td><td></td></tr>';}).join('')+
+   [1,2,3].map(function(){return '<tr><td class="b"></td><td></td>'+cr.map(function(){return '<td></td>';}).join('')+'<td></td><td></td></tr>';}).join('')+'</table>'+
+   '<p class="mut">Write marks in ink. If you change a mark, strike it once and sign next to it. Keep this sheet with the library as proof. <span class="kn">ಶಾಯಿಯಲ್ಲಿ ಬರೆಯಿರಿ. ಬದಲಿಸಿದರೆ ಒಂದು ಗೆರೆ ಎಳೆದು ಸಹಿ ಮಾಡಿ.</span></p>'+
+   '<div class="sig"><div>Judge&#8217;s signature and date</div><div>Typed on the judge page by (name, sign)</div></div></div>';});
+  openPrint(h+'</body></html>');}).catch(function(x){msg('gmsg',false,x.message);});}
+try{var k=sessionStorage.getItem('evkey');if(k){KEY=k;start();}}catch(e){}
+</script>
+</body>
+</html>
