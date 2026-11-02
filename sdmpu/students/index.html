@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Student Details - S.D.M. P.U. College Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700&family=Source+Sans+3:wght@400;600;700;800&family=Fraunces:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0f5c63;--c2:#07363b;--gold:#d4a017;--bg:#faf7ef;--ink:#1a1a1a;--mut:#5d5d5d;--line:#e2dccb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3","Noto Sans Kannada",sans-serif;font-size:15px}
+.kn{font-family:"Noto Sans Kannada","Source Sans 3",sans-serif}
+header{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;padding:12px 16px;border-bottom:4px solid var(--gold);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header b{font-size:19px}header small{display:block;opacity:.85}
+main{max-width:1100px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+label{display:block;font-weight:700;margin:8px 0 4px}input,select,textarea{width:100%;padding:8px 10px;border:1px solid #cfc6ad;border-radius:8px;font:inherit}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.btn{background:var(--c1);color:#fff;border:0;border-radius:999px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;margin:8px 6px 0 0}.btn.alt{background:#fff;color:var(--c1);border:1.5px solid var(--c1)}
+.msg{display:none;margin-top:8px;padding:8px 12px;border-radius:8px}.msg.ok{display:block;background:#e8f5e9}.msg.err{display:block;background:#fdecea;color:#8a1c1c}
+.hide{display:none!important}.mut{color:var(--mut);font-size:13px}
+/* the student sheet (screen + print) */
+.sd{background:#fff;border:1px solid #999;margin:0 auto 14px;max-width:190mm;padding:7mm 8mm;page-break-inside:avoid;break-inside:avoid}
+.sd .hd{text-align:center;border-bottom:2px solid var(--c1);padding-bottom:4px;margin-bottom:6px}
+.sd .hd .s{font-size:8.5pt;letter-spacing:.2em}.sd .hd .c{font-weight:800;font-size:14pt;color:var(--c1)}.sd .hd .l{font-size:10pt}.sd .hd .t{font-weight:800;font-size:10.5pt;margin-top:3px}
+.sd .top{display:flex;gap:6mm;align-items:flex-start}
+.sd .ph{flex:0 0 35mm;height:45mm;border:1px solid #777;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f6f6f6;font-size:9pt;color:#777;text-align:center}
+.sd .ph img{width:100%;height:100%;object-fit:cover}
+.sd .nm{font-size:15pt;font-weight:800}.sd .id{font-size:12pt;margin:2px 0 4px}
+.sd table{width:100%;border-collapse:collapse;margin-top:2mm}.sd td{border:1px solid #888;padding:2px 4px;font-size:8.8pt;vertical-align:top;word-break:break-word}.sd td.h{background:#f1efe8;font-weight:700;width:20%}
+.sd .sig{display:flex;justify-content:space-between;gap:12mm;margin-top:9mm}.sd .sig div{flex:1;border-top:1px solid #333;text-align:center;font-size:9pt;padding-top:2px}
+@media print{
+  @page{size:A4;margin:8mm}
+  body{background:#fff}header,.noprint{display:none!important}main{padding:0;max-width:none}
+  .sd{border:1px solid #555;margin:0 0 6mm}
+  body.one .sd{page-break-after:always}body.one .sd:last-child{page-break-after:auto}
+  body.two .sd:nth-child(2n){page-break-after:always}
+  body.two .sd{height:136mm;overflow:hidden}
+}
+</style></head><body class="two">
+<header><div><b>Student Details &amp; Photo <span class="kn">ಸದಸ್ಯರ ವಿವರ ಮತ್ತು ಫೋಟೋ</span></b><small>S.D.M. P.U. College, Honnavar &middot; staff only</small></div>
+<div><button class="btn alt hide" id="logout" style="margin:0">Log out</button></div></header>
+<main>
+<div class="card noprint" id="loginBox">
+  <label>Staff password <span class="kn">ಸಿಬ್ಬಂದಿ ಪಾಸ್‌ವರ್ಡ್</span></label>
+  <input type="password" id="pw" style="max-width:260px"> <button class="btn" id="login">Log in</button>
+  <div class="msg" id="lmsg"></div>
+</div>
+<div class="card noprint hide" id="app">
+  <p class="mut">Photos come from ONE place: the Google Drive folder <b id="fold"></b> (SETTINGS_CARDS!B6), each named by the Lib ID, e.g. <code>262715632.jpg</code>. All other details come from your register exactly as typed there.<br><span class="kn">ಫೋಟೋ ಒಂದೇ ಸ್ಥಳದಿಂದ: ಡ್ರೈವ್ ಫೋಲ್ಡರ್, Lib ID ಹೆಸರಿನಲ್ಲಿ. ಉಳಿದ ವಿವರಗಳು ನಿಮ್ಮ ರಿಜಿಸ್ಟರ್‌ನಿಂದ.</span></p>
+  <label>Lib IDs <span class="kn">ಲೈಬ್ರರಿ ಐಡಿ</span> <span class="mut">(one or many: 262715632, 262715633 or a range 262715600-262715640)</span></label>
+  <textarea id="ids" rows="2"></textarea>
+  <div class="mut" style="margin-top:6px">&hellip; or a whole class: <span class="kn">ಅಥವಾ ಇಡೀ ತರಗತಿ:</span></div>
+  <div class="g">
+    <div><label>Members</label><select id="type"><option value="Student">Students</option><option value="Staff">Staff</option></select></div>
+    <div><label>Course</label><select id="course"><option value="">(any)</option></select></div>
+    <div><label>Year of admission</label><select id="year"><option value="">(any)</option></select></div>
+    <div><label>Print</label><select id="per"><option value="two">2 per A4 page</option><option value="one">1 per A4 page</option></select></div>
+  </div>
+  <button class="btn" id="show">Show <span class="kn">ತೋರಿಸು</span></button>
+  <button class="btn alt" id="print">Print <span class="kn">ಮುದ್ರಿಸು</span></button>
+  <div class="msg" id="msg"></div>
+</div>
+<div id="out"></div>
+</main>
+<script>
+var API='https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec',KEY='',INFO={};
+function $(i){return document.getElementById(i);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function call(fn,args){return fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:fn,args:args||[]})})
+  .then(function(r){return r.json();}).then(function(j){if(j&&j.ok)return j.result;throw new Error((j&&j.error)||'Server error');})
+  .catch(function(e){var s=String(e.message||e);if(/log in again/i.test(s)){try{sessionStorage.removeItem('spkey');}catch(x){}}throw new Error(/fetch|network|load failed/i.test(s)?'No connection. Please check your internet and try again.':s);});}
+function msg(id,ok,t){var m=$(id);m.className='msg '+(ok?'ok':'err');m.textContent=t;}
+function start(){
+  call('spChoices',[KEY]).then(function(d){INFO=d.info;$('loginBox').classList.add('hide');$('app').classList.remove('hide');$('logout').classList.remove('hide');
+    $('fold').textContent=d.info.folder||'(not set: type the folder name in SETTINGS_CARDS!B6)';
+    $('course').innerHTML='<option value="">(any)</option>'+d.courses.map(function(c){return '<option>'+esc(c)+'</option>';}).join('');
+    $('year').innerHTML='<option value="">(any)</option>'+d.years.map(function(c){return '<option>'+esc(c)+'</option>';}).join('');
+  }).catch(function(e){KEY='';$('loginBox').classList.remove('hide');$('app').classList.add('hide');msg('lmsg',false,e.message);});}
+$('login').onclick=function(){call('spLogin',[$('pw').value]).then(function(k){KEY=k;try{sessionStorage.setItem('spkey',k);}catch(e){}start();}).catch(function(e){msg('lmsg',false,e.message);});};
+$('pw').onkeydown=function(e){if(e.key==='Enter')$('login').click();};
+$('logout').onclick=function(){KEY='';try{sessionStorage.removeItem('spkey');}catch(e){}location.reload();};
+$('per').onchange=function(){document.body.className=this.value;};
+function sheet(r){
+  var pairs=r.pairs.filter(function(p){return p[1]!=='';}),half=Math.ceil(pairs.length/2),rows='';
+  for(var i=0;i<half;i++){var a=pairs[i],b=pairs[i+half];rows+='<tr><td class="h">'+esc(a[0])+'</td><td>'+esc(a[1])+'</td>'+(b?'<td class="h">'+esc(b[0])+'</td><td>'+esc(b[1])+'</td>':'<td></td><td></td>')+'</tr>';}
+  return '<div class="sd"><div class="hd"><div class="s">M.P.E. SOCIETY&#8217;S</div><div class="c">'+esc(INFO.institution||'S.D.M. P.U. College, Honnavar')+'</div><div class="l">'+esc(INFO.library||'Advocate Shri V. G. Hegde Kaikatgeri Memorial Library and Information Centre')+'</div>'+
+    '<div class="t">'+(r.type==='Staff'?'STAFF MEMBER DETAILS':'STUDENT MEMBER DETAILS')+' &middot; <span class="kn">ಸದಸ್ಯರ ವಿವರ</span></div></div>'+
+    '<div class="top"><div class="ph">'+(r.photo?'<img src="'+r.photo+'" alt="">':'No photo<br>in folder')+'</div><div style="flex:1;min-width:0"><div class="nm">'+esc(r.name)+'</div><div class="id">Lib ID: <b>'+esc(r.id)+'</b> &middot; '+esc(r.course||'')+' <span class="mut">('+esc(r.tab)+')</span></div>'+
+    '<table>'+rows+'</table></div></div><div class="sig"><div>Member&#8217;s signature</div><div>Librarian</div></div></div>';}
+$('show').onclick=function(){
+  var q={ids:$('ids').value,course:$('course').value,year:$('year').value,type:$('type').value};
+  if(!q.ids.trim()&&!q.course&&!q.year){msg('msg',false,'Type Lib IDs, or choose a course or year.');return;}
+  $('out').innerHTML='<div class="card">Loading... <span class="kn">ತೆರೆಯುತ್ತಿದೆ...</span></div>';
+  call('spStudents',[KEY,q]).then(function(d){
+    $('out').innerHTML=d.rows.map(sheet).join('');
+    msg('msg',true,'Showing '+d.shown+' of '+d.total+'.'+(d.total>d.shown?' At most 40 at a time: use Lib ID ranges for the rest.':'')+
+      (d.noPhoto?' '+d.noPhoto+' without a photo in the folder.':'')+(d.missing.length?' Not found: '+d.missing.join(', ')+'.':'')+(d.folderFound?'':' Photo folder not found: check SETTINGS_CARDS!B6.'));
+  }).catch(function(e){$('out').innerHTML='';msg('msg',false,e.message);});};
+$('print').onclick=function(){if(!$('out').innerHTML){msg('msg',false,'Press Show first.');return;}window.print();};
+try{var k=sessionStorage.getItem('spkey');if(k){KEY=k;start();}}catch(e){}
+</script>
+</body></html>
