@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Achievers - S.D.M. P.U. College Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#0f5c63;--c2:#07363b;--gold:#d4a017;--bg:#faf7ef;--ink:#1a1a1a;--mut:#5d5d5d;--line:#e2dccb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3","Noto Sans Kannada",sans-serif;font-size:15px}
+.kn{font-family:"Noto Sans Kannada","Source Sans 3",sans-serif}
+header{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;padding:12px 16px;border-bottom:4px solid var(--gold);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header b{font-size:19px}header small{display:block;opacity:.85}header a{color:#fff}
+main{max-width:1000px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+label{display:block;font-weight:700;margin:10px 0 4px}input,select,textarea{width:100%;padding:8px 10px;border:1px solid #cfc6ad;border-radius:8px;font:inherit}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.btn{background:var(--c1);color:#fff;border:0;border-radius:999px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;margin:8px 6px 0 0}
+.btn.alt{background:#fff;color:var(--c1);border:1.5px solid var(--c1)}.btn.red{background:#a32020}.btn.sm{padding:5px 12px;font-size:13px;margin:4px 4px 0 0}
+.btn:disabled{opacity:.5;cursor:default}
+.msg{display:none;margin-top:8px;padding:8px 12px;border-radius:8px}.msg.ok{display:block;background:#e8f5e9}.msg.err{display:block;background:#fdecea;color:#8a1c1c}
+.hide{display:none!important}.mut{color:var(--mut);font-size:13px}
+.who{display:flex;gap:12px;align-items:center;margin-top:8px}.who img,.who .np{width:64px;height:78px;object-fit:cover;border-radius:8px;border:1px solid #ccc;background:#eee;display:flex;align-items:center;justify-content:center;font-size:11px;color:#888;text-align:center}
+.cuts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.cuts div{position:relative}.cuts img{height:90px;border-radius:6px;border:1px solid #ccc}
+.cuts button{position:absolute;top:2px;right:2px;background:#a32020;color:#fff;border:0;border-radius:50%;width:22px;height:22px;cursor:pointer}
+.row{display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--line);padding:10px 0}.row:first-child{border-top:0}
+.row .ph{width:56px;height:68px;border-radius:8px;object-fit:cover;background:#eee;flex:0 0 56px}
+.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.tb{border:1.5px solid var(--c1);background:#fff;color:var(--c1);border-radius:999px;padding:9px 16px;font:inherit;font-weight:700;cursor:pointer}.tb.on{background:var(--c1);color:#fff}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:6px}.tag.on{background:#e3f4e6;color:#1d6b2c}.tag.off{background:#eee;color:#666}
+</style></head><body>
+<header><div><b>&#x1F3C5; Achievers &amp; Newspaper Cuttings</b><small>S.D.M. P.U. College, Honnavar &middot; website front page &middot; staff only</small></div>
+<div><a href="../" target="_blank" rel="noopener">Open website</a> &nbsp; <button class="btn alt hide" id="logout" style="margin:0">Log out</button></div></header>
+<main>
+<div class="card" id="loginBox">
+  <label>Staff password <span class="kn">&#x0CB8;&#x0CBF;&#x0CAC;&#x0CCD;&#x0CAC;&#x0C82;&#x0CA6;&#x0CBF; &#x0CAA;&#x0CBE;&#x0CB8;&#x0CCD;&#x200C;&#x0CB5;&#x0CB0;&#x0CCD;&#x0CA1;&#x0CCD;</span></label>
+  <input type="password" id="pw" style="max-width:260px"> <button class="btn" id="login">Log in</button>
+  <div class="msg" id="lmsg"></div>
+</div>
+<div class="hide" id="app">
+<div class="tabs"><button class="tb on" id="tbA">&#x1F3C5; Achievers <span class="kn">&#x0CB8;&#x0CBE;&#x0CA7;&#x0C95;&#x0CB0;&#x0CC1;</span></button><button class="tb" id="tbN">&#x1F4F0; Newspaper Cuttings <span class="kn">&#x0CAA;&#x0CA4;&#x0CCD;&#x0CB0;&#x0CBF;&#x0C95;&#x0CBE; &#x0C95;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CB0;&#x0CBF;&#x0C95;&#x0CC6;</span></button></div>
+<div id="paneA">
+<div class="card" id="form">
+  <h3 style="margin:0" id="ftitle">Add an achiever <span class="kn">&#x0CB8;&#x0CBE;&#x0CA7;&#x0C95;&#x0CB0;&#x0CA8;&#x0CCD;&#x0CA8;&#x0CC1; &#x0CB8;&#x0CC7;&#x0CB0;&#x0CBF;&#x0CB8;&#x0CBF;</span></h3>
+  <div class="g">
+    <div><label>Lib ID <span class="mut">(name and class fill by themselves)</span></label><input id="fId" inputmode="numeric"></div>
+    <div><label>&nbsp;</label><button class="btn alt" id="find" style="margin:0">Find</button></div>
+  </div>
+  <div class="who" id="who"></div>
+  <div class="g">
+    <div><label>Name (as on the website)</label><input id="fName"></div>
+    <div><label>Class</label><input id="fCls"></div>
+  </div>
+  <label>Achievement <span class="kn">&#x0CB8;&#x0CBE;&#x0CA7;&#x0CA8;&#x0CC6;</span> <span class="mut">e.g. Selected for State Level Karate Championship</span></label>
+  <textarea id="fWhat" rows="2"></textarea>
+  <div class="g">
+    <div><label>Level</label><select id="fLevel"><option>State</option><option>National</option><option>International</option><option>University</option><option>District</option><option>Taluk</option><option>College</option><option value="">(none)</option></select></div>
+    <div><label>Date of the success</label><input id="fDate" type="date"></div>
+    <div><label>Show the student's photo?</label><select id="fPhoto"><option value="1">Yes</option><option value="0">No</option></select></div>
+  </div>
+  <div class="g">
+    <div><label>Show from <span class="mut">(empty = today)</span></label><input id="fFrom" type="date"></div>
+    <div><label>Show till <span class="mut">(empty = till I hide it)</span></label><input id="fTill" type="date"></div>
+    <div><label>Order <span class="mut">(1 = first; empty = newest first)</span></label><input id="fOrder" type="number" min="1"></div>
+  </div>
+  <label>Newspaper cuttings <span class="kn">&#x0CAA;&#x0CA4;&#x0CCD;&#x0CB0;&#x0CBF;&#x0C95;&#x0CC6; &#x0C95;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CB0;&#x0CBF;&#x0C95;&#x0CC6;</span> <span class="mut">(one or many pictures, JPG/PNG; a phone photo of the cutting is fine; up to 6)</span></label>
+  <input type="file" id="fFiles" accept="image/*" multiple>
+  <div class="cuts" id="cuts"></div>
+  <button class="btn" id="save">Save and show on website</button>
+  <button class="btn alt" id="clear">New / Clear</button>
+  <div class="msg" id="msg"></div>
+</div>
+<div class="card">
+  <h3 style="margin:0 0 6px">Achievers list <span class="kn">&#x0CB8;&#x0CBE;&#x0CA7;&#x0C95;&#x0CB0; &#x0CAA;&#x0C9F;&#x0CCD;&#x0C9F;&#x0CBF;</span></h3>
+  <p class="mut" style="margin:0">"On website" = shown on the front page now. Hide keeps it here (you can show it again). Delete removes it and its cuttings.</p>
+  <div id="list"></div>
+</div>
+</div>
+<div id="paneN" class="hide">
+<div class="card" id="nform">
+  <h3 style="margin:0" id="ntitle">Add a newspaper cutting <span class="kn">&#x0CAA;&#x0CA4;&#x0CCD;&#x0CB0;&#x0CBF;&#x0C95;&#x0CBE; &#x0C95;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CB0;&#x0CBF;&#x0C95;&#x0CC6; &#x0CB8;&#x0CC7;&#x0CB0;&#x0CBF;&#x0CB8;&#x0CBF;</span></h3>
+  <div class="g">
+    <div><label>Newspaper name <span class="kn">&#x0CAA;&#x0CA4;&#x0CCD;&#x0CB0;&#x0CBF;&#x0C95;&#x0CC6;&#x0CAF; &#x0CB9;&#x0CC6;&#x0CB8;&#x0CB0;&#x0CC1;</span></label><input id="nPaper" list="papers" placeholder="e.g. Udayavani"><datalist id="papers"></datalist></div>
+    <div><label>Date <span class="kn">&#x0CA6;&#x0CBF;&#x0CA8;&#x0CBE;&#x0C82;&#x0C95;</span></label><input id="nDate" type="date"></div>
+    <div><label>Highlight on the front page?</label><select id="nHl"><option value="1">Yes - front page + In the News</option><option value="0">No - only In the News page</option></select></div>
+  </div>
+  <div class="g">
+    <div><label>Section <span class="kn">&#x0CB5;&#x0CBF;&#x0CAD;&#x0CBE;&#x0C97;</span></label><select id="nSec"><option value="Students">A. Students</option><option value="Staff">B. Staff</option><option value="College News">C. College News</option><option value="Library News">D. Library News</option><option value="Alumni">E. Alumni (old students)</option><option value="General / Govt">F. General / Govt</option></select></div>
+    <div id="nTypeBox"><label>Type <span class="kn">&#x0CAC;&#x0C97;&#x0CC6;</span></label><select id="nType"><option>Sports</option><option>Academics</option><option>Special</option><option>Events</option><option>Other</option></select></div>
+  </div>
+  <label>Matter <span class="kn">&#x0CB5;&#x0CBF;&#x0CB7;&#x0CAF;</span> <span class="mut">(headline or a few lines about the news)</span></label>
+  <textarea id="nWhat" rows="3"></textarea>
+  <div class="g">
+    <div><label>Show from <span class="mut">(empty = today)</span></label><input id="nFrom" type="date"></div>
+    <div><label>Show till <span class="mut">(empty = till I hide it)</span></label><input id="nTill" type="date"></div>
+    <div><label>Order <span class="mut">(1 = first; empty = newest first)</span></label><input id="nOrder" type="number" min="1"></div>
+  </div>
+  <label>Cutting pictures <span class="mut">(one or many, JPG/PNG; up to 6)</span></label>
+  <input type="file" id="nFiles" accept="image/*" multiple>
+  <div class="cuts" id="ncuts"></div>
+  <button class="btn" id="nsave">Save and show on website</button>
+  <button class="btn alt" id="nclear">New / Clear</button>
+  <div class="msg" id="nmsg"></div>
+</div>
+<div class="card">
+  <h3 style="margin:0 0 6px">Newspaper cuttings list</h3>
+  <select id="nFilter" style="max-width:280px;margin-bottom:6px"><option value="">All sections</option><option value="Students">A. Students</option><option value="Staff">B. Staff</option><option value="College News">C. College News</option><option value="Library News">D. Library News</option><option value="Alumni">E. Alumni (old students)</option><option value="General / Govt">F. General / Govt</option></select>
+  <p class="mut" style="margin:0">&#x2B50; Highlight = also on the front page. All shown cuttings are on the website page "In the News".</p>
+  <div id="nlist"></div>
+</div>
+</div>
+</div>
+</main>
+<script>
+var API='https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec',KEY='',EDIT=null,PENDING=[];
+function $(i){return document.getElementById(i);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function call(fn,args){return fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:fn,args:args||[]})})
+  .then(function(r){return r.json();}).then(function(j){if(j&&j.ok)return j.result;throw new Error((j&&j.error)||'Server error');})
+  .catch(function(e){var s=String(e.message||e);if(/log in again/i.test(s)){try{sessionStorage.removeItem('ackey');}catch(x){}}throw new Error(/fetch|network|load failed/i.test(s)?'No connection. Please check your internet and try again.':s);});}
+function msg(id,ok,t){var m=$(id);m.className='msg '+(ok?'ok':'err');m.textContent=t;}
+function start(){$('loginBox').classList.add('hide');$('app').classList.remove('hide');$('logout').classList.remove('hide');load();nload();}
+function load(){$('list').innerHTML='<p class="mut">Loading...</p>';
+  call('acAdminList',[KEY]).then(function(L){
+    if(!L.length){$('list').innerHTML='<p class="mut">No achievers yet.</p>';return;}
+    $('list').innerHTML=L.map(function(a){return '<div class="row">'+(a.thumbs[0]?'<img class="ph" src="'+a.thumbs[0]+'">':'<div class="ph"></div>')+
+      '<div style="flex:1;min-width:0"><b>'+esc(a.name)+'</b> <span class="mut">'+esc(a.cls)+(a.id?' &middot; '+esc(a.id):'')+'</span>'+
+      '<span class="tag '+(a.live?'on">On website':'off">'+(a.show?'Not in show dates':'Hidden'))+'</span><br>'+esc(a.what)+(a.level?' &middot; <b>'+esc(a.level)+' level</b>':'')+
+      '<div class="mut">'+esc(a.nice)+' &middot; '+a.cuts+' cutting(s)'+(a.till?' &middot; till '+esc(a.till):' &middot; till you hide it')+'</div>'+
+      '<button class="btn sm alt" data-e="'+a.row+'">Edit</button><button class="btn sm alt" data-s="'+a.row+'" data-v="'+(a.show?0:1)+'">'+(a.show?'Hide':'Show again')+'</button><button class="btn sm red" data-d="'+a.row+'">Delete</button></div></div>';}).join('');
+    window._L=L;
+  }).catch(function(e){$('list').innerHTML='';msg('msg',false,e.message);});}
+$('list').onclick=function(ev){var b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.e){var a=(window._L||[]).filter(function(x){return x.row==b.dataset.e;})[0];if(a)edit(a);}
+  else if(b.dataset.s){b.disabled=true;call('acAdminShow',[KEY,b.dataset.s,b.dataset.v==='1','']).then(load).catch(function(e){msg('msg',false,e.message);});}
+  else if(b.dataset.d){if(!confirmDel(b))return;call('acAdminDelete',[KEY,b.dataset.d,'']).then(function(){clearForm();load();}).catch(function(e){msg('msg',false,e.message);});}};
+function confirmDel(b){if(b.dataset.sure){return true;}b.dataset.sure='1';b.textContent='Press again to delete';setTimeout(function(){delete b.dataset.sure;b.textContent='Delete';},4000);return false;}
+function edit(a){EDIT=a;PENDING=[];$('ftitle').textContent='Edit: '+a.name;
+  $('fId').value=a.id;$('fName').value=a.name;$('fCls').value=a.cls;$('fWhat').value=a.what;$('fLevel').value=a.level;$('fDate').value=a.date;
+  $('fPhoto').value=a.photoOn?'1':'0';$('fFrom').value=a.from;$('fTill').value=a.till;$('fOrder').value=a.order;$('who').innerHTML='';drawCuts();
+  $('form').scrollIntoView({behavior:'smooth'});}
+function clearForm(){EDIT=null;PENDING=[];['fId','fName','fCls','fWhat','fDate','fFrom','fTill','fOrder'].forEach(function(i){$(i).value='';});
+  $('fLevel').value='State';$('fPhoto').value='1';$('fFiles').value='';$('who').innerHTML='';$('ftitle').textContent='Add an achiever';drawCuts();}
+function drawCuts(){var h='';
+  (EDIT?EDIT.thumbs:[]).forEach(function(t,i){h+='<div><img src="'+t+'"><button title="Remove" data-c="'+i+'">&times;</button></div>';});
+  PENDING.forEach(function(p,i){h+='<div><img src="'+p.thumb+'" style="outline:3px solid #d4a017"><button title="Remove" data-p="'+i+'">&times;</button></div>';});
+  $('cuts').innerHTML=h+(PENDING.length?'<div class="mut" style="align-self:center">Yellow = new, will be saved</div>':'');}
+$('cuts').onclick=function(ev){var b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.p!=null){PENDING.splice(Number(b.dataset.p),1);drawCuts();}
+  else if(b.dataset.c!=null&&EDIT){b.disabled=true;call('acAdminDelCutting',[KEY,EDIT.row,Number(b.dataset.c),'']).then(function(){EDIT.thumbs.splice(Number(b.dataset.c),1);EDIT.cuts--;drawCuts();load();}).catch(function(e){msg('msg',false,e.message);});}};
+function shrink(file,max,q){return new Promise(function(ok,bad){var r=new FileReader();r.onerror=function(){bad(new Error('Cannot read '+file.name));};
+  r.onload=function(){var im=new Image();im.onerror=function(){bad(new Error(file.name+' is not a picture. Please use a JPG or PNG photo of the cutting.'));};
+    im.onload=function(){var s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+      var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',q));};im.src=r.result;};r.readAsDataURL(file);});}
+$('fFiles').onchange=function(){var fs=[].slice.call(this.files);this.value='';
+  fs.reduce(function(p,f){return p.then(function(){return Promise.all([shrink(f,1600,.82),shrink(f,420,.72)]).then(function(v){PENDING.push({full:v[0],thumb:v[1]});});});},Promise.resolve())
+   .then(drawCuts).catch(function(e){msg('msg',false,e.message);drawCuts();});};
+$('find').onclick=function(){var id=$('fId').value.trim();if(!id)return;$('who').innerHTML='<span class="mut">Finding...</span>';
+  call('acLookup',[KEY,id]).then(function(m){$('fId').value=m.id;$('fName').value=m.name;$('fCls').value=m.cls;
+    $('who').innerHTML=(m.photo?'<img src="'+m.photo+'">':'<div class="np">No photo in folder</div>')+'<div><b>'+esc(m.name)+'</b><br><span class="mut">'+esc(m.cls)+'</span></div>';})
+  .catch(function(e){$('who').innerHTML='<span class="mut">'+esc(e.message)+'</span>';});};
+$('fId').onkeydown=function(e){if(e.key==='Enter')$('find').click();};
+$('clear').onclick=clearForm;
+$('save').onclick=function(){var b=this;b.disabled=true;msg('msg',true,'Saving...');
+  var a={row:EDIT?EDIT.row:'',id:$('fId').value,name:$('fName').value,cls:$('fCls').value,what:$('fWhat').value,level:$('fLevel').value,date:$('fDate').value,
+    photoOn:$('fPhoto').value==='1',from:$('fFrom').value,till:$('fTill').value,order:$('fOrder').value,show:EDIT?EDIT.show:true};
+  call('acAdminSave',[KEY,a]).then(function(r){var todo=PENDING.slice(),done=0;
+    return todo.reduce(function(p,c){return p.then(function(){msg('msg',true,'Saving cutting '+(++done)+' of '+todo.length+'...');return call('acAdminAddCutting',[KEY,r.row,{full:c.full,thumb:c.thumb},'']);});},Promise.resolve());})
+  .then(function(){msg('msg',true,'Saved. It is on the website front page now (reload the website to see it).');clearForm();load();})
+  .catch(function(e){msg('msg',false,e.message);}).then(function(){b.disabled=false;});};
+
+// ---- Newspaper Cuttings tab ----
+var NEDIT=null,NPEND=[];
+$('tbA').onclick=function(){$('tbA').classList.add('on');$('tbN').classList.remove('on');$('paneA').classList.remove('hide');$('paneN').classList.add('hide');};
+$('tbN').onclick=function(){$('tbN').classList.add('on');$('tbA').classList.remove('on');$('paneN').classList.remove('hide');$('paneA').classList.add('hide');};
+function nload(){$('nlist').innerHTML='<p class="mut">Loading...</p>';
+  call('nwAdminList',[KEY]).then(function(L){window._N=L;
+    var ps={};L.forEach(function(a){ps[a.paper]=1;});$('papers').innerHTML=Object.keys(ps).map(function(p){return '<option value="'+esc(p)+'">';}).join('');
+    var f=$('nFilter').value;L=L.filter(function(a){return !f||a.sec===f;});
+    if(!L.length){$('nlist').innerHTML='<p class="mut">No cuttings'+(f?' in this section':'')+' yet.</p>';return;}
+    $('nlist').innerHTML=L.map(function(a){return '<div class="row">'+(a.thumbs[0]?'<img class="ph" src="'+a.thumbs[0]+'">':'<div class="ph"></div>')+
+      '<div style="flex:1;min-width:0"><span class="tag on" style="margin:0 6px 0 0;background:#eef0fb;color:#273a8a">'+esc(a.sec+(a.type?' - '+a.type:''))+'</span>'+(a.hl?'&#x2B50; ':'')+'<b>'+esc(a.paper)+'</b> <span class="mut">'+esc(a.nice)+'</span>'+
+      '<span class="tag '+(a.live?'on">On website':'off">'+(a.show?'Not in show dates':'Hidden'))+'</span><br>'+esc(a.what)+
+      '<div class="mut">'+a.cuts+' picture(s)'+(a.hl?' &middot; front page':'')+(a.till?' &middot; till '+esc(a.till):' &middot; till you hide it')+'</div>'+
+      '<button class="btn sm alt" data-e="'+a.row+'">Edit</button><button class="btn sm alt" data-h="'+a.row+'">'+(a.hl?'Remove highlight':'Highlight')+'</button><button class="btn sm alt" data-s="'+a.row+'" data-v="'+(a.show?0:1)+'">'+(a.show?'Hide':'Show again')+'</button><button class="btn sm red" data-d="'+a.row+'">Delete</button></div></div>';}).join('');
+  }).catch(function(e){$('nlist').innerHTML='';msg('nmsg',false,e.message);});}
+var TYPED={'Students':1,'Staff':1,'Alumni':1};
+function nsecUi(){$('nTypeBox').style.display=TYPED[$('nSec').value]?'':'none';}
+$('nSec').onchange=nsecUi;$('nFilter').onchange=function(){nload();};
+function nform(){return {sec:$('nSec').value,type:TYPED[$('nSec').value]?$('nType').value:'',paper:$('nPaper').value,date:$('nDate').value,what:$('nWhat').value,hl:$('nHl').value==='1',from:$('nFrom').value,till:$('nTill').value,order:$('nOrder').value};}
+$('nlist').onclick=function(ev){var b=ev.target.closest('button');if(!b)return;var row=b.dataset.e||b.dataset.h||b.dataset.s||b.dataset.d,a=(window._N||[]).filter(function(x){return x.row==row;})[0];
+  if(b.dataset.e&&a)nedit(a);
+  else if(b.dataset.h&&a){b.disabled=true;call('nwAdminSave',[KEY,{row:a.row,sec:a.sec,type:a.type,paper:a.paper,date:a.date,what:a.what,hl:!a.hl,from:a.from,till:a.till,order:a.order,show:a.show,notes:a.notes}]).then(nload).catch(function(e){msg('nmsg',false,e.message);});}
+  else if(b.dataset.s){b.disabled=true;call('acAdminShow',[KEY,b.dataset.s,b.dataset.v==='1','news']).then(nload).catch(function(e){msg('nmsg',false,e.message);});}
+  else if(b.dataset.d){if(!confirmDel(b))return;call('acAdminDelete',[KEY,b.dataset.d,'news']).then(function(){nclearForm();nload();}).catch(function(e){msg('nmsg',false,e.message);});}};
+function nedit(a){NEDIT=a;NPEND=[];$('ntitle').textContent='Edit: '+a.paper+' '+a.nice;$('nSec').value=a.sec;$('nType').value=a.type||'Other';nsecUi();$('nPaper').value=a.paper;$('nDate').value=a.date;$('nWhat').value=a.what;
+  $('nHl').value=a.hl?'1':'0';$('nFrom').value=a.from;$('nTill').value=a.till;$('nOrder').value=a.order;ndraw();$('nform').scrollIntoView({behavior:'smooth'});}
+function nclearForm(){NEDIT=null;NPEND=[];['nPaper','nDate','nWhat','nFrom','nTill','nOrder'].forEach(function(i){$(i).value='';});$('nHl').value='1';$('nFiles').value='';$('nSec').value='Students';$('nType').value='Sports';nsecUi();$('ntitle').textContent='Add a newspaper cutting';ndraw();}
+function ndraw(){var h='';(NEDIT?NEDIT.thumbs:[]).forEach(function(t,i){h+='<div><img src="'+t+'"><button title="Remove" data-c="'+i+'">&times;</button></div>';});
+  NPEND.forEach(function(p,i){h+='<div><img src="'+p.thumb+'" style="outline:3px solid #d4a017"><button title="Remove" data-p="'+i+'">&times;</button></div>';});
+  $('ncuts').innerHTML=h+(NPEND.length?'<div class="mut" style="align-self:center">Yellow = new, will be saved</div>':'');}
+$('ncuts').onclick=function(ev){var b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.p!=null){NPEND.splice(Number(b.dataset.p),1);ndraw();}
+  else if(b.dataset.c!=null&&NEDIT){b.disabled=true;call('acAdminDelCutting',[KEY,NEDIT.row,Number(b.dataset.c),'news']).then(function(){NEDIT.thumbs.splice(Number(b.dataset.c),1);ndraw();nload();}).catch(function(e){msg('nmsg',false,e.message);});}};
+$('nFiles').onchange=function(){var fs=[].slice.call(this.files);this.value='';
+  fs.reduce(function(p,f){return p.then(function(){return Promise.all([shrink(f,1600,.82),shrink(f,420,.72)]).then(function(v){NPEND.push({full:v[0],thumb:v[1]});});});},Promise.resolve())
+   .then(ndraw).catch(function(e){msg('nmsg',false,e.message);ndraw();});};
+$('nclear').onclick=nclearForm;
+$('nsave').onclick=function(){var b=this,a=nform();a.row=NEDIT?NEDIT.row:'';a.show=NEDIT?NEDIT.show:true;a.notes=NEDIT?NEDIT.notes:'';
+  if(!NEDIT&&!NPEND.length){msg('nmsg',false,'Choose at least one cutting picture.');return;}
+  b.disabled=true;msg('nmsg',true,'Saving...');
+  call('nwAdminSave',[KEY,a]).then(function(r){var todo=NPEND.slice(),done=0;
+    return todo.reduce(function(p,c){return p.then(function(){msg('nmsg',true,'Saving picture '+(++done)+' of '+todo.length+'...');return call('acAdminAddCutting',[KEY,r.row,{full:c.full,thumb:c.thumb},'news']);});},Promise.resolve());})
+  .then(function(){msg('nmsg',true,'Saved. It is on the website now (reload the website to see it).');nclearForm();nload();})
+  .catch(function(e){msg('nmsg',false,e.message);}).then(function(){b.disabled=false;});};
+$('login').onclick=function(){call('acLogin',[$('pw').value]).then(function(k){KEY=k;try{sessionStorage.setItem('ackey',k);}catch(e){}start();}).catch(function(e){msg('lmsg',false,e.message);});};
+$('pw').onkeydown=function(e){if(e.key==='Enter')$('login').click();};
+$('logout').onclick=function(){KEY='';try{sessionStorage.removeItem('ackey');}catch(e){}location.reload();};
+try{var k=sessionStorage.getItem('ackey');if(k){KEY=k;start();}}catch(e){}
+</script>
+</body></html>
