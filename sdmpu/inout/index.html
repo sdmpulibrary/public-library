@@ -70,6 +70,13 @@
     header { flex-wrap:wrap; } header .sp { display:none; } header img { width:64px; height:64px; } header .col { font-size:20px; } header .lib { font-size:16px; }
     main { grid-template-columns:1fr; padding:14px; gap:14px; } .mid { order:-1; } .photo { min-height:150px; max-height:220px; } #idIn, #nameIn { width:100%; } #idIn { font-size:24px; } #goBtn { font-size:20px; padding:0 14px; } .status { font-size:56px; } .clock .tm { font-size:40px; }
   }
+  #gfBar { font-size:14px; opacity:.95; } #gfBar a { color:var(--gold); }
+  #setup { position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:9; }
+  #setup > div { background:#fff; color:var(--ink); border-radius:8px; padding:20px 22px; width:min(420px,92vw); }
+  #setup h3 { margin:0 0 8px; } #setup p { font-size:14px; color:#555; margin:6px 0 12px; }
+  #setup input { width:100%; font-size:18px; padding:8px 10px; border:1px solid #9fc3ea; border-radius:4px; }
+  #setup button { font-size:16px; padding:8px 16px; margin-top:10px; border:0; border-radius:4px; cursor:pointer; }
+  #setupGo { background:var(--blue1); color:#fff; } #setupNo { background:#e6e9f2; }
 </style>
 </head>
 <body>
@@ -116,144 +123,433 @@
 
 <footer>
   <span>Honnavar - 581334, (U.K.) &middot; Open 9:00 AM to 5:30 PM</span>
-  <span>No card? Type your name in the box under Lib ID &middot; Phone 9448502393</span>
+  <span id="gfBar"></span>
 </footer>
+<div id="setup"><div>
+  <h3>Door PC setup &middot; &#x0CAC;&#x0cbe;&#x0C97;&#x0CBF;&#x0CB2;&#x0CC1; PC</h3>
+  <p>Type the staff password once on this counter PC. It then keeps the member list and photos here, so photo, name and voice come at once. Do this only on the library's own PC.</p>
+  <input type="password" id="setupPw" placeholder="Staff password">
+  <div><button id="setupGo">Save</button> <button id="setupNo">Close</button></div>
+  <p id="setupMsg"></p>
+</div></div>
+
 
 <script>
+// IN / OUT door screen - fast version 4 Nov 2026.
+// The member list and photos are kept on this PC, so photo, name and
+// voice come at once. Scans go to Google in the background, in groups;
+// a queue of students never waits. Each student's photo stays until the
+// voice finishes (when others are waiting) or for 12 seconds.
 var API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
-var RESET_MS = 12000, STATS_MS = 60000, RECENT_MAX = 4;
+var HOLD_MS = 12000, MIN_MS = 2500, STATE_MS = 60000, RECENT_MAX = 6, PACK_HOURS = 6;
+var GAP_MS = 120000;
 var PERSON = '<svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.5c-3.3 0-9.8 1.6-9.8 4.9v2.4h19.6v-2.4c0-3.3-6.5-4.9-9.8-4.9z"/></svg>';
 var $ = function (id) { return document.getElementById(id); };
-var lastScan = { id: '', t: 0 };
-var resetTimer = null, shownId = '', recent = [], seq = 0;
+var KN_IDLE = '&#x0C92;&#x0CB3;&#x0C97;&#x0CC6; &#x0CAC;&#x0CB0;&#x0CC1;&#x0CB5;&#x0CBE;&#x0C97; &#x0CAE;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CC1; &#x0CB9;&#x0CCA;&#x0CB0;&#x0C97;&#x0CC6; &#x0CB9;&#x0CCB;&#x0C97;&#x0CC1;&#x0CB5;&#x0CBE;&#x0C97; &#x0CB8;&#x0CCD;&#x0C95;&#x0CCD;&#x0CAF;&#x0CBE;&#x0CA8;&#x0CCD; &#x0CAE;&#x0CBE;&#x0CA1;&#x0CBF;.';
+var KN_WELCOME = '&#x0CB8;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CB5;&#x0CBE;&#x0C97;&#x0CA4;';
+var KN_COUNTER = '&#x0C97;&#x0CCD;&#x0CB0;&#x0C82;&#x0CA5;&#x0CBE;&#x0CB2;&#x0CAF; &#x0C95;&#x0CCC;&#x0C82;&#x0C9F;&#x0CB0;&#x0CCD;&#x200C;&#x0CA8;&#x0CB2;&#x0CCD;&#x0CB2;&#x0CBF; &#x0CB8;&#x0C82;&#x0CAA;&#x0CB0;&#x0CCD;&#x0C95;&#x0CBF;&#x0CB8;&#x0CBF;.';
+var KN_WAIT = '&#x0CB8;&#x0CCD;&#x0CB5;&#x0CB2;&#x0CCD;&#x0CAA; &#x0CB8;&#x0CAE;&#x0CAF;&#x0CA6; &#x0CA8;&#x0C82;&#x0CA4;&#x0CB0; &#x0CB8;&#x0CCD;&#x0C95;&#x0CCD;&#x0CAF;&#x0CBE;&#x0CA8;&#x0CCD; &#x0CAE;&#x0CBE;&#x0CA1;&#x0CBF;.';
 
+// ---- small helpers ----
+function lsGet(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); }
+function idKey(v) { return String(v == null ? '' : v).trim().toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([A-Z]+)0+(?=\d)/, '$1'); }
+function fmtTime(ms) { var d = new Date(ms), h = d.getHours(), m = d.getMinutes(); return (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + ' ' + (h >= 12 ? 'PM' : 'AM'); }
+function dur(ms) { var s = Math.max(0, Math.floor(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+  return (h ? h + ':' + (m < 10 ? '0' : '') : '') + m + ':' + (x < 10 ? '0' : '') + x; }
 function call(fn, args) {
   return fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: fn, args: args || [] }) })
     .then(function (r) { return r.json(); })
-    .then(function (j) { if (j && j.ok) return j.result; throw new Error((j && j.error) || 'Server error'); });
+    .then(function (j) { if (j && j.ok) return j.result; var e = new Error((j && j.error) || 'Server error'); e.server = true; throw e; });
 }
-function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); }
 
+// ---- photos kept on this PC (IndexedDB) ----
+var DB = null, LOCAL = {}, PIDX = {}, NOPHOTO = {};
+function dbOpen() {
+  return new Promise(function (res) {
+    try {
+      var q = indexedDB.open('gf_door_photos', 1);
+      q.onupgradeneeded = function () { q.result.createObjectStore('p'); };
+      q.onsuccess = function () { DB = q.result; res(DB); };
+      q.onerror = function () { res(null); };
+    } catch (e) { res(null); }
+  });
+}
+function dbReq(mode, fn) {
+  return new Promise(function (res) {
+    if (!DB) return res(null);
+    try { var r = fn(DB.transaction('p', mode).objectStore('p')); r.onsuccess = function () { res(r.result); }; r.onerror = function () { res(null); }; }
+    catch (e) { res(null); }
+  });
+}
+function dbGet(k) { return dbReq('readonly', function (s) { return s.get(k); }); }
+function dbPut(k, v) { return dbReq('readwrite', function (s) { return s.put(v, k); }); }
+function dbAll() {
+  return new Promise(function (res) {
+    if (!DB) return res({});
+    var out = {};
+    try {
+      var c = DB.transaction('p').objectStore('p').openCursor();
+      c.onsuccess = function () { var cur = c.result; if (!cur) return res(out); out[cur.key] = (cur.value && cur.value.u) || 0; cur.continue(); };
+      c.onerror = function () { res(out); };
+    } catch (e) { res(out); }
+  });
+}
+// Make a big photo small (about 15 KB) before keeping it.
+function shrink(dataUrl) {
+  return new Promise(function (res) {
+    if (!dataUrl) return res('');
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var H = 360, s = Math.min(1, H / img.height), c = document.createElement('canvas');
+        c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        res(c.toDataURL('image/jpeg', 0.82));
+      } catch (e) { res(dataUrl); }
+    };
+    img.onerror = function () { res(dataUrl); };
+    img.src = dataUrl;
+  });
+}
+function keepPhoto(k, dataUrl, u) {
+  return shrink(dataUrl).then(function (small) {
+    if (!small) return '';
+    LOCAL[k] = u || Date.now();
+    dbPut(k, { d: small, u: LOCAL[k] });
+    return small;
+  });
+}
+// Photo for one key: from this PC at once, otherwise from Google.
+var photoWaiting = {};
+function photoNow(k) { return LOCAL[k] ? dbGet(k).then(function (v) { return v && v.d ? v.d : ''; }) : Promise.resolve(''); }
+function photoFetch(k, id) {
+  if (photoWaiting[k]) return photoWaiting[k];
+  var p;
+  if (TOKEN && PIDX[k]) p = call('gfPhotos', [TOKEN, [PIDX[k][0]]]).then(function (o) { return keepPhoto(k, o[PIDX[k][0]], PIDX[k][1]); });
+  else p = call('gateBoardPhoto', [id]).then(function (d) { return d ? keepPhoto(k, d, Date.now()) : ''; });
+  p = p.catch(function () { return ''; }).then(function (d) { delete photoWaiting[k]; if (!d) NOPHOTO[k] = Date.now(); return d; });
+  photoWaiting[k] = p;
+  return p;
+}
+
+// ---- member list kept on this PC ----
+var TOKEN = lsGet('gf_token', '');
+var MEM = {}, STATE = {}, STATE_DAY = new Date().toDateString();
+function usePack(p) {
+  MEM = {};
+  (p.m || []).forEach(function (r) { MEM[r[0]] = [r[1], r[2], r[3], r[4]]; });
+  if (p.gapSec >= 0) GAP_MS = p.gapSec * 1000;
+}
+function useState(st, now) {
+  now = now || Date.now();
+  Object.keys(st || {}).forEach(function (k) {
+    var v = st[k], t = now - v[1], cur = STATE[k];
+    if (!cur || cur.t < t - 1500) STATE[k] = { io: v[0], t: t, inT: v[2] >= 0 ? now - v[2] : 0 };
+  });
+}
+function loadPack(force) {
+  if (!TOKEN) return Promise.resolve();
+  var saved = lsGet('gf_pack', null);
+  if (saved && !force) { usePack(saved); bar(); if (Date.now() - (saved.at || 0) < PACK_HOURS * 3600000) return Promise.resolve(); }
+  return call('gfDoorPack', [TOKEN]).then(function (p) {
+    p.at = Date.now(); var st = p.state; delete p.state;
+    usePack(p); lsSet('gf_pack', p); useState(st); if (p.stats) showStats(p.stats);
+    bar();
+  }).catch(function (e) { if (/DOOR_LOGIN/.test(e.message)) { TOKEN = ''; lsSet('gf_token', ''); bar(); } });
+}
+function loadState() {
+  if (!TOKEN) { call('gateBoardStats').then(showStats).catch(function () {}); return; }
+  call('gfDoorState', [TOKEN]).then(function (r) { useState(r.state); showStats(r.stats); })
+    .catch(function (e) { if (/DOOR_LOGIN/.test(e.message)) { TOKEN = ''; lsSet('gf_token', ''); bar(); } });
+}
+
+// Background: bring every member photo to this PC, a few at a time,
+// only when no scan is being sent.
+var preloadBusy = false;
+function loadPhotoIndex(cont, acc) {
+  if (!TOKEN) return;
+  call('gfPhotoIndex', [TOKEN, cont || '']).then(function (r) {
+    acc = (acc || []).concat(r.list || []);
+    if (r.cont) return loadPhotoIndex(r.cont, acc);
+    PIDX = {};
+    acc.forEach(function (x) { PIDX[x[0]] = [x[1], x[2]]; });
+    lsSet('gf_pidx', { at: Date.now(), list: acc });
+    bar(); preload();
+  }).catch(function () {});
+}
+function preload() {
+  if (preloadBusy || !TOKEN || sending || OUTBOX.length) return;
+  var want = Object.keys(PIDX).filter(function (k) { return !LOCAL[k] || LOCAL[k] < PIDX[k][1]; }).slice(0, 12);
+  if (!want.length) return;
+  preloadBusy = true;
+  var fids = want.map(function (k) { return PIDX[k][0]; });
+  call('gfPhotos', [TOKEN, fids]).then(function (o) {
+    return Promise.all(want.map(function (k) { var d = o[PIDX[k][0]]; return d ? keepPhoto(k, d, PIDX[k][1]) : (LOCAL[k] = PIDX[k][1], ''); }));
+  }).catch(function () {}).then(function () { preloadBusy = false; bar(); setTimeout(preload, 800); });
+}
+
+// ---- screen ----
 function tick() {
   var d = new Date(), h = d.getHours(), ap = h >= 12 ? 'PM' : 'AM', h12 = h % 12 || 12;
   var p = function (n) { return (n < 10 ? '0' : '') + n; };
   $('tm').innerHTML = p(h12) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds()) + '<sup>' + ap + '</sup>';
   $('dt').textContent = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).replace(/,/g, '');
+  if (d.toDateString() !== STATE_DAY) { STATE_DAY = d.toDateString(); STATE = {}; }
 }
 function showStats(s) {
   if (!s) return;
   $('sInside').textContent = s.inside || 0; $('sStaff').textContent = s.staff || 0;
   $('sBoys').textContent = s.boys || 0; $('sGirls').textContent = s.girls || 0; $('sVisits').textContent = s.visits || 0;
 }
-function loadStats() { call('gateBoardStats').then(showStats).catch(function () {}); }
-
+function bar() {
+  var total = Object.keys(PIDX).length, have = Object.keys(PIDX).filter(function (k) { return LOCAL[k] && LOCAL[k] >= PIDX[k][1]; }).length;
+  var t = [];
+  if (!TOKEN) t.push('<a href="#" id="setupLink">Door PC setup</a> (makes photos fast)');
+  else {
+    t.push(Object.keys(MEM).length ? Object.keys(MEM).length + ' members ready' : 'Loading members...');
+    if (total) t.push('Photos ' + have + ' / ' + total);
+  }
+  if (OUTBOX.length) t.push('<b style="color:#ffc107">' + OUTBOX.length + ' waiting to send' + (netBad ? ' (net slow)' : '') + '</b>');
+  t.push('<a href="staff.html" target="_blank">Staff page</a>');
+  $('gfBar').innerHTML = t.join(' &middot; ');
+  var l = $('setupLink'); if (l) l.onclick = function (ev) { ev.preventDefault(); $('setup').style.display = 'flex'; $('setupPw').focus(); };
+}
 function idle() {
-  shownId = '';
+  CUR = null;
   $('photo').innerHTML = PERSON; $('nm').textContent = ''; $('meta').textContent = '';
-  $('st').className = 'status wait'; $('st').textContent = 'Please scan your card';
-  $('msg').innerHTML = '<span style="color:#777">Scan when you come in and when you go out.<small>&#x0C92;&#x0CB3;&#x0C97;&#x0CC6; &#x0CAC;&#x0CB0;&#x0CC1;&#x0CB5;&#x0CBE;&#x0C97; &#x0CAE;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CC1; &#x0CB9;&#x0CCA;&#x0CB0;&#x0C97;&#x0CC6; &#x0CB9;&#x0CCB;&#x0C97;&#x0CC1;&#x0CB5;&#x0CBE;&#x0C97; &#x0CB8;&#x0CCD;&#x0C95;&#x0CCD;&#x0CAF;&#x0CBE;&#x0CA8;&#x0CCD; &#x0CAE;&#x0CBE;&#x0CA1;&#x0CBF;.</small></span>';
+  $('st').style.fontSize = ''; $('st').className = 'status wait'; $('st').textContent = 'Please scan your card';
+  $('msg').innerHTML = '<span style="color:#777">Scan when you come in and when you go out.<small>' + KN_IDLE + '</small></span>';
   $('idIn').focus();
 }
-function later() { clearTimeout(resetTimer); resetTimer = setTimeout(idle, RESET_MS); }
-function speak(t) { try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.rate = .95; speechSynthesis.speak(u); } catch (e) {} }
 
-function drawRecent() {
-  $('recent').innerHTML = recent.map(function (x) {
-    var cls = x.io === 'IN' ? 'in' : (x.io === 'OUT' ? 'out' : (x.io === 'X' ? 'bad' : ''));
-    return '<div><b class="' + cls + '">' + esc(x.io || '...') + '</b><span>' + esc(x.name || x.id) + '</span><i>' + esc(x.time || '') + '</i></div>';
-  }).join('');
+// Display queue: one student at a time; photo, name and IN/OUT together.
+var QUEUE = [], CUR = null, curStart = 0, holdTimer = null, speaking = false, speakGuard = null;
+function enqueue(v) { QUEUE.push(v); if (!CUR || (!speaking && Date.now() - curStart >= MIN_MS)) next(); else plan(); }
+function next() {
+  clearTimeout(holdTimer);
+  var v = QUEUE.shift();
+  if (!v) return;
+  CUR = v; curStart = Date.now();
+  photoNow(v.k).then(function (d) {
+    if (CUR !== v) return;
+    paint(v, d);
+    if (!d && v.k && !v.error && !v.repeat) photoFetch(v.k, v.id).then(function (d2) {
+      if (d2 && CUR === v) { $('photo').innerHTML = '<img src="' + d2 + '" alt="">'; if (!QUEUE.length) { curStart = Date.now(); plan(); } }
+    });
+    say(v);
+    plan();
+  });
 }
-function addRecent(n, id) { recent.unshift({ n: n, id: id, io: '', name: id + ' - checking', time: '' }); recent = recent.slice(0, RECENT_MAX); drawRecent(); }
-function setRecent(n, v) { recent.forEach(function (x) { if (x.n === n) { for (var k in v) x[k] = v[k]; } }); drawRecent(); }
-
-function show(r) {
-  showStats(r.stats);
-  if (r.repeat) {
-    $('st').className = 'status wait'; $('st').textContent = r.last ? 'Already ' + r.last : 'Already scanned';
-    if (r.name) { $('nm').textContent = r.name; $('meta').textContent = r.id; }
-    $('msg').innerHTML = r.last
-      ? '<span class="err">' + esc(r.name || r.id) + ' is already ' + esc(r.last) + ' (' + esc(r.time || '') + ').<small>Scan again after ' + esc(r.wait || 'a few') + ' minute(s), not now. &middot; &#x0CB8;&#x0CCD;&#x0CB5;&#x0CB2;&#x0CCD;&#x0CAA; &#x0CB8;&#x0CAE;&#x0CAF;&#x0CA6; &#x0CA8;&#x0C82;&#x0CA4;&#x0CB0; &#x0CB8;&#x0CCD;&#x0C95;&#x0CCD;&#x0CAF;&#x0CBE;&#x0CA8;&#x0CCD; &#x0CAE;&#x0CBE;&#x0CA1;&#x0CBF;.</small></span>'
-      : '<span class="err">Card ' + esc(r.id) + ' was just scanned.<small>Please wait a few seconds.</small></span>';
-    return later();
+function plan() {
+  clearTimeout(holdTimer);
+  if (!CUR) return;
+  var shown = Date.now() - curStart;
+  if (QUEUE.length) holdTimer = setTimeout(function () { if (!speaking) next(); else plan(); }, Math.max(MIN_MS - shown, 300));
+  else holdTimer = setTimeout(function () { if (QUEUE.length) next(); else idle(); }, Math.max(HOLD_MS - shown, 300));
+}
+function say(v) {
+  var t = v.error ? '' : v.repeat ? '' : v.io === 'IN' ? 'Welcome, ' + (v.name || '') : 'Thank you, ' + (v.name || '') + '. Visit again.';
+  if (!t) return;
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(t); u.rate = 1.05;
+    speaking = true; clearTimeout(speakGuard);
+    var done = function () { if (!speaking) return; speaking = false; clearTimeout(speakGuard); if (QUEUE.length && Date.now() - curStart >= MIN_MS) next(); else plan(); };
+    u.onend = done; u.onerror = done;
+    speakGuard = setTimeout(done, Math.min(5000, 1500 + t.length * 90));   // if the PC has no voice
+    speechSynthesis.speak(u);
+  } catch (e) { speaking = false; }
+}
+function paint(v, photo) {
+  $('st').style.fontSize = '';
+  $('photo').innerHTML = photo ? '<img src="' + photo + '" alt="">' : PERSON;
+  $('nm').textContent = v.name || '';
+  $('meta').textContent = [v.id, v.staff ? 'Staff' : '', v.course].filter(function (s) { return s; }).join(' · ');
+  if (v.error) {
+    $('st').className = 'status out'; $('st').textContent = 'NOT FOUND'; $('st').style.fontSize = '54px';
+    $('msg').innerHTML = '<span class="err">' + esc(v.error) + '</span><small>Please meet the library counter. &middot; ' + KN_COUNTER + '</small>';
+    return;
   }
-  shownId = r.id;
-  $('photo').innerHTML = r.photo ? '<img src="' + esc(r.photo) + '" alt="">' : PERSON;
-  if (r.needPhoto) call('gateBoardPhoto', [r.id]).then(function (p) {
-    if (p && shownId === r.id) { $('photo').innerHTML = '<img src="' + esc(p) + '" alt="">'; later(); }
-  }).catch(function () {});
-  $('nm').textContent = r.name || '';
-  $('meta').textContent = [r.id, r.staff ? 'Staff' : (r.type === 'Member' ? '' : 'Visitor'), r.course].filter(function (s) { return s; }).join(' · ');
-  var isIn = r.inOut === 'IN';
+  if (v.repeat) {
+    $('st').className = 'status wait'; $('st').textContent = 'Already ' + (v.last || 'scanned');
+    $('msg').innerHTML = '<span class="err">' + esc(v.name || v.id) + ' is already ' + esc(v.last || '') + ' (' + esc(v.time || '') + ').<small>Scan again after ' +
+      Math.round(GAP_MS / 60000) + ' minute(s), not now. &middot; ' + KN_WAIT + '</small></span>';
+    return;
+  }
+  var isIn = v.io === 'IN';
   $('st').className = 'status ' + (isIn ? 'in' : 'out'); $('st').textContent = isIn ? 'IN' : 'OUT';
   $('msg').innerHTML = isIn
-    ? '<span class="hi">Welcome.</span>Your Entry time is: ' + esc(r.time) + (r.message ? '<small>' + esc(r.message) + '</small>' : '<small>&#x0CB8;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CB5;&#x0CBE;&#x0C97;&#x0CA4;</small>')
-    : '<span class="bye">Thank you.</span>Your Exit time is: ' + esc(r.time) + (r.readingTime ? '<small>Time in library: ' + esc(r.readingTime) + '</small>' : '') + 'Visit Again';
-  speak(isIn ? 'Welcome, ' + (r.name || '') : 'Thank you. Visit again.');
-  later();
+    ? '<span class="hi">Welcome.</span>Your Entry time is: ' + esc(v.time) + (v.message ? '<small>' + esc(v.message) + '</small>' : '<small>' + KN_WELCOME + '</small>')
+    : '<span class="bye">Thank you.</span>Your Exit time is: ' + esc(v.time) + (v.reading ? '<small>Time in library: ' + esc(v.reading) + '</small>' : '') + 'Visit Again';
 }
-function fail(e) {
-  shownId = '';
-  $('photo').innerHTML = PERSON; $('nm').textContent = ''; $('meta').textContent = '';
-  $('st').className = 'status out'; $('st').textContent = 'NOT FOUND';
-  $('st').style.fontSize = '54px';
-  $('msg').innerHTML = '<span class="err">' + esc(e && e.message ? e.message : e) + '</span><small>Please meet the library counter. &middot; &#x0C97;&#x0CCD;&#x0CB0;&#x0C82;&#x0CA5;&#x0CBE;&#x0CB2;&#x0CAF; &#x0C95;&#x0CCC;&#x0C82;&#x0C9F;&#x0CB0;&#x0CCD;&#x200C;&#x0CA8;&#x0CB2;&#x0CCD;&#x0CB2;&#x0CBF; &#x0CB8;&#x0C82;&#x0CAA;&#x0CB0;&#x0CCD;&#x0C95;&#x0CBF;&#x0CB8;&#x0CBF;.</small>';
-  later();
+function repaintIfShown(v) { if (CUR === v) photoNow(v.k).then(function (d) { if (CUR === v) paint(v, d); }); }
+
+// Last scans list
+var recent = [];
+function drawRecent() {
+  $('recent').innerHTML = recent.slice(0, RECENT_MAX).map(function (x) {
+    var io = x.error ? 'X' : x.repeat ? 'AGAIN' : (x.io || '...');
+    var cls = io === 'IN' ? 'in' : (io === 'OUT' ? 'out' : (io === 'X' ? 'bad' : ''));
+    return '<div><b class="' + cls + '">' + esc(io) + '</b><span>' + esc(x.name || x.id) + (x.waiting ? ' &#x23F3;' : '') + '</span><i>' + esc(x.time || '') + '</i></div>';
+  }).join('');
+}
+function addRecent(v) { recent.unshift(v); recent = recent.slice(0, RECENT_MAX); drawRecent(); }
+
+// ---- sending scans (in groups, kept on this PC until Google has them) ----
+var OUTBOX = lsGet('gf_outbox', []), VIEWS = {}, sending = false, netBad = false, LEGACY = false;
+function saveOutbox() { lsSet('gf_outbox', OUTBOX); bar(); }
+function pump() {
+  if (sending || !OUTBOX.length) return;
+  sending = true;
+  var batch = OUTBOX.slice(0, 15), now = Date.now(), failed = false;
+  var p;
+  if (LEGACY) {
+    var b = batch[0];
+    p = call('gateBoardScan', [b.id, null, null, false]).then(function (r) { r.uid = b.uid; return { results: [r], stats: r.stats }; },
+      function (e) { if (e.server) return { results: [{ uid: b.uid, id: b.id, error: e.message }] }; throw e; });
+  } else {
+    p = call('gfDoorScan', [batch.map(function (b) { return { id: b.id, uid: b.uid, age: Math.max(0, now - b.t), pio: b.pio }; })]);
+  }
+  p.then(function (out) {
+    var done = {};
+    (out.results || []).forEach(function (r) { done[r.uid] = 1; onResult(r); });
+    OUTBOX = OUTBOX.filter(function (b) { return !done[b.uid]; });
+    netBad = false; saveOutbox(); if (out.stats) showStats(out.stats);
+  }).catch(function (e) {
+    if (e.server && /Not allowed|missing/i.test(e.message) && !LEGACY) { LEGACY = true; return; }   // GateFast.gs not installed yet
+    failed = true; netBad = true; bar();
+  }).then(function () {
+    sending = false;
+    if (OUTBOX.length) setTimeout(pump, failed ? 3000 : 0); else setTimeout(preload, 1500);
+  });
+}
+function onResult(r) {
+  var v = VIEWS[r.uid]; delete VIEWS[r.uid];
+  var k = idKey(r.id);
+  if (!v) return;
+  v.waiting = false;
+  if (r.error) {
+    v.error = r.error; v.name = v.name || r.id;
+    if (STATE[k] && STATE[k].t === v.t) delete STATE[k];
+    if (v.pending || CUR === v) { if (v.pending) { v.pending = false; enqueue(v); } else repaintIfShown(v); }
+    drawRecent(); return;
+  }
+  v.name = r.name || v.name; v.course = v.course || r.course; v.staff = r.staff; v.message = r.message;
+  if (r.repeat) {
+    v.repeat = true; v.last = r.last; v.time = r.time;
+    STATE[k] = { io: r.last, t: v.t - 1 };
+  } else {
+    if (r.inOut !== v.io) {     // the screen guessed wrong (e.g. scanned on a phone): show the real one
+      v.io = r.inOut; v.reading = r.readingTime || '';
+      STATE[k] = { io: r.inOut, t: v.t, inT: r.inOut === 'IN' ? v.t : (STATE[k] && STATE[k].inT) };
+    }
+    if (r.readingTime) v.reading = r.readingTime;
+  }
+  if (v.pending) { v.pending = false; enqueue(v); } else repaintIfShown(v);
+  drawRecent();
 }
 
-// Scans do not wait for each other: a whole class can scan one after
-// another, and each result shows as soon as it comes back.
-var MODE = 'board';            // 'board' = door / counter screen, 'gate' = reader's phone (sends location)
-var LAT = null, LNG = null;
-if (MODE === 'gate' && navigator.geolocation) {
-  try { navigator.geolocation.watchPosition(function (p) { LAT = p.coords.latitude; LNG = p.coords.longitude; }, function () {}, { enableHighAccuracy: true, maximumAge: 60000 }); } catch (e) {}
-}
-function doScan(id) {
-  id = String(id || '').trim();
+// ---- a scan ----
+var lastScan = { k: '', t: 0 }, seq = 0;
+function doScan(raw) {
+  var id = String(raw || '').trim();
   if (!id) return;
-  var now = Date.now(), key = id.toUpperCase();
-  if (lastScan.id === key && now - lastScan.t < 4000) return;   // scanner read the card twice
-  lastScan = { id: key, t: now };
-  var n = ++seq;
-  addRecent(n, id.toUpperCase());
-  if (!shownId) { $('st').style.fontSize = ''; $('st').className = 'status wait'; $('st').textContent = 'Checking ' + id + ' ...'; }
-  call('gateBoardScan', [id, LAT, LNG, MODE === 'gate']).then(function (r) {
-    setRecent(n, r.repeat ? { io: 'AGAIN', name: r.name || r.id, time: r.time || '' } : { io: r.inOut, name: r.name, time: r.time });
-    show(r);
-  }).catch(function (e) {
-    setRecent(n, { io: 'X', name: id + ' - not found' });
-    fail(e);
-  }).then(function () { $('idIn').focus(); });
+  var k = idKey(id), now = Date.now();
+  if (!k) return;
+  if (lastScan.k === k && now - lastScan.t < 4000) return;   // scanner read the card twice
+  lastScan = { k: k, t: now };
+  var m = MEM[k], s = STATE[k];
+  if (s && now >= s.t && now - s.t < GAP_MS) {               // same card again within 2 minutes
+    var rv = { k: k, id: id.toUpperCase(), name: m ? m[0] : '', repeat: true, last: s.io, time: fmtTime(s.t), course: m ? m[1] : '' };
+    addRecent(rv); enqueue(rv); return;
+  }
+  var pio = s && s.io === 'IN' ? 'OUT' : 'IN';
+  var uid = k + '-' + now.toString(36) + '-' + (++seq);
+  var v = { uid: uid, k: k, id: id.toUpperCase(), t: now, io: pio, time: fmtTime(now), waiting: true };
+  VIEWS[uid] = v;
+  OUTBOX.push({ uid: uid, id: id, t: now, pio: pio }); saveOutbox();
+  if (m) {
+    v.name = m[0]; v.course = m[1]; v.staff = !!m[2];
+    if (pio === 'OUT' && s && s.inT) v.reading = dur(now - s.inT);
+    STATE[k] = { io: pio, t: now, inT: pio === 'IN' ? now : (s && s.inT) };
+    addRecent(v); enqueue(v);
+  } else {
+    v.pending = true; v.name = id.toUpperCase() + ' - checking';
+    addRecent(v);
+    if (!CUR) { $('st').style.fontSize = ''; $('st').className = 'status wait'; $('st').textContent = 'Checking ' + id + ' ...'; }
+  }
+  pump();
 }
+
 $('idIn').addEventListener('keydown', function (ev) {
   if (ev.key !== 'Enter') return;
   var id = this.value; this.value = '';
   doScan(id);
 });
 $('goBtn').addEventListener('click', function () { var b = $('idIn'); var id = b.value; b.value = ''; doScan(id); b.focus(); });
-// Name search for readers without a card
+
+// Name search for readers without a card (on this PC when the list is here)
 var nameTimer = null;
+function nameButtons(list) {
+  if (!list.length) { $('nameRes').innerHTML = '<span class="none">No name found. Please meet the counter.</span>'; return; }
+  $('nameRes').innerHTML = list.slice(0, 8).map(function (p) {
+    return '<button type="button" data-id="' + esc(p.id) + '"><b>' + esc(p.name) + '</b> &middot; ' + esc(p.id) + '</button>';
+  }).join('');
+}
 $('nameIn').addEventListener('input', function () {
   var q = this.value.trim(); clearTimeout(nameTimer);
   if (q.length < 3) { $('nameRes').innerHTML = ''; return; }
+  var keys = Object.keys(MEM);
+  if (keys.length) {
+    var ql = q.toLowerCase(), hits = [];
+    for (var i = 0; i < keys.length && hits.length < 8; i++) if (String(MEM[keys[i]][0]).toLowerCase().indexOf(ql) >= 0) hits.push({ id: keys[i], name: MEM[keys[i]][0] });
+    return nameButtons(hits);
+  }
   nameTimer = setTimeout(function () {
     $('nameRes').innerHTML = '<span class="none">Searching...</span>';
-    call('searchPeopleByName', [q]).then(function (list) {
-      if (!list || !list.length) { $('nameRes').innerHTML = '<span class="none">No name found. Please meet the counter.</span>'; return; }
-      $('nameRes').innerHTML = list.slice(0, 8).map(function (p) {
-        return '<button type="button" data-id="' + esc(p.id) + '"><b>' + esc(p.name) + '</b> &middot; ' + esc(p.id) + '</button>';
-      }).join('');
-    }).catch(function () { $('nameRes').innerHTML = '<span class="none">Search failed. Try again.</span>'; });
+    call('searchPeopleByName', [q]).then(function (list) { nameButtons(list || []); })
+      .catch(function () { $('nameRes').innerHTML = '<span class="none">Search failed. Try again.</span>'; });
   }, 450);
 });
 $('nameRes').addEventListener('click', function (ev) {
   var b = ev.target.closest('button'); if (!b) return;
   doScan(b.getAttribute('data-id')); $('nameIn').value = ''; $('nameRes').innerHTML = '';
 });
-document.addEventListener('click', function (ev) { if (!ev.target.closest('.ns')) $('idIn').focus(); });
+document.addEventListener('click', function (ev) { if (!ev.target.closest('.ns') && !ev.target.closest('#setup') && !ev.target.closest('footer')) $('idIn').focus(); });
 
+// Door PC setup (once): staff password
+$('setupGo').addEventListener('click', function () {
+  var pw = $('setupPw').value; $('setupMsg').textContent = 'Checking...';
+  call('gfDoorLogin', [pw]).then(function (t) {
+    TOKEN = t; lsSet('gf_token', t); $('setupPw').value = ''; $('setup').style.display = 'none';
+    loadPack(true).then(function () { loadPhotoIndex(); }); bar();
+  }).catch(function (e) { $('setupMsg').textContent = e.message; });
+});
+$('setupPw').addEventListener('keydown', function (ev) { if (ev.key === 'Enter') $('setupGo').click(); });
+$('setupNo').addEventListener('click', function () { $('setup').style.display = 'none'; $('idIn').focus(); });
+
+// Start
 tick(); setInterval(tick, 1000);
-idle(); loadStats(); setInterval(loadStats, STATS_MS);
+idle(); bar();
+dbOpen().then(dbAll).then(function (all) {
+  LOCAL = all || {};
+  var pi = lsGet('gf_pidx', null);
+  if (pi && pi.list) pi.list.forEach(function (x) { PIDX[x[0]] = [x[1], x[2]]; });
+  bar();
+  loadPack(false).then(function () {
+    loadState();
+    if (TOKEN && (!pi || Date.now() - (pi.at || 0) > 6 * 3600000)) loadPhotoIndex(); else preload();
+  });
+});
+if (!TOKEN) loadState();
+setInterval(loadState, STATE_MS);
+setInterval(function () { loadPack(false); }, 30 * 60000);
+setInterval(pump, 10000);
+pump();
 </script>
+
 </body>
 </html>
