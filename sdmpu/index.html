@@ -552,7 +552,7 @@
 
 
 
-<!-- Our Achievers + highlighted newspaper cuttings on the front page (3 Nov 2026). Data: admin acPublic, nwPublic. -->
+<!-- Our Achievers on the front page (3 Nov 2026). Data: admin acPublic. Newspaper cuttings are only on news/. -->
 <style>
 .acx{max-width:1180px;margin:14px auto 4px;padding:0 16px;display:none}
 .acx-h{display:flex;align-items:center;gap:10px;margin:0 0 8px;font-weight:800;font-size:20px;color:#0f5c63}
@@ -618,7 +618,6 @@
   window.acxClose=function(){document.getElementById('acx-lb').style.display='none';};
   document.addEventListener('keydown',function(e){if(document.getElementById('acx-lb').style.display!=='flex')return;if(e.key==='Escape')acxClose();if(e.key==='ArrowRight')acxStep(1);if(e.key==='ArrowLeft')acxStep(-1);});
   call('acPublic').then(function(r){L=r||[];draw();}).catch(function(){});
-  call('nwPublic',[true]).then(function(r){N=r||[];draw();}).catch(function(){});
 })();
 </script>
 
