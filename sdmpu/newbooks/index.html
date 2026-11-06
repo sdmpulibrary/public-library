@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>New Arrivals - S.D.M. P.U. College Library (staff)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#1c1f6b;--c2:#0b0d3a;--gold:#d4a017;--bg:#faf7ef;--ink:#1a1a1a;--mut:#5d5d5d;--line:#e2dccb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3","Noto Sans Kannada",sans-serif;font-size:15px}
+.kn{font-family:"Noto Sans Kannada","Source Sans 3",sans-serif}
+header{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;padding:12px 16px;border-bottom:4px solid var(--gold);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header b{font-size:19px}header small{display:block;opacity:.85}header a{color:#fff}
+main{max-width:1000px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+h3{margin:0 0 6px;color:var(--c1)}
+label{display:block;font-weight:700;margin:10px 0 4px}input{width:100%;padding:8px 10px;border:1px solid #cfc6ad;border-radius:8px;font:inherit}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.btn{background:var(--c1);color:#fff;border:0;border-radius:999px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;margin:8px 6px 0 0}
+.btn.alt{background:#fff;color:var(--c1);border:1.5px solid var(--c1)}.btn.red{background:#a32020}.btn.sm{padding:5px 12px;font-size:13px;margin:4px 4px 0 0}
+.btn:disabled{opacity:.5;cursor:default}
+.msg{display:none;margin-top:8px;padding:8px 12px;border-radius:8px}.msg.ok{display:block;background:#e8f5e9}.msg.err{display:block;background:#fdecea;color:#8a1c1c}
+.hide{display:none!important}.mut{color:var(--mut);font-size:13px}
+.cv{width:72px;height:104px;border-radius:3px 6px 6px 3px;object-fit:cover;background:#e9e4d4;border:1px solid #ccc;flex:0 0 72px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;color:#777;padding:4px}
+.found{display:flex;gap:12px;align-items:flex-start;margin-top:10px}
+.row{display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--line);padding:12px 0}.row:first-child{border-top:0}
+.row .t{font-weight:800;color:var(--c1)}.row .in{flex:1;min-width:0}
+.row .ed{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.row .ed input{width:auto}.row .ed .o{width:70px}.row .ed .n{width:170px}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:6px}.tag.on{background:#e3f4e6;color:#1d6b2c}.tag.off{background:#eee;color:#666}.tag.bad{background:#fdecea;color:#8a1c1c}
+.info{background:#eef0fb;border-radius:10px;padding:10px 12px;font-size:14px}
+input[type=file]{display:none}
+</style></head><body>
+<header><div><b>&#x1F4DA; New Arrivals &middot; Book Covers</b><small>S.D.M. P.U. College Library &middot; website front page &middot; staff only</small></div>
+<div><a href="../" target="_blank" rel="noopener">Open website</a> &nbsp; <button class="btn alt hide" id="logout" style="margin:0">Log out</button></div></header>
+<main>
+<div class="card" id="loginBox">
+  <label>Staff password <span class="kn">&#x0CB8;&#x0CBF;&#x0CAC;&#x0CCD;&#x0CAC;&#x0C82;&#x0CA6;&#x0CBF; &#x0CAA;&#x0CBE;&#x0CB8;&#x0CCD;&#x200C;&#x0CB5;&#x0CB0;&#x0CCD;&#x0CA1;&#x0CCD;</span></label>
+  <input type="password" id="pw" style="max-width:260px"> <button class="btn" id="login">Log in</button>
+  <div class="msg" id="lmsg"></div>
+</div>
+<div class="hide" id="app">
+  <div class="card">
+    <h3>&#x2795; Add a new book <span class="kn">&#x0CB9;&#x0CCA;&#x0CB8; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95; &#x0CB8;&#x0CC7;&#x0CB0;&#x0CBF;&#x0CB8;&#x0CBF;</span></h3>
+    <div class="g">
+      <div><label>Acc No</label><input id="aAcc" placeholder="G-35149" autocomplete="off"></div>
+      <div><label>Order (1 = first)</label><input id="aOrder" type="number" min="1" placeholder="optional"></div>
+      <div><label>Note on the cover</label><input id="aNote" maxlength="30" placeholder="NEW (optional)"></div>
+    </div>
+    <button class="btn alt" id="find">Find book</button>
+    <div class="found hide" id="aFound"></div>
+    <div class="hide" id="aActs">
+      <button class="btn alt" id="aPick">&#x1F4F7; Cover photo</button><span class="mut" id="aPicTxt">Take a photo or choose one. It is made small and saved as the Acc No.</span>
+      <input type="file" id="aFile" accept="image/*">
+      <br><button class="btn" id="aSave">Save and show on website</button>
+    </div>
+    <div class="msg" id="amsg"></div>
+  </div>
+  <div class="card">
+    <h3>&#x1F4D6; Books on the website <span class="kn">&#x0CB5;&#x0CC6;&#x0CAC;&#x0CCD;&#x200C;&#x0CB8;&#x0CC8;&#x0C9F;&#x0CCD;&#x200C;&#x0CA8;&#x0CB2;&#x0CCD;&#x0CB2;&#x0CBF;&#x0CB0;&#x0CC1;&#x0CB5; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;&#x0C97;&#x0CB3;&#x0CC1;</span></h3>
+    <div class="info" id="mode"></div>
+    <div id="list"><div class="mut">Loading...</div></div>
+    <div class="msg" id="lmsg2"></div>
+  </div>
+</div>
+</main>
+<script>
+var API='https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec',KEY='',FOUND=null,PIC='',LIST=[],COVER_FOR='';
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return '&#'+c.charCodeAt(0)+';';});}
+function call(fn,args){return fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:fn,args:args||[]})})
+  .then(function(r){return r.json();}).then(function(j){if(j&&j.ok)return j.result;var m=(j&&j.error)||'Server error';if(/log in again/i.test(m))out();throw new Error(m);});}
+function msg(id,ok,t){var e=$(id);e.className='msg '+(ok?'ok':'err');e.textContent=t;}
+function cv(src,t){return src?'<img class="cv" src="'+esc(src)+'" alt="" referrerpolicy="no-referrer">':'<div class="cv">'+esc(t||'No cover photo')+'</div>';}
+function shrink(file,max,q){return new Promise(function(ok,bad){var r=new FileReader();r.onerror=function(){bad(new Error('Cannot read the photo.'));};
+  r.onload=function(){var im=new Image();im.onerror=function(){bad(new Error('This is not a picture. Please use a JPG or PNG photo.'));};
+    im.onload=function(){var s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+      var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',q));};im.src=r.result;};r.readAsDataURL(file);});}
+
+function draw(r){LIST=r.list||[];
+  $('mode').innerHTML=r.showing?'The website shows <b>these '+r.showing+' book'+(r.showing>1?'s':'')+'</b> (hidden ones are not shown).':
+    'No book is shown from this list, so the website shows the <b>last '+r.auto+' books</b> of the register by itself.';
+  $('list').innerHTML=LIST.length?LIST.map(function(b,i){
+    return '<div class="row">'+cv(b.cover,b.title)+'<div class="in"><div class="t">'+esc(b.title||'(not found in register)')+'</div>'+
+      '<div class="mut">'+esc(b.acc)+(b.author?' &middot; '+esc(b.author):'')+(b.status?' &middot; '+esc(b.status):'')+
+      (b.found?(b.show?'<span class="tag on">On website</span>':'<span class="tag off">Hidden</span>'):'<span class="tag bad">Acc No not found</span>')+'</div>'+
+      '<div class="ed">Order <input class="o" type="number" min="1" value="'+esc(b.order)+'" data-i="'+i+'" data-f="order"> Note <input class="n" maxlength="30" value="'+esc(b.note)+'" data-i="'+i+'" data-f="note">'+
+      '<button class="btn sm alt" data-a="save" data-i="'+i+'">Save</button></div>'+
+      '<div><button class="btn sm alt" data-a="photo" data-i="'+i+'">&#x1F4F7; '+(b.cover?'Change':'Add')+' cover</button>'+
+      '<button class="btn sm '+(b.show?'alt':'')+'" data-a="show" data-i="'+i+'">'+(b.show?'Hide':'Show')+'</button>'+
+      '<button class="btn sm red" data-a="remove" data-i="'+i+'">Remove from list</button></div></div></div>';}).join(''):'<div class="mut">No books in the list yet. Add one above.</div>';}
+function load(){return call('naAdminList',[KEY]).then(draw).catch(function(e){msg('lmsg2',false,e.message);});}
+
+$('list').onclick=function(ev){var b=ev.target.closest('button');if(!b)return;var x=LIST[Number(b.dataset.i)],a=b.dataset.a;if(!x)return;
+  if(a==='photo'){COVER_FOR=x.acc;$('aFile').click();return;}
+  if(a==='remove'&&!confirm('Remove '+x.acc+' from the New Arrivals list? (The book and its cover photo stay.)'))return;
+  b.disabled=true;var p;
+  if(a==='save'){var o=document.querySelector('[data-f=order][data-i="'+b.dataset.i+'"]').value,n=document.querySelector('[data-f=note][data-i="'+b.dataset.i+'"]').value;p=call('naAdminSave',[KEY,{acc:x.acc,order:o,note:n,show:x.show}]);}
+  else if(a==='show')p=call('naAdminShow',[KEY,x.acc,!x.show]);
+  else p=call('naAdminRemove',[KEY,x.acc]);
+  p.then(function(r){draw(r);msg('lmsg2',true,'Saved. The website shows it within a minute (press Ctrl+F5 there).');}).catch(function(e){b.disabled=false;msg('lmsg2',false,e.message);});};
+
+$('find').onclick=function(){var acc=$('aAcc').value.trim();if(!acc)return;$('aFound').classList.remove('hide');$('aFound').innerHTML='<span class="mut">Finding...</span>';$('aActs').classList.add('hide');PIC='';
+  call('naAdminLookup',[KEY,acc]).then(function(b){FOUND=b;$('aAcc').value=b.acc;
+    $('aFound').innerHTML='<span id="aCv">'+cv(b.cover,'No cover photo yet')+'</span><div><b>'+esc(b.title)+'</b><br><span class="mut">'+esc(b.author)+(b.publisher?' &middot; '+esc(b.publisher):'')+' &middot; '+esc(b.status)+'</span></div>';
+    $('aActs').classList.remove('hide');$('aPicTxt').textContent=b.cover?'This book already has a cover photo. Choose a new one only to change it.':'Take a photo or choose one. It is made small and saved as the Acc No.';})
+  .catch(function(e){FOUND=null;$('aFound').innerHTML='<span class="mut">'+esc(e.message)+'</span>';});};
+$('aAcc').onkeydown=function(e){if(e.key==='Enter')$('find').click();};
+$('aPick').onclick=function(){COVER_FOR='';$('aFile').click();};
+$('aFile').onchange=function(){var f=this.files[0];this.value='';if(!f)return;
+  var acc=COVER_FOR;COVER_FOR='';
+  shrink(f,900,.85).then(function(d){
+    if(acc){msg('lmsg2',true,'Saving the cover of '+acc+'...');
+      return call('naAdminCover',[KEY,acc,d]).then(function(){msg('lmsg2',true,'Cover saved for '+acc+'.');return load();});}
+    PIC=d;$('aCv').innerHTML='<img class="cv" src="'+d+'" alt="" style="outline:3px solid #d4a017">';$('aPicTxt').textContent='New photo ready (yellow). Press Save.';})
+  .catch(function(e){msg(acc?'lmsg2':'amsg',false,e.message);});};
+$('aSave').onclick=function(){if(!FOUND)return;var b=this;b.disabled=true;msg('amsg',true,'Saving...');
+  var p=PIC?call('naAdminCover',[KEY,FOUND.acc,PIC]):Promise.resolve();
+  p.then(function(){return call('naAdminSave',[KEY,{acc:FOUND.acc,order:$('aOrder').value,note:$('aNote').value,show:true}]);})
+   .then(function(r){draw(r);msg('amsg',true,FOUND.acc+' is saved and shown on the website.');FOUND=null;PIC='';
+     ['aAcc','aOrder','aNote'].forEach(function(i){$(i).value='';});$('aFound').classList.add('hide');$('aActs').classList.add('hide');b.disabled=false;$('aAcc').focus();})
+   .catch(function(e){b.disabled=false;msg('amsg',false,e.message);});};
+
+function start(){$('loginBox').classList.add('hide');$('app').classList.remove('hide');$('logout').classList.remove('hide');load();}
+function out(){KEY='';try{sessionStorage.removeItem('nakey');}catch(e){}$('app').classList.add('hide');$('logout').classList.add('hide');$('loginBox').classList.remove('hide');}
+$('login').onclick=function(){call('naLogin',[$('pw').value]).then(function(k){KEY=k;try{sessionStorage.setItem('nakey',k);}catch(e){}$('pw').value='';start();}).catch(function(e){msg('lmsg',false,e.message);});};
+$('pw').onkeydown=function(e){if(e.key==='Enter')$('login').click();};
+$('logout').onclick=out;
+try{KEY=sessionStorage.getItem('nakey')||'';}catch(e){}
+if(KEY)start();
+</script>
+</body></html>

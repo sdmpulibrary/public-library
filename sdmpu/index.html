@@ -621,6 +621,87 @@
 })();
 </script>
 
+<!-- 5 Nov 2026: New Arrivals running row (NewArrivalsShow.gs, naShowcase) -->
+<style>
+.nax{max-width:1180px;margin:14px auto 4px;padding:0 16px;display:none}
+.nax-h{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:#1c1f6b;margin-bottom:8px}
+.nax-h .kn{font-family:'Noto Sans Kannada',sans-serif;font-size:14px;color:#7a5c00;font-weight:600}
+.nax-h a{margin-left:auto;font-size:14px;font-weight:700;color:#1c1f6b;cursor:pointer;text-decoration:underline}
+.nax-vp{overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#fbf7ea,#f3ead0);border:1px solid #e2d6b0;padding:12px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.nax-run{display:flex;gap:14px;width:max-content;animation:nax-go var(--nax-s,40s) linear infinite;padding:0 7px}
+.nax-vp:hover .nax-run,.nax-vp.hold .nax-run{animation-play-state:paused}
+@keyframes nax-go{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.nax-b{flex:0 0 150px;cursor:pointer;text-align:center;background:none;border:0;padding:0;font:inherit;color:inherit}
+.nax-cv{width:130px;height:186px;margin:0 auto;border-radius:4px 8px 8px 4px;overflow:hidden;box-shadow:3px 4px 10px rgba(0,0,0,.28);background:#ddd;position:relative}
+.nax-cv img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;display:block}
+.nax-pl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px;color:#fff;font-weight:800;font-size:14px;line-height:1.25;text-align:center;border-left:8px solid rgba(0,0,0,.22);font-family:Georgia,serif}
+.nax-tag{position:absolute;z-index:2;top:6px;left:0;background:#c0392b;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:0 4px 4px 0;letter-spacing:.04em}
+.nax-t{font-weight:800;font-size:13.5px;color:#1c1f6b;margin-top:7px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nax-a{font-size:12.5px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nax-s{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;margin-top:3px}
+.nax-s.ok{background:#e3f4e8;color:#0f6b3a}.nax-s.out{background:#fdeaea;color:#a12a2a}.nax-s.ref{background:#eef0fb;color:#2a3590}
+.nax-m{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:9998;padding:14px}
+.nax-m .bx{background:#fff;color:#222;border-radius:14px;max-width:640px;width:100%;max-height:92vh;overflow:auto;display:flex;gap:16px;padding:18px;position:relative;flex-wrap:wrap}
+.nax-m .bx .nax-cv{width:180px;height:258px;margin:0;flex:none}
+.nax-m .inf{flex:1;min-width:220px}
+.nax-m h3{font-size:19px;color:#1c1f6b;margin:0 0 4px;line-height:1.25;padding-right:26px}
+.nax-m .by{color:#555;margin-bottom:8px}
+.nax-m table{border-collapse:collapse;font-size:14px;width:100%}
+.nax-m td{padding:4px 6px;border-bottom:1px solid #eee;vertical-align:top}.nax-m td:first-child{color:#777;white-space:nowrap;width:1%}
+.nax-m .x{position:absolute;top:8px;right:10px;background:#f1f1f1;border:0;border-radius:50%;width:34px;height:34px;font-size:20px;cursor:pointer}
+@media(max-width:560px){.nax-b{flex-basis:118px}.nax-cv{width:104px;height:150px}.nax-m .bx .nax-cv{width:140px;height:200px}}
+@media(prefers-reduced-motion:reduce){.nax-run{animation:none}.nax-vp{overflow-x:auto}}
+</style>
+<div class="nax" id="nax">
+  <div class="nax-h">&#x1F4DA; New Arrivals <span class="kn">&#x0CB9;&#x0CCA;&#x0CB8; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;&#x0C97;&#x0CB3;&#x0CC1;</span>
+    <a onclick="if(window.showPage)showPage('newarrivals')">See all &#8250;</a></div>
+  <div class="nax-vp" id="nax-vp"><div class="nax-run" id="nax-run"></div></div>
+</div>
+<div class="nax-m" id="nax-m" onclick="if(event.target===this)naxClose()"><div class="bx" id="nax-bx"></div></div>
+<script>
+(function(){
+  var API='https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec',B=[];
+  var COL=['#1c1f6b','#0f6b3a','#7a2a6b','#a1462a','#245c8a','#5c4a1c','#8a1c3c','#2a6b6b'];
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return '&#'+c.charCodeAt(0)+';';});}
+  function cover(b,i){
+    var pl='<div class="nax-pl" style="background:'+COL[i%COL.length]+'">'+esc(b.title)+'</div>';
+    var img=b.cover?'<img src="'+esc(b.cover)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">':'';
+    return '<div class="nax-cv">'+pl+img+(b.note?'<span class="nax-tag">'+esc(b.note)+'</span>':'')+'</div>';
+  }
+  function stat(b){
+    if(b.notForLoan)return '<span class="nax-s ref">Reference</span>';
+    return b.status==='Issued'?'<span class="nax-s out">Issued</span>':'<span class="nax-s ok">Available</span>';
+  }
+  function card(b,i){return '<button type="button" class="nax-b" onclick="naxOpen('+i+')">'+cover(b,i)+'<div class="nax-t">'+esc(b.title)+'</div><div class="nax-a">'+esc(b.author)+'</div>'+stat(b)+'</button>';}
+  window.naxOpen=function(i){var b=B[i];if(!b)return;
+    var rows=[['Acc No',b.acc],['Author',b.author],['Publisher',[b.publisher,b.place].filter(String).join(', ')],['Edition',b.edition],['ISBN',b.isbn],['Pages',b.pages],
+      ['Call No',b.callNo],['Shelf',b.shelf],['Section',b.section],['Status',b.notForLoan?'Reference (read in the library)':b.status]].filter(function(r){return r[1];});
+    document.getElementById('nax-bx').innerHTML='<button type="button" class="x" aria-label="Close" onclick="naxClose()">&times;</button>'+cover(b,i)+
+      '<div class="inf"><h3>'+esc(b.title)+'</h3>'+(b.author?'<div class="by">'+esc(b.author)+'</div>':'')+'<table>'+rows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+esc(r[1])+'</td></tr>';}).join('')+'</table></div>';
+    document.getElementById('nax-m').style.display='flex';};
+  window.naxClose=function(){document.getElementById('nax-m').style.display='none';};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')naxClose();});
+  var vp=document.getElementById('nax-vp');
+  vp.addEventListener('touchstart',function(){vp.classList.add('hold');},{passive:true});
+  vp.addEventListener('touchend',function(){setTimeout(function(){vp.classList.remove('hold');},2500);},{passive:true});
+  function page(){
+    var el=document.getElementById('na-content');if(!el)return;window.naxDone=true;
+    el.innerHTML='<div style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center">'+B.map(card).join('')+'</div>';
+  }
+  fetch(API,{method:'POST',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:'naShowcase',args:[]})})
+    .then(function(r){return r.json();}).then(function(j){
+      if(!j||!j.ok||!j.result||!j.result.books||!j.result.books.length)return;
+      B=j.result.books;
+      var one=B.map(card).join(''),run=document.getElementById('nax-run'),rep=Math.max(1,Math.ceil(1600/(164*B.length))),half=one,k;
+      for(k=1;k<rep;k++)half+=one.replace(/<button /g,'<button tabindex="-1" ');
+      run.innerHTML=half+half.replace(/<button (?!tabindex)/g,'<button tabindex="-1" ').replace(/<button /g,'<button aria-hidden="true" ');
+      run.style.setProperty('--nax-s',Math.max(24,B.length*rep*4)+'s');
+      document.getElementById('nax').style.display='block';
+      page();
+    }).catch(function(){});
+})();
+</script>
+
 <div class="hero">
   <div>
     <div class="hero-eyebrow" data-i18n="heroEyebrow">S.D.M. P.U. College, Honnavar (U.K.) · V. G. Hegde Kaikatgeri Memorial Library</div>
@@ -1944,6 +2025,7 @@
   // ===== New Arrivals =====
   google.script.run.withSuccessHandler(function(books) {
     const el = document.getElementById('na-content');
+    if (window.naxDone) return;
     if (!books || books.length === 0) { el.innerHTML = '<div class="empty-note">No new arrivals to show yet.</div>'; return; }
     el.innerHTML = '';
     books.forEach(b => {
