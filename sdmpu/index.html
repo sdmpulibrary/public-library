@@ -2490,6 +2490,19 @@ function sxMailCopy(b){
 (function () {
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); }
   function row(h) { return '<li style="margin:3px 0;"><b>' + esc(h.nice) + '</b> &ndash; ' + esc(h.en) + (h.kn ? ' <span style="font-family:\'Noto Sans Kannada\',sans-serif;color:#666;">(' + esc(h.kn) + ')</span>' : '') + '</li>'; }
+  // The open / closed line at the top opens the holiday list.
+  try {
+    var st = document.getElementById('sx-status');
+    if (st) {
+      st.style.cursor = 'pointer'; st.title = 'See the holiday list';
+      var more = document.createElement('span'); more.textContent = ' · Holidays ›'; more.style.textDecoration = 'underline'; more.style.fontWeight = '400';
+      st.appendChild(more);
+      st.addEventListener('click', function () {
+        try { showPage('about'); } catch (e) {}
+        setTimeout(function () { var b = document.getElementById('hd-box'); if (b) { var c = b.closest('.info-card') || b; c.scrollIntoView({ behavior: 'smooth', block: 'center' }); c.style.transition = 'box-shadow .4s'; c.style.boxShadow = '0 0 0 4px #ffc107'; setTimeout(function () { c.style.boxShadow = ''; }, 2500); } }, 350);
+      });
+    }
+  } catch (e) {}
   try {
     google.script.run.withSuccessHandler(function (x) {
       var b = document.getElementById('hd-box'); if (!b || !x) return;
