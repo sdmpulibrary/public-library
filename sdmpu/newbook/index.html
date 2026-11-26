@@ -104,9 +104,24 @@ table.bt img{width:42px;border-radius:4px}
 .links a{display:inline-block;margin:6px 8px 0 0;font-weight:bold}
 .inline{display:flex;gap:6px;align-items:center;font-weight:normal;font-size:14px;margin-top:8px}
 .inline input{width:auto}
+.ez h2{margin-bottom:4px}
+.ezstep{border:2px solid #c9d3ee;border-radius:14px;padding:12px 14px;margin:12px 0;background:#fff}
+.ezstep.done{border-color:#9bd3ae}
+.ezn{display:inline-block;width:30px;height:30px;line-height:30px;text-align:center;border-radius:50%;background:#1d3d8f;color:#fff;font-weight:bold;margin-right:8px}
+.ezbig{display:inline-block;font-size:17px;font-weight:bold;padding:14px 18px;border-radius:12px;margin:6px 8px 6px 0;cursor:pointer;border:0;background:#1f7a3d;color:#fff}
+.ezbig.b{background:#1d3d8f}.ezbig.s{background:#6b7280}
+.ezbig input{display:none}
+.ezbar{height:12px;background:#e1e6f3;border-radius:6px;overflow:hidden;margin:6px 0}.ezbar div{height:100%;background:#1f7a3d;width:0;transition:width .4s}
+.ezcard{display:flex;gap:10px;border:1px solid #dde3f0;border-radius:10px;padding:8px;margin:6px 0;background:#fbfcff}
+.ezcard.look{background:#fff8e1;border-color:#e9c46a}
+.ezcard img{width:62px;height:88px;object-fit:cover;border-radius:4px;background:#eee;flex:0 0 auto}
+.ezcard .t{font-weight:bold}.ezcard small{color:#555}
+.ezcard .bt2{margin-left:auto;display:flex;flex-direction:column;gap:6px}
+.ezsum{font-size:14px;background:#f1f5ff;border-radius:8px;padding:8px 10px;margin-top:8px}
+#moreTabs{display:none}
 @media (max-width:600px){.row>*{min-width:100%}}
 </style>
-<header><h1>New Book Desk</h1><small>&#x0CB9;&#x0CCA;&#x0CB8; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95; &#x0CA8;&#x0CCB;&#x0C82;&#x0CA6;&#x0CA3;&#x0CBF; &middot; S.D.M. P.U. College, Honavar &middot; version 25-Nov</small></header>
+<header><h1>New Book Desk</h1><small>&#x0CB9;&#x0CCA;&#x0CB8; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95; &#x0CA8;&#x0CCB;&#x0C82;&#x0CA6;&#x0CA3;&#x0CBF; &middot; S.D.M. P.U. College, Honavar &middot; version 26-Nov (Easy)</small></header>
 <div class="trial" id="bar">
   <div class="row" style="align-items:flex-end">
     <div style="max-width:170px"><label>Desk PIN</label><input id="pin" type="password" autocomplete="off" placeholder="PIN"></div>
@@ -117,6 +132,9 @@ table.bt img{width:42px;border-radius:4px}
 </div>
 <div class="wrap">
 <div class="tabs" id="tabs">
+  <button id="t0" onclick="tab(0)">&#9733; Easy: 3 steps</button>
+  <button id="ezMoreBtn" class="s" onclick="ezMore($('moreTabs').style.display==='none')">More tools</button>
+  <span id="moreTabs">
   <button id="t1" onclick="tab(1)">1  Batch settings</button>
   <button id="t2" onclick="tab(2)">2  Add one book <span id="n2"></span></button>
   <button id="t4" onclick="tab(4)">2b  Photo basket</button>
@@ -124,6 +142,54 @@ table.bt img{width:42px;border-radius:4px}
   <button id="t3" onclick="tab(3)">3  Verify and submit <span id="n3"></span></button>
   <button id="t5" onclick="tab(5)">4  Old book / ISBN</button>
   <button id="t7" onclick="tab(7)">5  Koha file and covers</button>
+  </span>
+</div>
+
+<!-- 0: EASY - 3 steps -->
+<div id="p0" class="box ez" style="display:none">
+  <p class="lead"><b>Only 3 steps.</b> &#x0C95;&#x0CC7;&#x0CB5;&#x0CB2; 3 &#x0CB9;&#x0C82;&#x0CA4;&#x0C97;&#x0CB3;&#x0CC1;: &#x0CAC;&#x0CBF;&#x0CB2;&#x0CCD; &#x0CB5;&#x0CBF;&#x0CB5;&#x0CB0; &rarr; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;&#x0C97;&#x0CB3; PDF/&#x0CAB;&#x0CCB;&#x0C9F;&#x0CCB; &rarr; &#x0CAA;&#x0CB0;&#x0CBF;&#x0CB6;&#x0CC0;&#x0CB2;&#x0CBF;&#x0CB8;&#x0CBF; &#x0C89;&#x0CB3;&#x0CBF;&#x0CB8;&#x0CBF;.</p>
+
+  <div class="ezstep" id="ez1">
+    <h2><span class="ezn">1</span>Bill details / &#x0CAC;&#x0CBF;&#x0CB2;&#x0CCD; &#x0CB5;&#x0CBF;&#x0CB5;&#x0CB0;</h2>
+    <div class="tiles" id="ezHow"></div>
+    <div class="row">
+      <div style="flex:2"><label id="ezSupLabel">Supplier (book seller) / &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95; &#x0CAE;&#x0CBE;&#x0CB0;&#x0CBE;&#x0C9F;&#x0C97;&#x0CBE;&#x0CB0;</label><input id="ez_supplier" list="supList" onchange="ezSync()"></div>
+      <div id="ezFundWrap"><label>Fund / &#x0CA8;&#x0CBF;&#x0CA7;&#x0CBF;</label><input id="ez_fund" list="fundList" onchange="ezSync()" placeholder="General Fund"></div>
+    </div>
+    <div class="row" id="ezBillRow">
+      <div><label>Bill no. / &#x0CAC;&#x0CBF;&#x0CB2;&#x0CCD; &#x0CB8;&#x0C82;&#x0C96;&#x0CCD;&#x0CAF;&#x0CC6;</label><input id="ez_billNo" onchange="ezSync()"></div>
+      <div><label>Bill date / &#x0CAC;&#x0CBF;&#x0CB2;&#x0CCD; &#x0CA6;&#x0CBF;&#x0CA8;&#x0CBE;&#x0C82;&#x0C95;</label><input id="ez_billDate" type="date" onchange="ezSync()"></div>
+      <div><label>Bill amount (Rs) / &#x0CAE;&#x0CCA;&#x0CA4;&#x0CCD;&#x0CA4;</label><input id="ez_billAmount" inputmode="decimal" onchange="ezSync()"></div>
+    </div>
+    <div class="row">
+      <div><label>Books are mostly in / &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;&#x0C97;&#x0CB3; &#x0CAD;&#x0CBE;&#x0CB7;&#x0CC6;</label><select id="ez_lang" onchange="ezSync()"><option>Kannada</option><option>English</option><option>Hindi</option><option>Sanskrit</option></select></div>
+      <div><label>Date Accessioned / &#x0CA6;&#x0CBE;&#x0C96;&#x0CB2;&#x0CC1; &#x0CA6;&#x0CBF;&#x0CA8;&#x0CBE;&#x0C82;&#x0C95;</label><input id="ez_date" type="date" onchange="ezSync()"></div>
+    </div>
+    <div class="ezsum" id="ezSum"></div>
+  </div>
+
+  <div class="ezstep" id="ez2">
+    <h2><span class="ezn">2</span>Add the books / &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;&#x0C97;&#x0CB3;&#x0CA8;&#x0CCD;&#x0CA8;&#x0CC1; &#x0CB8;&#x0CC7;&#x0CB0;&#x0CBF;&#x0CB8;&#x0CBF;</h2>
+    <p class="lead">For each book: <b>front cover first</b>, then the details page (price, publisher). Many books in one PDF is fine. &#x0CAA;&#x0CCD;&#x0CB0;&#x0CA4;&#x0CBF; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;&#x0C95;&#x0CCD;&#x0C95;&#x0CC6; &#x0CAE;&#x0CCA;&#x0CA6;&#x0CB2;&#x0CC1; &#x0CAE;&#x0CC1;&#x0C96;&#x0CAA;&#x0CC1;&#x0C9F;, &#x0CA8;&#x0C82;&#x0CA4;&#x0CB0; &#x0CB5;&#x0CBF;&#x0CB5;&#x0CB0;&#x0C97;&#x0CB3; &#x0CAA;&#x0CC1;&#x0C9F;.</p>
+    <label class="ezbig">&#128196; Choose a PDF / PDF &#x0C86;&#x0CAF;&#x0CCD;&#x0C95;&#x0CC6;<input type="file" accept=".pdf,application/pdf" multiple onchange="ezPick(this)"></label>
+    <label class="ezbig b">&#128247; Choose photos / &#x0CAB;&#x0CCB;&#x0C9F;&#x0CCB;&#x0C97;&#x0CB3;&#x0CC1;<input type="file" accept="image/*,.zip,application/zip" multiple onchange="ezPick(this)"></label>
+    <button class="ezbig s" onclick="tab(2)">Camera: one book at a time</button>
+    <div class="ezbar" id="ezBar" style="display:none"><div></div></div>
+    <div id="ez2msg"></div>
+    <div id="ezQ"></div>
+  </div>
+
+  <div class="ezstep" id="ez3">
+    <h2><span class="ezn">3</span>Check and save / &#x0CAA;&#x0CB0;&#x0CBF;&#x0CB6;&#x0CC0;&#x0CB2;&#x0CBF;&#x0CB8;&#x0CBF; &#x0C89;&#x0CB3;&#x0CBF;&#x0CB8;&#x0CBF;</h2>
+    <div id="ez3head"></div>
+    <label class="inline"><input type="checkbox" id="ezOnlyLook" onchange="ezList()"> Show only books that need a look (yellow) / &#x0CB9;&#x0CB3;&#x0CA6;&#x0CBF; &#x0CAE;&#x0CBE;&#x0CA4;&#x0CCD;&#x0CB0;</label>
+    <div id="ezBooks"></div>
+    <div id="ezDock"></div>
+    <p><button class="ezbig" id="ezSave" onclick="ezSave()">&#10004; Save all to the register / &#x0CB0;&#x0CBF;&#x0C9C;&#x0CBF;&#x0CB8;&#x0CCD;&#x0C9F;&#x0CB0;&#x0CCD;&#x200C;&#x0C97;&#x0CC6; &#x0C89;&#x0CB3;&#x0CBF;&#x0CB8;&#x0CBF;</button></p>
+    <div class="kbox"><b>After saving / &#x0C89;&#x0CB3;&#x0CBF;&#x0CB8;&#x0CBF;&#x0CA6; &#x0CA8;&#x0C82;&#x0CA4;&#x0CB0;:</b><br>
+      <button class="ezbig b" onclick="ezKoha()">Koha file (.mrc)</button> <button class="ezbig b" onclick="ezCovers()">Covers ZIP</button>
+      <div id="ez4"></div></div>
+  </div>
 </div>
 
 <!-- 1: batch settings -->
@@ -1309,5 +1375,178 @@ async function makeZip() {
     m.innerHTML = '<div class="msg ok"><b>' + r.count + ' cover(s)</b> in ' + esc(r.name) + (r.skipped ? ' (' + r.skipped + ' not done - press again for the rest)' : '') + (r.overSize ? ' - ' + r.overSize + ' still above 20 KB' : '') + '.<div class="links"><a href="' + esc(r.url) + '" target="_blank" rel="noopener">Download the ZIP</a><a href="' + esc(r.view) + '" target="_blank" rel="noopener">Open in Drive</a></div></div>';
   } catch (e) { m.innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
 }
+
+// ======================= EASY SCREEN: 1 bill, 2 add PDF/photos, 3 check and save =======================
+var EZ = { busy: false, poll: null, lastReady: -1, waitSince: 0, upTimer: null };
+var EZ_HOWS = [['Purchase', 'Purchase / ಖರೀದಿ'], ['Donated', 'Donated / ದಾನ']];
+
+function ezMore(on) {
+  $('moreTabs').style.display = on ? 'inline' : 'none';
+  $('ezMoreBtn').textContent = on ? 'Hide other tools' : 'More tools';
+  try { localStorage.setItem('nb_more_' + LIBKEY, on ? '1' : ''); } catch (e) {}
+}
+// the tabs (0 = easy screen)
+function tab(n) {
+  for (var i = 0; i <= 7; i++) { var p = $('p' + i), t = $('t' + i); if (p) p.style.display = i === n ? 'block' : 'none'; if (t) t.className = i === n ? 'on' : ''; }
+  if (n !== 0 && n !== 1) ezMore(true);
+  ezDock(n);
+  if (n === 3) loadBatch();
+  if (n === 4) bkQueueRefresh();
+  if (n === 0) { ezFill(); if (PIN) { loadBatch(true); ezPollOnce(); } }
+  window.scrollTo(0, 0);
+}
+// the edit box and the submit message live in step 3 of the easy screen, or in tab 3
+function ezDock(n) {
+  var to = n === 0 ? $('ezDock') : $('p3');
+  if (n !== 0 && n !== 3) return;
+  to.appendChild($('editBox')); to.appendChild($('subMsg'));
+}
+
+// ---------- step 1: bill ----------
+function ezHowTiles() {
+  $('ezHow').innerHTML = EZ_HOWS.map(function (h) { return '<div class="tile' + (BATCH.how === h[0] ? ' on' : '') + '" onclick="setHow(\'' + h[0] + '\');ezFill()">' + h[1] + '</div>'; }).join('');
+  var don = BATCH.how === 'Donated';
+  $('ezSupLabel').textContent = don ? 'Donor name (who gave the books) / ದಾನಿಗಳ ಹೆಸರು' : 'Supplier (book seller) / ಪುಸ್ತಕ ಮಾರಾಟಗಾರ';
+  $('ezBillRow').style.display = don ? 'none' : '';
+  $('ezFundWrap').style.display = don ? 'none' : '';
+}
+function ezFill() {
+  ezHowTiles();
+  $('ez_supplier').value = BATCH.supplier || ''; $('ez_fund').value = BATCH.fund || ''; $('ez_billNo').value = BATCH.billNo || '';
+  $('ez_billDate').value = BATCH.billDate || ''; $('ez_billAmount').value = BATCH.billAmount || ''; $('ez_date').value = BATCH.date || '';
+  var l = String(BATCH.lang || 'Kannada'); $('ez_lang').value = /^en/i.test(l) ? 'English' : /^hi/i.test(l) ? 'Hindi' : /^sa/i.test(l) ? 'Sanskrit' : 'Kannada';
+  ezSummary();
+}
+function ezSync() {
+  $('b_supplier').value = $('ez_supplier').value; $('b_fund').value = $('ez_fund').value; $('b_billNo').value = $('ez_billNo').value;
+  $('b_billDate').value = $('ez_billDate').value; $('b_billAmount').value = $('ez_billAmount').value; $('b_lang').value = $('ez_lang').value;
+  if ($('ez_date').value) $('b_date').value = $('ez_date').value;
+  batchChg(); ezSummary();
+}
+function ezSummary() {
+  var s = INIT ? secOf() : null, pre = s ? s.prefix + '-' : '', start = parseInt(BATCH.start, 10) || (s ? s.next : '');
+  $('ezSum').innerHTML = (s ? 'New books get Acc Nos from <b>' + esc(pre + start) + '</b> in tab <b>' + esc(s.tab) + '</b>. ' : 'Type the PIN and press <b>Connect</b> at the top. ') +
+    'Serial Enum/Chron <b>' + esc(BATCH.serial || '') + '</b>. Inventory: <b>' + esc(BATCH.inventory || '(blank)') + '</b>. ' +
+    '<a href="#" onclick="tab(1);return false">Change number or other details</a>';
+}
+
+// ---------- step 2: PDF / photos -> books -> upload -> Gemini reads ----------
+function ezBar(done, todo) { $('ezBar').style.display = todo ? 'block' : 'none'; $('ezBar').firstChild.style.width = (todo ? Math.round(100 * done / todo) : 0) + '%'; }
+function ezMsg(h, cls) { $('ez2msg').innerHTML = h ? '<div class="msg ' + (cls || 'i') + '">' + h + '</div>' : ''; }
+function rcProg(done, todo, text) {          // 2c progress, also shown on the easy screen
+  $('rcProg').style.display = todo ? 'block' : 'none';
+  $('rcProg').firstChild.style.width = (todo ? Math.round(100 * done / todo) : 0) + '%';
+  if (text) $('rcMsg').innerHTML = '<div class="msg i">' + text + '</div>';
+  if (EZ.busy) { ezBar(done, todo); if (text) ezMsg('<b>Step 2 is working. Keep this page open.</b><br>' + text); }
+}
+async function ezPick(inp) {
+  if (!PIN) { alert('Type the PIN and press Connect at the top first.'); inp.value = ''; return; }
+  if (EZ.busy || RC.busy || BK.uploading) { alert('Still working on the last files. Please wait.'); inp.value = ''; return; }
+  var files = Array.prototype.slice.call(inp.files || []); inp.value = '';
+  if (!files.length) return;
+  ezSync();
+  RC.how = 'auto'; RC.cut = 'none'; try { rcTiles(); } catch (e) {}
+  var before = BK.groups.length;
+  EZ.busy = true; ezMsg('<b>Opening the file...</b> Keep this page open.');
+  try {
+    await rcPick({ files: files, value: '' });
+    var mine = BK.groups.slice(before).filter(function (g) { return g.photos.length; });
+    if (!mine.length) { EZ.busy = false; ezBar(0, 0); $('ez2msg').innerHTML = $('rcMsg').innerHTML.replace(/<button[^>]*>.*?<\/button>/g, ''); return; }
+    // a group with more than 8 pages: the start of a book was missed. Upload the others; that one waits in "More tools > 2b".
+    var big = mine.filter(function (g) { return g.photos.length > 8; });
+    big.forEach(function (g) { g.status = 'hold'; });
+    ezMsg('<b>' + mine.length + ' book(s) found.</b> Uploading them now... Keep this page open.');
+    EZ.upTimer = setInterval(function () {
+      var q = mine.filter(function (g) { return g.status === 'queued' || g.status === 'failed'; }).length;
+      ezBar(q, mine.length); ezMsg('<b>Uploading book ' + Math.min(q + 1, mine.length) + ' of ' + mine.length + '...</b> Keep this page open.');
+    }, 1000);
+    await bkUpload();
+    // try the failed ones once more
+    if (mine.some(function (g) { return g.status === 'failed'; })) await bkUpload();
+    clearInterval(EZ.upTimer);
+    big.forEach(function (g) { g.status = 'draft'; });
+    bkPoll(false);
+    var ok = mine.filter(function (g) { return g.status === 'queued'; }).length, bad = mine.filter(function (g) { return g.status === 'failed'; }).length;
+    ezBar(0, 0);
+    ezMsg('<b>' + ok + ' book(s) uploaded.</b> Gemini is now reading them (about 4 books a minute). <b>You may close this page</b>; the reading goes on. Come back later and the books are in step 3.' +
+      (bad ? '<br><b style="color:#b00">' + bad + ' book(s) could not be uploaded.</b> <button onclick="ezRetryUpload()">Upload them again</button>' : '') +
+      (big.length ? '<br><b>' + big.length + ' group(s) have more than 8 pages</b> (two books joined?). Open <a href="#" onclick="tab(4);return false">More tools &gt; 2b</a>, press "new book from here" at the second cover, then Upload.' : ''), bad ? 'w' : 'ok');
+    ezPollOn();
+  } catch (e) { clearInterval(EZ.upTimer); ezMsg(esc(e.message), 'er'); }
+  EZ.busy = false;
+}
+async function ezRetryUpload() { if (BK.uploading) return; await bkUpload(); bkPoll(false); ezPollOn(); }
+// the queue on the server
+function ezPollOn() { ezPollOff(); EZ.poll = setInterval(ezPollOnce, 15000); ezPollOnce(); }
+function ezPollOff() { if (EZ.poll) { clearInterval(EZ.poll); EZ.poll = null; } }
+async function ezPollOnce() {
+  if (!PIN) return;
+  try {
+    var q = await nb({ action: 'qlist', batch: BATCH.id }), c = q.counts;
+    if (!q.total) { $('ezQ').innerHTML = ''; ezPollOff(); return; }
+    var read = c.Ready, left = c.Waiting + c.Reading;
+    var h = '<div class="ezbar"><div style="width:' + Math.round(100 * read / q.total) + '%"></div></div>' +
+      '<b>Gemini has read ' + read + ' of ' + q.total + ' book(s).</b> ' + (left ? 'Still to read: ' + left + '. ' : 'All read. ') + (c.Failed ? '<b style="color:#b00">Not read: ' + c.Failed + '</b> <button onclick="ezRetryFailed()">Read them again</button>' : '');
+    if (left && !c.Reading) {
+      if (!EZ.waitSince) EZ.waitSince = Date.now();
+      if (Date.now() - EZ.waitSince > 10 * 60000) h += '<div style="color:#8a5a00">Nothing read for 10 minutes: the free Gemini limit for today may be used up. It goes on by itself tomorrow.</div>';
+    } else EZ.waitSince = 0;
+    $('ezQ').innerHTML = '<div class="msg ' + (left ? 'i' : 'ok') + '">' + h + '</div>';
+    if (read !== EZ.lastReady) { EZ.lastReady = read; loadBatch(true); }
+    if (!left) ezPollOff(); else if (!EZ.poll) ezPollOn();
+  } catch (e) { $('ezQ').innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+async function ezRetryFailed() {
+  try {
+    var q = await nb({ action: 'qlist', batch: BATCH.id });
+    for (var i = 0; i < q.items.length; i++) if (q.items[i].status === 'Failed') await nb({ action: 'qretry', key: q.items[i].key });
+  } catch (e) { alert(e.message); }
+  ezPollOn();
+}
+
+// ---------- step 3: check and save ----------
+var _ezRenderBatch = renderBatch;
+renderBatch = function () { _ezRenderBatch(); ezList(); };
+function ezNeedsLook(b) { return /flag/.test(flagsOf(b)) || !b.data.price || !b.data.pages; }
+function ezList() {
+  var s = INIT ? secOf() : null, pre = s ? s.prefix + '-' : '', start = parseInt(BATCH.start, 10) || (s ? s.next : 0), id = start, copies = 0;
+  LIST.forEach(function (b) { copies += nCopies(b.data); });
+  var look = LIST.filter(ezNeedsLook).length, only = $('ezOnlyLook').checked;
+  $('ez3head').innerHTML = LIST.length ? '<div class="msg i"><b>' + LIST.length + ' book(s) ready</b>, Acc Nos <b>' + esc(pre + start) + ' to ' + esc(pre + (start + copies - 1)) + '</b>. ' +
+    (look ? '<b>' + look + '</b> need a look (yellow): press <b>Edit</b>, type the missing price / pages / year from the book, Save.' : 'All look complete.') + '</div>'
+    : '<div class="msg w">No books yet. Do step 2 first. Books appear here as Gemini reads them.</div>';
+  $('ezSave').style.display = LIST.length ? '' : 'none';
+  $('ezBooks').innerHTML = LIST.map(function (b, i) {
+    var d = b.data, n = nCopies(d), nums = n > 1 ? pre + id + ' to ' + pre + (id + n - 1) : pre + id; id += n;
+    var lk = ezNeedsLook(b); if (only && !lk) return '';
+    var t = d.title && d.titleEn && d.title !== d.titleEn ? esc(d.title) + ' <small>(' + esc(d.titleEn) + ')</small>' : esc(d.title || d.titleEn);
+    var miss = []; if (!d.price) miss.push('price'); if (!d.pages) miss.push('pages');
+    var im = thumb(d.urls && d.urls.cover, 120);
+    return '<div class="ezcard' + (lk ? ' look' : '') + '">' + (im ? '<img src="' + im + '" loading="lazy">' : '<img>') +
+      '<div><div><b>' + esc(nums) + '</b> &middot; <span class="t">' + t + '</span></div>' +
+      '<small>' + esc(d.authorInv || d.authorEn || d.author || d.corporate || '(no author)') + '</small><br>' +
+      '<small>' + esc([d.publisherEn || d.publisher, d.place, d.year].filter(Boolean).join(', ')) + (d.pages ? ' &middot; ' + esc(d.pages) + (/^\d+$/.test(String(d.pages).trim()) ? ' p.' : '') : '') + (d.price ? ' &middot; Rs. ' + esc(d.price) : '') + (d.isbn ? ' &middot; ISBN ' + esc(d.isbn) : '') + '</small><br>' +
+      '<small>DDC <b>' + esc(d.callNo || d.ddc || '-') + '</b> &middot; CC <b>' + esc(d.ccClass || '-') + '</b>' + (n > 1 ? ' &middot; ' + n + ' copies' : '') + '</small><br>' +
+      (miss.length ? '<span class="flag w">no ' + miss.join(', no ') + '</span> ' : '') + flagsOf(b) + '</div>' +
+      '<div class="bt2"><button onclick="editBook(' + i + ')">Edit</button><button class="r" onclick="removeBook(' + i + ')">Remove</button></div></div>';
+  }).join('');
+}
+async function ezSave() { ezSync(); await submitBatch(false); $('subMsg').scrollIntoView(); }
+function afterSubmit(nextStart) {
+  BATCH.id = 'B' + Date.now().toString(36).toUpperCase(); BATCH.start = String(nextStart); $('b_start').value = BATCH.start; saveBatch(); SESSION_ADDED = []; renderAdded(); batchInfo();
+  $('subMsg').innerHTML = ''; $('ezQ').innerHTML = ''; ezMsg(''); EZ.lastReady = -1; tab(0);
+}
+async function ezKoha() { await makeMrc(); $('ez4').innerHTML = $('mrcMsg').innerHTML; }
+async function ezCovers() { await makeZip(); $('ez4').innerHTML = $('czMsg').innerHTML; }
+
+// ---------- start ----------
+(function ezInit() {
+  var _ri = refreshInit;
+  refreshInit = async function () { await _ri(); ezFill(); if (PIN) ezPollOnce(); };
+  var more = ''; try { more = localStorage.getItem('nb_more_' + LIBKEY) || ''; } catch (e) {}
+  ezMore(!!more);
+  tab(0);
+  setTimeout(function () { ezFill(); if (PIN) ezPollOnce(); }, 2500);
+})();
 
 </script></body></html>
