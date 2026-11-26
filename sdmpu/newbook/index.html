@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New Book Desk - S.D.M. P.U. College, Honavar</title>
+<style>
+:root{--navy:#14306b;--gold:#d9a521;--bg:#f3f5f9;--line:#d5dbea;--ok:#1b7a3a;--bad:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans","Noto Sans Kannada",Arial,sans-serif;background:var(--bg);color:#1b2540}
+header{background:var(--navy);color:#fff;padding:12px 18px;border-bottom:4px solid var(--gold)}
+header h1{margin:0;font-size:20px}header small{opacity:.85;font-size:13px}
+.trial{background:#fff4d6;border-bottom:1px solid #e5c76b;padding:8px 18px;font-size:13px}
+.wrap{max-width:1100px;margin:0 auto;padding:14px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.steps div{flex:1;min-width:120px;padding:8px;border-radius:8px;background:#e6eaf5;font-size:13px;text-align:center}
+.steps .on{background:var(--navy);color:#fff;font-weight:bold}.steps .done{background:#d9f5e3}
+.box{background:#fff;border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 4px #0002}
+h2{margin:0 0 8px;color:var(--navy);font-size:18px}
+button{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:12px 16px;font-size:16px;cursor:pointer}
+button.g{background:var(--ok)}button.s{background:#7a869f}button.y{background:var(--gold);color:#1b2540;font-weight:bold}button.r{background:var(--bad)}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:180px}
+label{display:block;font-size:12px;font-weight:bold;color:#3b4a75;margin:8px 0 3px}
+input,select,textarea{width:100%;padding:10px;font-size:16px;border:1px solid #b7c0d6;border-radius:8px;font-family:inherit}
+textarea{min-height:70px}
+.doctypes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.doctypes button{padding:16px 10px;font-size:15px;line-height:1.3}
+.doctypes small{display:block;font-weight:normal;opacity:.85;font-size:12px}
+.docs{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.doc{border:1px solid var(--line);border-radius:8px;padding:6px;width:210px;background:#fafbff;font-size:12px}
+.doc img{width:100%;height:110px;object-fit:cover;border-radius:6px}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;background:#dfe7ff;margin:2px 2px 0 0}
+.tag.ok{background:#d9f5e3}.tag.w{background:#ffe9c7}
+#cam{position:fixed;inset:0;background:#000d;display:none;z-index:50;align-items:center;justify-content:center;padding:10px}
+#cam .in{background:#fff;border-radius:12px;max-width:880px;width:100%;padding:12px;max-height:100%;overflow:auto}
+.vwrap{position:relative;background:#000;border-radius:8px;overflow:hidden}
+video{width:100%;max-height:60vh;display:block;background:#000}
+.guide{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.guide div{border:3px dashed #ffd24a;border-radius:10px}
+.msg{padding:9px 12px;border-radius:8px;margin-top:8px;font-size:14px}
+.msg.ok{background:#d9f5e3}.msg.w{background:#fff4d6}.msg.er{background:#ffdede}.msg.i{background:#e8efff}
+.src{font-size:10px;font-weight:normal;color:#6a7899;margin-left:4px}
+.lines{max-height:170px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:6px;background:#fafbff;font-size:13px}
+.lines div{padding:3px 6px;border-radius:5px;cursor:pointer}.lines div:hover{background:#e8efff}
+.sigprev{background:#fff;border:1px solid var(--line);border-radius:8px;height:110px;display:flex;align-items:center;justify-content:center}
+#sigpad{border:2px dashed #9aa6c8;border-radius:8px;background:#fff;touch-action:none;width:100%;height:170px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:6px;border-bottom:1px solid var(--line);text-align:left}th{background:var(--navy);color:#fff}
+#pa{display:none}
+@media print{body>*:not(#pa){display:none!important}#pa{display:block!important}}
+.pr{font-family:"Noto Sans",Arial,sans-serif;padding:14mm;color:#000}
+.pr h1{font-size:18px;margin:0;text-align:center}.pr h2{font-size:14px;text-align:center;margin:2px 0 10px;color:#000}
+.pr table td{border:1px solid #888;padding:6px;font-size:13px}.pr table td:first-child{width:34%;font-weight:bold;background:#f0f0f0}
+
+.camov{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:10px}
+.cambox{background:#fff;border-radius:12px;padding:12px;max-width:760px;width:100%}
+.cambox video{width:100%;max-height:62vh;background:#000;border-radius:8px}
+.cambox .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.cambox button{padding:11px 16px;font-size:16px}
+</style>
+<style>
+.slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.slot{border:1px solid var(--line);border-radius:10px;padding:8px;background:#fafbff}
+.slot .pv{height:130px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px dashed #9aa6c8;border-radius:8px;margin:6px 0;overflow:hidden;color:#6a7899;font-size:13px}
+.slot .pv img{max-width:100%;max-height:100%}
+.fbtn{display:inline-block;background:var(--navy);color:#fff;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:14px;margin:2px 2px 0 0}
+.fbtn.s{background:#7a869f}button.fbtn{border:0;font-family:inherit}.fbtn input{display:none}
+.ok{color:#1b7a3a}.er{color:#b3261e}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tabs button{background:#e8ecf7;color:var(--navy);border:1px solid #c5cde6}
+.tabs button.on{background:var(--navy);color:#fff}
+.tiles{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.tile{padding:11px 16px;border:2px solid #c5cde6;border-radius:10px;background:#fff;color:var(--navy);cursor:pointer;font-size:15px}
+.tile.on{background:var(--gold);border-color:var(--navy);font-weight:bold}
+table.bt{width:100%;border-collapse:collapse;font-size:13px}
+table.bt th,table.bt td{border-bottom:1px solid var(--line);padding:5px;text-align:left;vertical-align:top}
+table.bt img{width:42px;border-radius:4px}
+.flag{display:inline-block;background:#fde8e6;color:#b3261e;border-radius:6px;padding:1px 6px;margin:1px;font-size:12px}
+.flag.w{background:#fff3d6;color:#8a5a00}
+</style><style>
+.bkbar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;align-items:center}
+.bkbar button,.bkbar .fbtn{padding:10px 13px;font-size:15px}
+.bkcount{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.bkcount div{background:#e8efff;border-radius:8px;padding:6px 12px;font-size:14px}
+.bkcount b{font-size:18px;color:var(--navy)}
+.bkcount .bad{background:#ffdede}.bkcount .good{background:#d9f5e3}
+.bkg{border:1px solid var(--line);border-radius:10px;padding:8px;margin:8px 0;background:#fafbff}
+.bkg.queued{background:#eefaf1;border-color:#9bd3ae}.bkg.failed{background:#fff0f0;border-color:#e3a3a0}.bkg.uploading{background:#fff8e6}
+.bkh{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:14px}
+.bkh button{padding:4px 9px;font-size:12px;background:#7a869f}
+.bkp{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.bkp .ph{width:92px;text-align:center;font-size:11px}
+.bkp .ph img{width:92px;height:122px;object-fit:contain;background:#222;border-radius:6px;display:block}
+.bkp .ph button{padding:2px 5px;font-size:11px;margin:2px 1px 0 0;background:#7a869f}
+.bkp .ph button.x{background:var(--bad)}
+#bkProg{height:8px;background:#e1e6f3;border-radius:5px;overflow:hidden;margin:4px 0;display:none}#bkProg div{height:100%;background:var(--ok);width:0}
+.bkfix{display:none;border:1px solid var(--line);border-radius:10px;padding:8px;margin:6px 0;background:#fafbff}
+.bkfix canvas{max-width:100%;border-radius:6px;background:#222}
+.bkq{font-size:13px}.bkq div{padding:4px 8px;border-bottom:1px solid var(--line)}
+</style>
+</head><body>
+<style>
+.lead{font-size:14px;margin:0 0 8px}
+.sec1 select{font-weight:bold}
+.kbox{border:1px dashed #9aa6c8;border-radius:10px;padding:8px 10px;background:#f7f9ff;margin-top:10px}
+.links a{display:inline-block;margin:6px 8px 0 0;font-weight:bold}
+.inline{display:flex;gap:6px;align-items:center;font-weight:normal;font-size:14px;margin-top:8px}
+.inline input{width:auto}
+@media (max-width:600px){.row>*{min-width:100%}}
+</style>
+<header><h1>New Book Desk</h1><small>&#x0CB9;&#x0CCA;&#x0CB8; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95; &#x0CA8;&#x0CCB;&#x0C82;&#x0CA6;&#x0CA3;&#x0CBF; &middot; S.D.M. P.U. College, Honavar &middot; version 25-Nov</small></header>
+<div class="trial" id="bar">
+  <div class="row" style="align-items:flex-end">
+    <div style="max-width:170px"><label>Desk PIN</label><input id="pin" type="password" autocomplete="off" placeholder="PIN"></div>
+    <div style="max-width:220px"><label>Entered by (your name)</label><input id="enteredBy" placeholder="Staff name"></div>
+    <div style="flex:2;min-width:200px"><button class="g" onclick="saveLogin()">Connect</button> <span id="nextId" style="margin-left:8px;font-size:13px"></span></div>
+  </div>
+  <div id="apiMsg" style="font-size:13px;margin-top:4px"></div>
+</div>
+<div class="wrap">
+<div class="tabs" id="tabs">
+  <button id="t1" onclick="tab(1)">1  Batch settings</button>
+  <button id="t2" onclick="tab(2)">2  Add one book <span id="n2"></span></button>
+  <button id="t4" onclick="tab(4)">2b  Photo basket</button>
+  <button id="t6" onclick="tab(6)">2c  Ready photos</button>
+  <button id="t3" onclick="tab(3)">3  Verify and submit <span id="n3"></span></button>
+  <button id="t5" onclick="tab(5)">4  Old book / ISBN</button>
+  <button id="t7" onclick="tab(7)">5  Koha file and covers</button>
+</div>
+
+<!-- 1: batch settings -->
+<div id="p1" class="box">
+  <h2>Batch settings / &#x0C88; &#x0C97;&#x0CC1;&#x0C82;&#x0CAA;&#x0CBF;&#x0CA8; &#x0CB8;&#x0CBE;&#x0CAE;&#x0CBE;&#x0CA8;&#x0CCD;&#x0CAF; &#x0CB5;&#x0CBF;&#x0CB5;&#x0CB0;</h2>
+  <p class="lead">These are the same for all the books of one bill or one donation. Set them once. The Acc Nos are given when you submit the batch.</p>
+  <div class="row">
+    <div class="sec1" id="secWrap"><label>Section (register tab) / &#x0CB5;&#x0CBF;&#x0CAD;&#x0CBE;&#x0C97;</label><select id="b_sec" onchange="batchChg(true)"></select></div>
+    <div><label>Starting Acc No <span id="secPre"></span></label><input id="b_start" inputmode="numeric" onchange="batchChg()"><small id="nextHint"></small></div>
+    <div><label>Date Accessioned (d)</label><input id="b_date" type="date" onchange="batchChg()"></div>
+    <div><label>Serial Enum/Chron (h) <small>(academic year from the date, June to May; you may change it)</small></label><input id="b_serial" oninput="BATCH.serEdited=true" onchange="batchChg()"></div>
+  </div>
+  <label>How obtained / &#x0CAA;&#x0CA1;&#x0CC6;&#x0CA6; &#x0CB5;&#x0CBF;&#x0CA7;&#x0CBE;&#x0CA8;</label>
+  <div class="tiles" id="howTiles"></div>
+  <div class="row">
+    <div style="flex:2"><label id="supLabel">Supplier (book seller)</label><input id="b_supplier" list="supList" onchange="batchChg()"></div>
+    <div><label>Fund / grant</label><input id="b_fund" list="fundList" onchange="batchChg()" placeholder="General Fund"></div>
+  </div>
+  <div class="row" id="billRow">
+    <div><label>Bill / invoice no.</label><input id="b_billNo" onchange="batchChg()"></div>
+    <div><label>Bill date</label><input id="b_billDate" type="date" onchange="batchChg()"></div>
+    <div><label>Bill amount (Rs)</label><input id="b_billAmount" inputmode="decimal" onchange="batchChg()"></div>
+  </div>
+  <div class="row">
+    <div><label>Inventory Number (i) <small>(made from the bill; you may change it)</small></label><input id="b_inventory" oninput="BATCH.invEdited=true" onchange="batchChg()"></div>
+    <div style="flex:2"><label>Source of Acquisition (e) <small>(made from the bill; you may change it)</small></label><input id="b_source" oninput="BATCH.srcEdited=true" onchange="batchChg()"></div>
+  </div>
+  <div class="row">
+    <div><label>Usual language of these books</label><input id="b_lang" list="langList" onchange="batchChg()"></div>
+    <div><label>Usual book size (300$c, optional)</label><input id="b_size" list="sizeList" onchange="batchChg()" placeholder="e.g. 24 cm or 1/8 Demy"></div>
+  </div>
+  <div class="row">
+    <div><label>Shelving Location (c) <small>(Koha shelf code, optional; same for the whole batch)</small></label><input id="b_shelf" onchange="batchChg()" placeholder="e.g. GEN, REF, STACK"></div>
+    <div><label>Coded Location Qualifier (f) <small>(optional, usually blank)</small></label><input id="b_coded" onchange="batchChg()"></div>
+  </div>
+  <p style="margin-top:12px"><button class="s" onclick="useNext()">Use next free number</button> <button class="s" onclick="remake()">Make Inventory / Source again from the bill</button> <button class="r" onclick="newBatch()">Start a NEW batch</button></p>
+  <div id="batchInfo" class="msg i"></div>
+  <p><button class="g" onclick="tab(2)">Next: add books &rarr;</button> <button class="g" onclick="tab(6)">Next: ready photos &rarr;</button></p>
+</div>
+
+<!-- 2: add books -->
+<div id="p2" class="box" style="display:none">
+  <h2>Add one book / &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95; &#x0CB8;&#x0CC7;&#x0CB0;&#x0CBF;&#x0CB8;&#x0CBF;</h2>
+  <p class="lead">Photograph in this order: <b>cover</b>, <b>details page</b> (publisher, price, ISBN), <b>one or two introduction / contents pages</b>, <b>back cover</b> with the author photo. You can <b>skip</b> any photo. Put a dark sheet behind a thin page. You check the whole batch later.</p>
+  <div class="slots" id="slots"></div>
+  <div class="row" style="margin-top:8px">
+    <div style="flex:3"><label>Is there an author photo on the back cover?</label><div class="tiles" id="authTiles"></div></div>
+    <div style="max-width:150px"><label>Number of copies</label><input id="a_copies" type="number" min="1" max="10" value="1" oninput="copiesChg()"></div>
+    <div><label>DDC number (optional - else Gemini suggests)</label><input id="a_callNo"></div>
+  </div>
+  <div id="karwars" style="display:none"></div>
+  <p style="margin-top:12px"><button class="g" id="addBtn" onclick="addBook()">Read and add to batch</button> <button class="s" onclick="clearCapture()">Clear photos</button></p>
+  <div id="addMsg"></div>
+  <div id="addedList" style="font-size:13px"></div>
+</div>
+
+<!-- 4: photo basket -->
+<div id="p4" class="box" style="display:none">
+  <h2>Photo basket / ಫೋಟೋ ಬುಟ್ಟಿ</h2>
+  <p style="margin:0 0 6px">Take photos of many books with the phone camera on a <b>plain dark or plain light background</b>, book after book. Before each new book, photograph the <b>"Next book" card</b>. Then add all the photos here. The page cuts each photo to the book, groups the photos book by book and sends them. The reading is done afterwards by itself - you do not wait.</p>
+  <div class="bkbar">
+    <button class="y" onclick="bkCard()">Print the "Next book" card</button>
+    <span style="font-size:13px">(print it once, keep it with the camera)</span>
+  </div>
+  <label>Cut the photo to the book</label>
+  <div class="tiles" id="bkModes"></div>
+  <div class="bkfix" id="bkFix">
+    <div style="font-size:13px;margin-bottom:4px">Fixed box: choose one sample photo, then move the sliders until the frame is round the book. The same frame is used for all photos.</div>
+    <label class="fbtn s" style="display:inline-block">Choose a sample photo<input type="file" accept="image/*" onchange="bkSample(this)"></label>
+    <div class="row" style="margin-top:6px">
+      <div><label>Left <span id="fx_l_v"></span>%</label><input type="range" id="fx_l" min="0" max="45" value="5" oninput="bkFixChg()"></div>
+      <div><label>Top <span id="fx_t_v"></span>%</label><input type="range" id="fx_t" min="0" max="45" value="5" oninput="bkFixChg()"></div>
+      <div><label>Right <span id="fx_r_v"></span>%</label><input type="range" id="fx_r" min="0" max="45" value="5" oninput="bkFixChg()"></div>
+      <div><label>Bottom <span id="fx_b_v"></span>%</label><input type="range" id="fx_b" min="0" max="45" value="5" oninput="bkFixChg()"></div>
+    </div>
+    <canvas id="bkPrev" width="10" height="10"></canvas>
+  </div>
+  <div class="bkbar">
+    <label class="fbtn">Add photos<input id="bkFiles" type="file" accept="image/*" multiple onchange="bkPick(this)"></label>
+    <button type="button" class="fbtn" onclick="camBtn('basket','bkIn')">Take a photo</button><input type="file" id="bkIn" accept="image/*" capture="environment" style="display:none" onchange="bkPick(this)">
+    <label class="fbtn s">Add a ZIP<input type="file" accept=".zip,application/zip" onchange="bkPick(this)"></label>
+    <label class="fbtn s">Add a PDF<input type="file" accept=".pdf,application/pdf" onchange="bkPick(this)"></label>
+    <button class="r" onclick="bkStop()" id="bkStopBtn" style="display:none">Stop adding</button>
+  </div>
+  <div id="bkProg"><div></div></div>
+  <div class="bkbar">
+    <button class="s" onclick="bkBack()">&larr; Back (remove last photo)</button>
+    <button class="s" onclick="bkNext()">Next book &rarr;</button>
+    <button class="s" onclick="bkClearBook()">Clear this book</button>
+    <button class="r" onclick="bkClearAll()">Clear all</button>
+  </div>
+  <div class="bkcount" id="bkCount"></div>
+  <div id="bkMsg"></div>
+  <div id="bkGroups"></div>
+  <p style="margin-top:10px"><button class="g" id="bkSubmit" onclick="bkUpload()">Upload the books</button>
+   <button class="y" onclick="bkRetry()">Upload the failed ones again</button></p>
+  <h2 style="margin-top:14px">After uploading - reading by Gemini</h2>
+  <p style="margin:0 0 6px;font-size:13px">The books are read one after another, even if you close this page. When a book is <b>Ready</b> it is in tab 3 (Verify and submit).</p>
+  <p><button class="s" onclick="bkQueueRefresh()">Refresh</button></p>
+  <div id="bkQueue" class="bkq"></div>
+</div>
+
+<!-- 6: ready photos -->
+<div id="p6" class="box" style="display:none">
+  <h2>Ready photos / &#x0CB8;&#x0CBF;&#x0CA6;&#x0CCD;&#x0CA7; &#x0CAB;&#x0CCB;&#x0C9F;&#x0CCB;&#x0C97;&#x0CB3;&#x0CC1;</h2>
+  <p class="lead">For photos you <b>already took</b> of many books: a PDF of scans, a ZIP, a folder, or many photos. In each book the first photo must be the <b>cover</b>, then the details page, introduction pages and back cover. The page groups the photos book by book; you check the groups in tab <b>2b</b> and upload them there.</p>
+  <label>How are the books separated? / &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;&#x0C97;&#x0CB3;&#x0CC1; &#x0CB9;&#x0CC7;&#x0C97;&#x0CC6; &#x0CAC;&#x0CC7;&#x0CB0;&#x0CC6;?</label>
+  <div class="tiles" id="rcHow"></div>
+  <div id="rcNwrap" style="display:none;max-width:260px"><label>Photos for every book</label><input id="rcN" type="number" min="1" max="8" value="3"></div>
+  <div id="rcHelp" class="msg i" style="font-size:13px"></div>
+  <label>Cut the photo to the book</label>
+  <div class="tiles" id="rcCut"></div>
+  <div class="bkbar">
+    <label class="fbtn">Choose a folder<input type="file" webkitdirectory directory multiple onchange="rcPick(this)"></label>
+    <label class="fbtn">Choose photos<input type="file" accept="image/*" multiple onchange="rcPick(this)"></label>
+    <label class="fbtn s">Add a ZIP<input type="file" accept=".zip,application/zip" multiple onchange="rcPick(this)"></label>
+    <label class="fbtn s">Add a PDF<input type="file" accept=".pdf,application/pdf" multiple onchange="rcPick(this)"></label>
+    <button class="r" onclick="rcStop()" id="rcStopBtn" style="display:none">Stop</button>
+  </div>
+  <div id="rcProg" style="height:8px;background:#e1e6f3;border-radius:5px;overflow:hidden;margin:4px 0;display:none"><div style="height:100%;background:var(--ok);width:0"></div></div>
+  <div id="rcMsg"></div>
+</div>
+
+<!-- 3: verify -->
+<div id="p3" class="box" style="display:none">
+  <h2>Verify the batch / &#x0CAA;&#x0CB0;&#x0CBF;&#x0CB6;&#x0CC0;&#x0CB2;&#x0CBF;&#x0CB8;&#x0CBF;</h2>
+  <p style="margin:0 0 8px"><button class="s" onclick="loadBatch()">Refresh</button>
+   <button class="y" onclick="classifyAll()" id="clsAll">Suggest DDC + Colon for books without them</button>
+   <button class="y" id="authBtn" onclick="makeAuthorPhotos()" style="display:none">Make author photos</button>
+   <button class="g" onclick="submitBatch(false)" id="subBtn">Submit batch to the register</button></p>
+  <div id="vSum"></div>
+  <div style="overflow-x:auto"><div id="vTable"><i>Press Refresh.</i></div></div>
+  <div id="editBox"></div>
+  <div id="subMsg"></div>
+</div>
+
+<!-- 5: old book -->
+<div id="p5" class="box" style="display:none">
+  <h2>Old book / ISBN &nbsp;<small>&#x0CB9;&#x0CB3;&#x0CC6;&#x0CAF; &#x0CAA;&#x0CC1;&#x0CB8;&#x0CCD;&#x0CA4;&#x0C95;</small></h2>
+  <p class="lead">Type the Acc No of a book already in the register (for example P-5247). Correct any detail, add a cover photo, or type / scan the ISBN to fill the details. Acc No, Barcode and the status columns are never changed here. Every change is kept in the sheet <b>BOOK_EDIT_LOG</b> (old and new value).</p>
+  <div class="row" style="align-items:flex-end">
+    <div style="max-width:240px"><label>Acc No</label><input id="eb_id" autocomplete="off" onkeydown="if(event.key==='Enter')ebOpen()"></div>
+    <div style="flex:0 0 auto;min-width:0"><button class="g" onclick="ebOpen()">Open book</button></div>
+  </div>
+  <div id="eb_msg"></div>
+  <div id="eb_form"></div>
+</div>
+
+<!-- 7: Koha file and covers -->
+<div id="p7" class="box" style="display:none">
+  <h2>Koha file and covers / Koha &#x0CAB;&#x0CC8;&#x0CB2;&#x0CCD; &#x0CAE;&#x0CA4;&#x0CCD;&#x0CA4;&#x0CC1; &#x0CAE;&#x0CC1;&#x0C96;&#x0CAA;&#x0CC1;&#x0C9F;&#x0C97;&#x0CB3;&#x0CC1;</h2>
+  <div class="kbox">
+    <b>1. Koha file (.mrc)</b>
+    <p class="lead">Every submitted book is also in the tab <b>KOHA_MARC</b> of your Google Sheet (one row per copy, the same columns as your Koha sample sheet). Check the <b>Verify</b> column there. Then make the file and load it in Koha: <i>Cataloguing &gt; Stage records for import</i> (framework: Book / Workbook, items: yes).</p>
+    <label class="inline"><input type="checkbox" id="mrcAll"> Put ALL rows in the file (not only the new ones)</label>
+    <p><button class="g" onclick="makeMrc()">Make Koha file (.mrc)</button></p>
+    <div id="mrcMsg"></div>
+  </div>
+  <div class="kbox">
+    <b>2. Cover photos ZIP</b>
+    <p class="lead">One picture per Acc No (e.g. P-5247.jpg), each under 20 KB.</p>
+    <div class="row">
+      <div><label>Added from</label><input type="date" id="cz_from"></div>
+      <div><label>Added to</label><input type="date" id="cz_to"></div>
+      <div id="czSecWrap"><label>Section</label><select id="cz_sec"><option value="">All sections</option></select></div>
+    </div>
+    <label class="inline"><input type="checkbox" id="cz_new" checked> Only covers not yet in a ZIP</label>
+    <p><button class="g" onclick="makeZip()">Make covers ZIP</button></p>
+    <div id="czMsg"></div>
+  </div>
+</div>
+
+<datalist id="langList"><option value="English"><option value="Kannada"><option value="Hindi"><option value="Sanskrit"><option value="Marathi"><option value="Konkani"></datalist>
+<datalist id="sizeList"><option value="24 cm"><option value="22 cm"><option value="1/8 Demy"><option value="1/8 Crown"><option value="1/4 Demy"></datalist>
+<datalist id="fundList"><option value="General Fund"><option value="PG Fund"><option value="BCA Fund"><option value="BBA Fund"><option value="UGC Grant"><option value="Book Bank"></datalist>
+<datalist id="supList"></datalist>
+</div>
+<canvas id="work" style="display:none"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script>
+var $ = function (i) { return document.getElementById(i); };
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+var COLLEGE = 'S.D.M. P.U. College, Honavar', LIBKEY = 'pu', API = 'https://script.google.com/macros/s/AKfycbwEMCy15KFV5YvYZMklzSsqDIaEd3cEzcj7TctJtLPkoXYzIp2_ywisicr6Yf71PTbM/exec';
+if (!/^https:\/\/script\.google\.com\//.test(API)) {
+  API = ''; try { API = localStorage.getItem('nb_api_' + LIBKEY) || ''; } catch (e) {}
+  if (!API) { API = (prompt('Paste the admin web app address of ' + COLLEGE + ' (it ends with /exec). Asked only once on this device.') || '').trim(); try { localStorage.setItem('nb_api_' + LIBKEY, API); } catch (e) {} }
+}
+document.title = 'New Book Desk - ' + COLLEGE;
+var PIN = '', INIT = null, BIG = {}, AUTH_MODE = 'auto', adding = false, LIST = [], SESSION_ADDED = [];
+var BATCH = { id: '', section: '', start: '', date: '', serial: '', how: 'Purchase', supplier: '', fund: '', billNo: '', billDate: '', billAmount: '', inventory: '', source: '', invEdited: false, srcEdited: false, lang: 'English', size: '' };
+var SLOTS = [['cover', '1. Front cover', '&#x0CAE;&#x0CC1;&#x0C96;&#x0CAA;&#x0CC1;&#x0C9F;'], ['details', '2. Details page (publisher, price, ISBN)', '&#x0CB5;&#x0CBF;&#x0CB5;&#x0CB0; &#x0CAA;&#x0CC1;&#x0C9F;'],
+  ['intro1', '3. Introduction / contents', '&#x0CAA;&#x0CB0;&#x0CBF;&#x0C9A;&#x0CAF;'], ['intro2', '4. Introduction (2nd page)', '&#x0CAA;&#x0CB0;&#x0CBF;&#x0C9A;&#x0CAF; 2'],
+  ['back', '5. Back cover (author photo)', '&#x0CB9;&#x0CBF;&#x0C82;&#x0CAC;&#x0CA6;&#x0CBF;'], ['authorSep', '6. Author photo (only if separate)', '&#x0CB2;&#x0CC7;&#x0C96;&#x0C95;&#x0CB0; &#x0CAB;&#x0CCB;&#x0C9F;&#x0CCB;']];
+var HOWS = ['Purchase', 'Donated'];
+var AUTHS = [['auto', 'Auto'], ['author', 'Yes - author'], ['other', 'Someone else'], ['none', 'No photo']];
+
+// ---------------- server ----------------
+function nb(req) {
+  if (!PIN) return Promise.reject(new Error('Enter the PIN and press Connect.'));
+  req.pin = PIN;
+  var ctl = new AbortController(); var tm = setTimeout(function () { ctl.abort(); }, 170000);
+  return fetch(API, { method: 'POST', credentials: 'omit', redirect: 'follow', signal: ctl.signal, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn: 'nbApi', args: [req] }) })
+    .then(function (r) { clearTimeout(tm); return r.json(); })
+    .then(function (j) { if (j && j.ok) return j.result; throw new Error((j && j.error) || 'Server error'); })
+    .catch(function (e) { clearTimeout(tm); throw new Error(e.name === 'AbortError' ? 'No answer from the server (timed out). Check the internet and try again.' : (/Not allowed: nbApi/.test(e.message) ? 'The admin web app does not know the New Book Desk yet: add SdmNewBook below AdminPublicApi and deploy a New version.' : e.message)); });
+}
+function saveLogin() {
+  PIN = $('pin').value.trim(); try { sessionStorage.setItem('nb_pin_' + LIBKEY, PIN); localStorage.setItem('nb_by_' + LIBKEY, $('enteredBy').value.trim()); } catch (e) {}
+  refreshInit();
+}
+function secOf(tabName) { var s = (INIT && INIT.sections) || []; for (var i = 0; i < s.length; i++) if (s[i].tab === (tabName || BATCH.section)) return s[i]; return s[0] || null; }
+function showNext() {
+  var s = secOf(); if (!s) return;
+  $('secPre').textContent = '(' + s.prefix + '-)';
+  $('nextHint').textContent = s.error ? s.error : 'next free: ' + s.prefix + '-' + s.next;
+  $('nextId').innerHTML = s.error ? '<span class="er">' + esc(s.error) + '</span>' : 'Next free Acc No in <b>' + esc(s.tab) + '</b>: <b>' + esc(s.prefix + '-' + s.next) + '</b>';
+}
+async function refreshInit() {
+  try {
+    INIT = await nb({ action: 'init' });
+    var warn = [];
+    if (!INIT.geminiKey) warn.push('Gemini key is not set - reading photos will not work yet (run nbSetKeyRun).');
+    INIT.sections.forEach(function (s) { if (s.error) warn.push(s.tab + ': ' + s.error); });
+    $('apiMsg').innerHTML = '<span class="ok">Connected.</span> ' + warn.map(function (w) { return '<span class="er">' + esc(w) + '</span>'; }).join(' ');
+    $('b_sec').innerHTML = INIT.sections.map(function (s) { return '<option value="' + esc(s.tab) + '">' + esc(s.label) + ' (' + esc(s.prefix) + '-)</option>'; }).join('');
+    $('secWrap').style.display = INIT.sections.length > 1 ? '' : 'none';
+    $('cz_sec').innerHTML = '<option value="">All sections</option>' + INIT.sections.map(function (s) { return '<option value="' + esc(s.tab) + '">' + esc(s.label) + '</option>'; }).join('');
+    $('czSecWrap').style.display = INIT.sections.length > 1 ? '' : 'none';
+    var L = INIT.last || {};
+    if (!BATCH.section) BATCH.section = L.section && secOf(L.section) && secOf(L.section).tab === L.section ? L.section : INIT.sections[0].tab;
+    ['supplier', 'fund', 'how', 'lang', 'size', 'shelf', 'codedLocation'].forEach(function (k) { var lk = k === 'lang' ? 'language' : k; if (!BATCH['_init_' + k] && L[lk] && (!BATCH[k] || k === 'how' || k === 'lang')) { BATCH[k] = L[lk]; } BATCH['_init_' + k] = 1; });
+    if (L.supplier) $('supList').innerHTML = '<option value="' + esc(L.supplier) + '">';
+    $('b_sec').value = BATCH.section;
+    if (!BATCH.start) BATCH.start = String(secOf().next || '');
+    fillBatchForm(); showNext(); batchChg();
+    loadBatch(true);
+  } catch (e) { $('apiMsg').innerHTML = '<span class="er">' + esc(e.message) + '</span>'; }
+}
+
+// ---------------- tabs ----------------
+function tab(n) { for (var i = 1; i <= 7; i++) { $('p' + i).style.display = i === n ? 'block' : 'none'; $('t' + i).className = i === n ? 'on' : ''; } if (n === 3) loadBatch(); if (n === 4) { bkQueueRefresh(); } window.scrollTo(0, 0); }
+
+// ---------------- batch settings ----------------
+function buildTiles() {
+  $('howTiles').innerHTML = HOWS.map(function (h) { return '<div class="tile' + (BATCH.how === h ? ' on' : '') + '" onclick="setHow(\'' + h + '\')">' + h + '</div>'; }).join('');
+  $('authTiles').innerHTML = AUTHS.map(function (a) { return '<div class="tile' + (AUTH_MODE === a[0] ? ' on' : '') + '" onclick="setAuth(\'' + a[0] + '\')">' + a[1] + '</div>'; }).join('');
+  $('supLabel').textContent = BATCH.how === 'Donated' ? 'Donor name (who gave the books)' : 'Supplier (book seller)';
+  $('billRow').style.display = BATCH.how === 'Donated' ? 'none' : '';
+}
+function setHow(h) { BATCH.how = h; buildTiles(); batchChg(); }
+function setAuth(a) { AUTH_MODE = a; buildTiles(); }
+function dmy(iso) { var m = String(iso || '').match(/^(\d{4})-(\d\d)-(\d\d)$/); return m ? m[3] + '-' + m[2] + '-' + m[1] : String(iso || ''); }
+function money(v) { var n = parseFloat(String(v || '').replace(/,/g, '')); return isNaN(n) ? String(v || '').trim() : n.toFixed(2); }
+// Inventory Number (i) and Source of Acquisition (e), in the way your recent register rows are written
+// Serial Enum/Chron (h) = academic year of the Date Accessioned, June to May, as in your register (27-05-2026 -> 2025-26, 21-06-2026 -> 2026-27)
+function autoSerial() { var m = String(BATCH.date || '').match(/^(\d{4})-(\d{2})/); if (!m) return ''; var y = +m[1]; if (+m[2] < 6) y--; return y + '-' + String((y + 1) % 100).padStart(2, '0'); }
+function autoInv() { var b = BATCH; if (b.how === 'Donated') return autoSrc(); var bill = b.billNo ? b.billNo + (b.billDate ? '/' + dmy(b.billDate) : '') : ''; return [bill, b.billAmount ? money(b.billAmount) : ''].filter(String).join(' | '); }
+function autoSrc() {
+  var b = BATCH;
+  if (b.how === 'Donated') return b.supplier ? 'Donated By ' + b.supplier : 'Donated';
+  var bill = b.billNo ? b.billNo + (b.billDate ? '/' + dmy(b.billDate) : '') : '';
+  return [bill, b.billAmount ? money(b.billAmount) : '', b.supplier, b.fund].filter(String).join(' | ');
+}
+function fillBatchForm() {
+  $('b_start').value = BATCH.start || ''; $('b_date').value = BATCH.date; $('b_serial').value = BATCH.serial || ''; $('b_supplier').value = BATCH.supplier || '';
+  $('b_fund').value = BATCH.fund || ''; $('b_billNo').value = BATCH.billNo || ''; $('b_billDate').value = BATCH.billDate || ''; $('b_billAmount').value = BATCH.billAmount || '';
+  $('b_inventory').value = BATCH.inventory || ''; $('b_source').value = BATCH.source || ''; $('b_lang').value = BATCH.lang || ''; $('b_size').value = BATCH.size || ''; $('b_shelf').value = BATCH.shelf || ''; $('b_coded').value = BATCH.codedLocation || '';
+  if (INIT) $('b_sec').value = BATCH.section; buildTiles();
+}
+function batchChg(secChanged) {
+  if (INIT && $('b_sec').value) BATCH.section = $('b_sec').value;
+  if (secChanged === true) { var s = secOf(); BATCH.start = s ? String(s.next) : ''; $('b_start').value = BATCH.start; }
+  BATCH.start = $('b_start').value.replace(/\D/g, ''); BATCH.date = $('b_date').value;
+  if (!BATCH.serEdited) { BATCH.serial = autoSerial(); $('b_serial').value = BATCH.serial; } else BATCH.serial = $('b_serial').value.trim();
+  BATCH.supplier = $('b_supplier').value.trim(); BATCH.fund = $('b_fund').value.trim(); BATCH.billNo = $('b_billNo').value.trim(); BATCH.billDate = $('b_billDate').value; BATCH.billAmount = $('b_billAmount').value.trim();
+  BATCH.lang = $('b_lang').value.trim(); BATCH.size = $('b_size').value.trim(); BATCH.shelf = $('b_shelf').value.trim(); BATCH.codedLocation = $('b_coded').value.trim();
+  if (!BATCH.invEdited) { BATCH.inventory = autoInv(); $('b_inventory').value = BATCH.inventory; } else BATCH.inventory = $('b_inventory').value.trim();
+  if (!BATCH.srcEdited) { BATCH.source = autoSrc(); $('b_source').value = BATCH.source; } else BATCH.source = $('b_source').value.trim();
+  saveBatch(); batchInfo(); if (INIT) showNext();
+}
+function remake() { BATCH.invEdited = false; BATCH.srcEdited = false; BATCH.serEdited = false; batchChg(); }
+function saveBatch() { try { sessionStorage.setItem('nb_batch_' + LIBKEY, JSON.stringify(BATCH)); } catch (e) {} }
+function useNext() { if (!INIT) { alert('Connect first.'); return; } $('b_start').value = secOf().next; batchChg(); }
+function newBatch() {
+  if (LIST.length && !confirm('There are ' + LIST.length + ' book(s) waiting in the current batch. Start a new batch anyway? (They stay saved as pending.)')) return;
+  BATCH.id = 'B' + Date.now().toString(36).toUpperCase(); BATCH.invEdited = false; BATCH.srcEdited = false; BATCH.serEdited = false; BATCH.billNo = ''; BATCH.billDate = ''; BATCH.billAmount = '';
+  if (INIT) BATCH.start = String(secOf().next); fillBatchForm(); batchChg(); SESSION_ADDED = []; LIST = []; renderAdded(); $('vTable').innerHTML = ''; counts();
+}
+function batchInfo() {
+  var s = secOf();
+  $('batchInfo').innerHTML = 'Batch <b>' + esc(BATCH.id) + '</b> - ' + (s ? 'tab <b>' + esc(s.tab) + '</b>, ' : '') + esc(BATCH.how) + ', Date Accessioned ' + esc(dmy(BATCH.date)) +
+    ', starting Acc No <b>' + esc((s ? s.prefix + '-' : '') + BATCH.start) + '</b><br><small>Inventory Number: ' + esc(BATCH.inventory || '(blank)') + ' &middot; Source: ' + esc(BATCH.source || '(blank)') + ' &middot; Serial Enum/Chron: ' + esc(BATCH.serial || '(blank)') + '</small>';
+}
+function initBatch() {
+  try { var s = JSON.parse(sessionStorage.getItem('nb_batch_' + LIBKEY) || 'null'); if (s) BATCH = s; } catch (e) {}
+  if (!BATCH.id) BATCH.id = 'B' + Date.now().toString(36).toUpperCase();
+  if (!BATCH.date) BATCH.date = new Date().toISOString().slice(0, 10);
+  fillBatchForm(); saveBatch(); buildTiles(); batchInfo();
+}
+
+function buildSlots() {
+  $('slots').innerHTML = SLOTS.map(function (s) {
+    return '<div class="slot"><b>' + s[1] + '</b> <small>' + s[2] + '</small><div class="pv" id="pv_' + s[0] + '">No photo</div>' +
+      '<button type="button" class="fbtn" onclick="camBtn(\'' + s[0] + '\',\'ti_' + s[0] + '\')">Take photo</button><input type="file" id="ti_' + s[0] + '" accept="image/*" capture="environment" style="display:none" onchange="pick(\'' + s[0] + '\',this)">' +
+      '<label class="fbtn s">Choose file<input type="file" accept="image/*" onchange="pick(\'' + s[0] + '\',this)"></label>' +
+      ' <button class="s" style="padding:7px 9px;font-size:13px" onclick="rm(\'' + s[0] + '\')">Skip</button></div>';
+  }).join('');
+}
+
+// ---------------- webcam for PC (phones keep their own camera) ----------------
+var CAM = { stream: null, shots: [], target: '' };
+function camIsPhone() { return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent); }
+function camBtn(target, inputId) {
+  if (camIsPhone() || !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
+    if (!camIsPhone()) alert('This browser page cannot use the webcam (it must be opened from the https link). The file chooser will open instead.');
+    $(inputId).click(); return;
+  }
+  camOpen(target);
+}
+function camClick(ev, target) {
+  if (camIsPhone() || !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return true;   // file picker / phone camera as before
+  ev.preventDefault(); camOpen(target); return false;
+}
+function camStart(deviceId) {
+  if (CAM.stream) CAM.stream.getTracks().forEach(function (t) { t.stop(); });
+  var v = { width: { ideal: 1920 }, height: { ideal: 1080 } }; if (deviceId) v.deviceId = { exact: deviceId };
+  return navigator.mediaDevices.getUserMedia({ video: v, audio: false }).then(function (s) {
+    CAM.stream = s; var vid = $('camVid'); vid.srcObject = s; vid.play();
+    return navigator.mediaDevices.enumerateDevices();
+  }).then(function (ds) {
+    var cams = ds.filter(function (d) { return d.kind === 'videoinput'; }), sel = $('camSel');
+    var cur = CAM.stream.getVideoTracks()[0].getSettings().deviceId;
+    sel.innerHTML = cams.map(function (d, i) { return '<option value="' + d.deviceId + '"' + (d.deviceId === cur ? ' selected' : '') + '>' + esc(d.label || ('Camera ' + (i + 1))) + '</option>'; }).join('');
+    sel.style.display = cams.length > 1 ? '' : 'none';
+  });
+}
+function camOpen(target) {
+  CAM.target = target; CAM.shots = [];
+  var ov = document.createElement('div'); ov.className = 'camov'; ov.id = 'camOv';
+  ov.innerHTML = '<div class="cambox"><video id="camVid" playsinline muted></video>' +
+    '<div class="row"><button id="camShot">Take photo</button><button class="s" id="camDone">' + (target === 'basket' ? 'Done' : 'Cancel') + '</button>' +
+    '<select id="camSel" style="padding:9px;font-size:14px"></select><span id="camMsg" style="font-size:14px;color:#14335f"></span></div></div>';
+  document.body.appendChild(ov);
+  $('camSel').onchange = function () { camStart(this.value).catch(function () {}); };
+  $('camDone').onclick = camClose;
+  $('camShot').onclick = camShoot;
+  camStart('').catch(function (e) {
+    camClose(true);
+    alert('The camera could not be opened (' + (e && e.name || 'error') + '). Allow the camera for this page in the browser (padlock near the address), or use "Choose file".');
+  });
+}
+function camShoot() {
+  var vid = $('camVid'); if (!vid.videoWidth) return;
+  var c = document.createElement('canvas'); c.width = vid.videoWidth; c.height = vid.videoHeight;
+  c.getContext('2d').drawImage(vid, 0, 0);
+  c.toBlob(function (blob) {
+    var name = 'cam_' + String(CAM.shots.length + 1).padStart(4, '0') + '.jpg';
+    var f = new File([blob], name, { type: 'image/jpeg' });
+    if (CAM.target === 'basket') { CAM.shots.push(f); $('camMsg').textContent = CAM.shots.length + ' photo(s) taken. Press Done when finished.'; }
+    else if (CAM.target === 'ebcover') { camClose(true); ebCoverFile(f); }
+    else { var t = CAM.target; camClose(true); pick(t, { files: [f], value: '' }); }
+  }, 'image/jpeg', 0.92);
+}
+function camClose(silent) {
+  var shots = CAM.shots, target = CAM.target; CAM.shots = [];
+  if (CAM.stream) { CAM.stream.getTracks().forEach(function (t) { t.stop(); }); CAM.stream = null; }
+  var ov = $('camOv'); if (ov) ov.remove();
+  if (silent === true) return;
+  if (target === 'basket' && shots.length) bkPick({ files: shots, value: '' });
+}
+function pick(k, inp) {
+  var f = inp.files && inp.files[0]; if (!f) return;
+  var im = new Image(), url = URL.createObjectURL(f);
+  im.onload = function () {
+    var max = 1500, sc = Math.min(1, max / Math.max(im.width, im.height)), c = $('work');
+    c.width = Math.round(im.width * sc); c.height = Math.round(im.height * sc);
+    c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+    BIG[k] = c.toDataURL('image/jpeg', 0.8); URL.revokeObjectURL(url);
+    $('pv_' + k).innerHTML = '<img src="' + BIG[k] + '">'; inp.value = '';
+  };
+  im.onerror = function () { alert('Could not open this picture.'); };
+  im.src = url;
+}
+function rm(k) { delete BIG[k]; $('pv_' + k).textContent = 'No photo'; }
+function shrinkTo(src, maxSide, maxKB) {
+  return new Promise(function (res) {
+    var im = new Image();
+    im.onload = function () {
+      var side = maxSide, d = src;
+      for (var round = 0; round < 6; round++) {
+        var sc = Math.min(1, side / Math.max(im.width, im.height)), c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(im.width * sc)); c.height = Math.max(1, Math.round(im.height * sc));
+        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+        for (var q = 0.7; q >= 0.29; q -= 0.1) { d = c.toDataURL('image/jpeg', q); if (d.length * 0.75 / 1024 <= maxKB) return res(d); }
+        side = side * 0.85;
+      }
+      res(d);
+    };
+    im.onerror = function () { res(''); };
+    im.src = src;
+  });
+}
+function cropBox(src, box) {   // box = [ymin, xmin, ymax, xmax] in 0..1000
+  return new Promise(function (res) {
+    var im = new Image();
+    im.onload = function () {
+      var y0 = box[0] / 1000, x0 = box[1] / 1000, y1 = box[2] / 1000, x1 = box[3] / 1000;
+      var padx = (x1 - x0) * 0.08, pady = (y1 - y0) * 0.08;
+      x0 = Math.max(0, x0 - padx); x1 = Math.min(1, x1 + padx); y0 = Math.max(0, y0 - pady); y1 = Math.min(1, y1 + pady);
+      var w = Math.round((x1 - x0) * im.width), h = Math.round((y1 - y0) * im.height);
+      if (w < 40 || h < 40) return res('');
+      var c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').drawImage(im, Math.round(x0 * im.width), Math.round(y0 * im.height), w, h, 0, 0, w, h);
+      res(c.toDataURL('image/jpeg', 0.85));
+    };
+    im.onerror = function () { res(''); };
+    im.src = src;
+  });
+}
+
+// ---------------- reading + staging ----------------
+function isbnValid(s) {
+  var d = String(s || '').replace(/[^0-9Xx]/g, '').toUpperCase();
+  if (d.length === 13 && /^\d{13}$/.test(d)) { var t = 0; for (var i = 0; i < 12; i++) t += (+d[i]) * (i % 2 ? 3 : 1); return (10 - t % 10) % 10 === +d[12]; }
+  if (d.length === 10 && /^\d{9}[\dX]$/.test(d)) { var u = 0; for (var j = 0; j < 9; j++) u += (+d[j]) * (10 - j); u += d[9] === 'X' ? 10 : +d[9]; return u % 11 === 0; }
+  return false;
+}
+function clearCapture() { BIG = {}; AUTH_MODE = 'auto'; buildSlots(); buildTiles(); $('a_copies').value = 1; $('a_callNo').value = ''; $('addMsg').innerHTML = ''; }
+function copiesChg() { }
+function nCopies(d) { var c = d && d.copies; var n = typeof c === 'number' ? c : (Array.isArray(c) ? c.length : parseInt(c, 10)); return Math.max(1, Math.min(10, n || 1)); }
+function listStr(v) { return Array.isArray(v) ? v.filter(Boolean).join('; ') : String(v || '').trim(); }
+
+// ---------------- reading + staging ----------------
+function aiToRec(a) {
+  var rec = { title: a.title || '', subtitle: a.subtitle || '', titleEn: a.title_en || '', author: a.author || '', authorEn: a.author_en || '', authorInv: a.author_inv || '', corporate: a.corporate || '',
+    addAuthors: listStr(a.other_authors), resp: a.responsibility || '', edition: a.edition || '', publisher: a.publisher || '', publisherEn: a.publisher_en || '', series: a.series || '',
+    place: a.place || '', year: a.year || '', pages: a.pages || '', illus: a.illustrations || '', size: a.size_cm || '', price: a.price || '',
+    language: a.language || BATCH.lang || '', contents: a.contents || '', summary: a.summary || '', subjects: listStr(a.subjects), lc: a.lc || '',
+    ddc: a.ddc || '', ccClass: a.cc || '', clsConfidence: String(a.confidence || '').toLowerCase(), clsWhy: a.why || '' };
+  var c = (a.isbn_candidates || []).map(String), good = c.filter(isbnValid), notes = [];
+  if (good.length) { rec.isbn = good[0].replace(/[^0-9Xx]/g, ''); if (c.length > good.length) notes.push('Several ISBNs printed (' + c.join(' / ') + '); the one passing the check digit was used.'); }
+  else if (c.length) { rec.isbn = c[0].replace(/[^0-9Xx]/g, ''); notes.push('No ISBN passes the check digit (' + c.join(' / ') + ').'); }
+  else rec.isbn = '';
+  if (a.acc_no_seen) notes.push('Accession number seen in the book: ' + a.acc_no_seen + '.');
+  if (a.notes) notes.push(a.notes);
+  rec.aiNotes = notes.join(' ');
+  rec.callNo = rec.ddc;
+  return rec;
+}
+async function addBook() {
+  if (adding) return;
+  if (!BIG.cover && !BIG.details && !BIG.intro1 && !BIG.back) { alert('Add at least one photo (cover, details page, introduction or back cover).'); return; }
+  adding = true; $('addBtn').disabled = true; $('addMsg').innerHTML = '<div class="msg i">Reading the photos... 10 to 60 seconds.</div>';
+  try {
+    var send = {};
+    for (var k of ['cover', 'details', 'intro1', 'intro2', 'back']) if (BIG[k]) send[k] = await shrinkTo(BIG[k], 1400, 260);
+    var r = await nb({ action: 'read', images: send });
+    var a = r.fields || {}, rec = aiToRec(a);
+    rec.copies = Math.max(1, Math.min(10, parseInt($('a_copies').value, 10) || 1));
+    var typed = $('a_callNo').value.trim(); if (typed) { rec.callNo = typed; rec.ddc = typed; }
+    var authImg = '', authOf = 'author';
+    if (AUTH_MODE !== 'none') {
+      var src = '', box = a.author_photo_box, ai = parseInt(a.author_image, 10) || 0, keys = Object.keys(send);
+      var boxSrc = ai >= 1 && ai <= keys.length ? BIG[keys[ai - 1]] : BIG.back;
+      if (BIG.authorSep) src = await shrinkTo(BIG.authorSep, 170, 9);
+      else if (boxSrc && box && box.length === 4 && box.every(function (x) { return typeof x === 'number'; })) src = await shrinkTo(await cropBox(boxSrc, box), 170, 9);
+      if (src) { authImg = src; authOf = AUTH_MODE === 'other' ? 'other' : (AUTH_MODE === 'author' ? 'author' : (a.portrait_is_author === 'no' ? 'other' : 'author')); }
+    }
+    rec.authorOf = authOf;
+    var imgs = {};
+    if (BIG.cover) imgs.cover = await shrinkTo(BIG.cover, 520, 19);
+    if (BIG.details) imgs.details = await shrinkTo(BIG.details, 900, 45);
+    if (authImg) imgs.author = authImg;
+    var sizes = Object.keys(imgs).map(function (k) { return k + ' ' + Math.round(imgs[k].length * 0.75 / 1024) + ' KB'; }).join(', ');
+    await nb({ action: 'stage', batch: BATCH.id, rec: rec, images: imgs, by: $('enteredBy').value.trim() });
+    SESSION_ADDED.unshift({ title: rec.title || rec.titleEn, notes: rec.aiNotes, auth: authImg ? authOf : 'none', copies: rec.copies });
+    $('addMsg').innerHTML = '<div class="msg ok"><b>Added:</b> ' + esc(rec.title || rec.titleEn) + ' <small>(' + esc(sizes) + ', read by ' + esc(r.model || '') + ')</small></div>';
+    BIG = {}; AUTH_MODE = 'auto'; buildSlots(); buildTiles(); $('a_copies').value = 1; $('a_callNo').value = ''; renderAdded(); loadBatch(true);
+  } catch (e) { $('addMsg').innerHTML = '<div class="msg er">NOT added: ' + esc(e.message) + '<br>Your photos are still here. Try again, or press Skip on a bad photo.</div>'; }
+  adding = false; $('addBtn').disabled = false;
+}
+function renderAdded() {
+  $('addedList').innerHTML = SESSION_ADDED.length ? '<b>Added in this session (' + SESSION_ADDED.length + '):</b><br>' + SESSION_ADDED.slice(0, 8).map(function (x) { return '&bull; ' + esc(x.title) + ' - ' + x.copies + ' copy(ies), author photo: ' + esc(x.auth); }).join('<br>') : '';
+}
+
+// ---------------- verify ----------------
+function counts() { var c = 0; LIST.forEach(function (b) { c += nCopies(b.data); }); $('n2').textContent = LIST.length ? '(' + LIST.length + ')' : ''; $('n3').textContent = LIST.length ? '(' + LIST.length + ')' : ''; return c; }
+function driveId(u) { var m = String(u || '').match(/\/d\/([-\w]{15,})/) || String(u || '').match(/[?&]id=([-\w]{15,})/); return m ? m[1] : ''; }
+function thumb(u, w) { var id = driveId(u); return id ? 'https://drive.google.com/thumbnail?id=' + id + '&sz=w' + (w || 100) : ''; }
+async function loadBatch(quiet) {
+  if (!PIN) return;
+  try { LIST = await nb({ action: 'blist', batch: BATCH.id }); renderBatch(); updAuthBtn(); } catch (e) { if (!quiet) $('vTable').innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+function flagsOf(b) {
+  var d = b.data, f = [];
+  if (d.isbn && !isbnValid(d.isbn)) f.push('<span class="flag">ISBN check fails</span>');
+  if (b.dup && b.dup.length) f.push('<span class="flag">Already in the register: ' + b.dup.map(function (m) { return esc(m.id); }).join(', ') + '</span>');
+  if (!d.author && !d.corporate) f.push('<span class="flag w">no author</span>');
+  if (!d.year) f.push('<span class="flag w">no year</span>');
+  if (!d.ddc && !d.callNo) f.push('<span class="flag w">no DDC</span>');
+  if (d.clsConfidence === 'low') f.push('<span class="flag w">class: low confidence</span>');
+  if (d.aiNotes) f.push('<span class="flag w" title="' + esc(d.aiNotes) + '">note</span>');
+  return f.join(' ');
+}
+function renderBatch() {
+  var copies = counts(), s = secOf(), pre = s ? s.prefix + '-' : '', start = parseInt(BATCH.start, 10) || (s ? s.next : 0), id = start;
+  $('vSum').innerHTML = LIST.length ? '<div class="msg i"><b>' + LIST.length + '</b> book(s), <b>' + copies + '</b> copy(ies). Acc Nos <b>' + esc(pre + start) + ' to ' + esc(pre + (start + copies - 1)) + '</b> in tab <b>' + esc(s ? s.tab : '') + '</b> (given when you submit).</div>' : '<div class="msg w">No books in this batch yet. Use tab 2, 2b or 2c.</div>';
+  if (!LIST.length) { $('vTable').innerHTML = ''; return; }
+  $('vTable').innerHTML = '<table class="bt"><tr><th>Acc No</th><th></th><th>Title / author</th><th>Publisher, year, pages, price</th><th>ISBN</th><th>Copies</th><th>DDC / Colon</th><th>Subjects</th><th>Check</th><th></th></tr>' +
+    LIST.map(function (b, i) {
+      var d = b.data, n = nCopies(d), nums = n > 1 ? pre + id + ' to ' + pre + (id + n - 1) : pre + id; id += n;
+      var t = d.title && d.titleEn && d.title !== d.titleEn ? esc(d.title) + '<br><small>' + esc(d.titleEn) + '</small>' : esc(d.title || d.titleEn);
+      return '<tr><td><b>' + esc(nums) + '</b></td><td>' + (thumb(d.urls && d.urls.cover) ? '<img src="' + thumb(d.urls.cover) + '">' : '') + '</td><td>' + t + '<br><small>' + esc(d.authorInv || d.author || d.corporate) + '</small></td><td>' + esc(d.publisherEn || d.publisher) + ', ' + esc(d.year) + ', ' + esc(d.pages) + ', Rs.' + esc(d.price) + '</td><td>' + esc(d.isbn) + '</td><td>' + n + '</td><td><b>' + esc(d.callNo || d.ddc) + '</b><br><small>' + esc(d.ccClass) + '</small></td><td><small>' + esc(d.subjects) + '</small></td><td>' + flagsOf(b) + '</td><td><button onclick="editBook(' + i + ')">Edit</button> <button class="r" onclick="removeBook(' + i + ')">Remove</button></td></tr>';
+    }).join('') + '</table>';
+}
+var EF = ['title', 'titleEn', 'subtitle', 'author', 'authorEn', 'authorInv', 'corporate', 'resp', 'addAuthors', 'language', 'publisher', 'publisherEn', 'place', 'year', 'edition', 'pages', 'illus', 'size', 'price', 'isbn', 'series', 'summary', 'contents', 'subjects', 'ddc', 'callNo', 'ccClass', 'lc', 'shelf'];
+function fld(k, label, wide, extra) { return '<div style="flex:' + (wide || 1) + ';min-width:140px"><label>' + label + '</label><input id="e_' + k + '" ' + (extra || '') + '></div>'; }
+function editBook(i) {
+  var b = LIST[i], d = b.data; window.EDIT = b.key;
+  var h = '<div class="box" style="border:2px solid var(--gold);margin-top:12px"><h2>Edit: ' + esc(d.title || d.titleEn) + '</h2>' +
+    '<div class="row">' + fld('title', 'Title (as printed)', 2) + fld('titleEn', 'Title in English letters', 2) + fld('subtitle', 'Subtitle (245$b)', 2) + '</div>' +
+    '<div class="row">' + fld('author', 'Author (as printed)', 2) + fld('authorEn', 'Author in English letters', 2) + fld('authorInv', 'Author, surname first (100$a)', 2) + '</div>' +
+    '<div class="row">' + fld('corporate', 'Corporate author (110$a)', 2) + fld('resp', 'Statement of responsibility (245$c)', 2) + fld('addAuthors', 'Other authors / editors (700$a, ; between)', 2) + '</div>' +
+    '<div class="row">' + fld('publisher', 'Publisher (as printed)', 2) + fld('publisherEn', 'Publisher in English letters', 2) + fld('place', 'Place') + fld('year', 'Year') + '</div>' +
+    '<div class="row">' + fld('edition', 'Edition') + fld('pages', 'Pages (e.g. xiii, 412 p.)') + fld('illus', 'Illustrations') + fld('size', 'Size') + fld('price', 'Price') + fld('language', 'Language', 1, 'list="langList"') + '</div>' +
+    '<div class="row">' + fld('isbn', 'ISBN', 2) + fld('series', 'Series', 2) + '<div style="flex:3;min-width:0;align-self:flex-end"><button class="y" onclick="edLookup()">Look up this ISBN - fill the empty boxes</button> <button class="s" onclick="edScan()">Scan ISBN</button> <span id="edIsbnMsg" style="font-size:13px"></span></div></div>' +
+    '<label>Summary / general note (500$a)</label><textarea id="e_summary"></textarea><label>Contents (505$a)</label><textarea id="e_contents"></textarea>' +
+    '<div class="row">' + fld('subjects', 'Subject headings (650$a, ; between)', 3) + '</div>' +
+    '<div class="row">' + fld('ddc', 'DDC (082$a)') + fld('callNo', 'Item Call Number (o) (blank = DDC)') + fld('ccClass', 'Colon classification') + fld('lc', 'LC class (050)') + fld('shelf', 'Shelving Location (c)') + '</div>' +
+    '<div class="row"><div style="max-width:160px"><label>Number of copies</label><input id="e_copies" type="number" min="1" max="10"></div><div><label>Photo kept as</label><select id="e_authorOf"><option value="author">Author photo</option><option value="other">Someone else</option><option value="none">Remove the photo</option></select></div></div>' +
+    (d.aiNotes ? '<div class="msg w"><b>Reading note:</b> ' + esc(d.aiNotes) + '</div>' : '') +
+    (d.clsWhy ? '<div class="msg i"><b>Class reason:</b> ' + esc(d.clsWhy) + ' (' + esc(d.clsConfidence || '') + ')</div>' : '') +
+    '<p><button class="g" onclick="saveEdit()">Save changes</button> <button class="s" onclick="$(\'editBox\').innerHTML=\'\'">Close</button></p><div id="eMsg"></div></div>';
+  $('editBox').innerHTML = h;
+  EF.forEach(function (k) { var el = $('e_' + k); if (el) el.value = d[k] == null ? '' : d[k]; });
+  $('e_copies').value = nCopies(d);
+  $('e_authorOf').value = (d.urls && d.urls.author) ? (d.authorOf || 'author') : 'none';
+  $('editBox').scrollIntoView();
+}
+async function saveEdit() {
+  var rec = {}; EF.forEach(function (k) { var el = $('e_' + k); if (el) rec[k] = el.value.trim(); });
+  if (!rec.title && !rec.titleEn) { alert('Title cannot be empty.'); return; }
+  if (rec.isbn && !isbnValid(rec.isbn) && !confirm('The ISBN fails the check digit. Save anyway?')) return;
+  rec.copies = Math.max(1, Math.min(10, parseInt($('e_copies').value, 10) || 1));
+  var ao = $('e_authorOf').value, imgs = {};
+  if (ao === 'none') imgs.author = 'REMOVE'; else rec.authorOf = ao;
+  try { await nb({ action: 'bupdate', key: window.EDIT, rec: rec, images: imgs }); $('editBox').innerHTML = ''; await loadBatch(); } catch (e) { $('eMsg').innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+async function removeBook(i) {
+  if (!confirm('Remove "' + (LIST[i].data.title || LIST[i].data.titleEn) + '" from the batch?')) return;
+  try { await nb({ action: 'bremove', key: LIST[i].key }); await loadBatch(); } catch (e) { alert(e.message); }
+}
+async function classifyAll() {
+  var todo = LIST.filter(function (b) { return !b.data.ddc || !b.data.ccClass; }), btn = $('clsAll');
+  if (!todo.length) { alert('Every book already has DDC and Colon numbers.'); return; }
+  btn.disabled = true; var done = 0, bad = 0;
+  for (var i = 0; i < todo.length; i++) {
+    btn.textContent = 'Working ' + (i + 1) + '/' + todo.length;
+    try {
+      var d = todo[i].data, info = {}; ['title', 'titleEn', 'subtitle', 'author', 'authorEn', 'language', 'publisher', 'year', 'summary', 'contents'].forEach(function (k) { info[k] = d[k] || ''; });
+      var r = await nb({ action: 'classify', info: info });
+      var up = { clsConfidence: r.confidence || '', clsWhy: r.why || '' };
+      if (!d.ddc && r.ddc) { up.ddc = r.ddc; if (!d.callNo) up.callNo = r.ddc; }
+      if (!d.ccClass && r.cc) up.ccClass = r.cc;
+      if (!d.subjects && r.subjects) up.subjects = r.subjects;
+      if (!d.titleEn && r.title_en) up.titleEn = r.title_en;
+      if (!d.authorEn && r.author_en) up.authorEn = r.author_en;
+      await nb({ action: 'bupdate', key: todo[i].key, rec: up, images: {} }); done++;
+    } catch (e) { bad++; if (/limit/i.test(e.message)) { alert(e.message); break; } }
+  }
+  btn.disabled = false; btn.textContent = 'Suggest DDC + Colon for books without them'; await loadBatch();
+  $('subMsg').innerHTML = '<div class="msg w">Suggested for ' + done + ' book(s)' + (bad ? ', ' + bad + ' failed' : '') + '. These are proposals - please look at them before submitting.</div>';
+}
+async function submitBatch(force) {
+  if (!LIST.length) { alert('The batch is empty.'); return; }
+  batchChg();
+  var s = secOf(), pre = s ? s.prefix + '-' : '', copies = counts(), start = parseInt(BATCH.start, 10) || (s ? s.next : 0);
+  if (!force && !confirm('Submit ' + LIST.length + ' book(s), ' + copies + ' copy(ies), as Acc Nos ' + pre + start + ' to ' + pre + (start + copies - 1) + ' into the register tab ' + (s ? s.tab : '') + '?')) return;
+  $('subBtn').disabled = true; $('subMsg').innerHTML = '<i>Submitting...</i>';
+  try {
+    var r = await nb({ action: 'bsubmit', batch: BATCH.id, force: !!force, common: { section: BATCH.section, start: BATCH.start, accDate: BATCH.date, serial: BATCH.serial, inventory: BATCH.inventory, source: BATCH.source,
+      language: BATCH.lang, size: BATCH.size, shelf: BATCH.shelf, codedLocation: BATCH.codedLocation, supplier: BATCH.supplier, fund: BATCH.fund, how: BATCH.how, billNo: BATCH.billNo, billDate: BATCH.billDate, billAmount: BATCH.billAmount } });
+    if (r.needsConfirm) {
+      $('subMsg').innerHTML = '<div class="msg w"><b>These may already be in the register:</b><br>' + r.duplicates.map(function (x) { return esc(x.title) + ' - ' + x.matches.map(function (m) { return esc(m.id) + ' (' + esc(m.why) + ')'; }).join(', '); }).join('<br>') + '<br>Remove them from the batch, or (a second copy is fine) <button class="r" onclick="submitBatch(true)">Submit anyway</button></div>';
+    } else {
+      $('subMsg').innerHTML = '<div class="msg ok"><b>Submitted ' + r.count + ' book(s), Acc Nos ' + esc(r.firstId) + ' to ' + esc(r.lastId) + ' in tab ' + esc(r.tab) + ' (from row ' + r.row + ').</b> They are also in KOHA_MARC and BOOK_COVERS.</div><table class="bt"><tr><th>Acc No</th><th>Title</th></tr>' + r.books.map(function (b) { return '<tr><td><b>' + esc(b.ids.join(', ')) + '</b></td><td>' + esc(b.title) + '</td></tr>'; }).join('') + '</table><p>Write these numbers on the books (or print labels from the admin panel).</p><p><button class="g" onclick="afterSubmit(' + r.next + ')">Start next batch</button></p>';
+      LIST = []; renderBatch(); counts(); refreshInit();
+    }
+  } catch (e) { $('subMsg').innerHTML = '<div class="msg er">NOT submitted: ' + esc(e.message) + '</div>'; }
+  $('subBtn').disabled = false;
+}
+function afterSubmit(nextStart) { BATCH.id = 'B' + Date.now().toString(36).toUpperCase(); BATCH.start = String(nextStart); $('b_start').value = BATCH.start; saveBatch(); SESSION_ADDED = []; renderAdded(); batchInfo(); $('subMsg').innerHTML = ''; tab(1); }
+
+initBatch(); buildSlots(); buildTiles(); tab(1);
+try { $('pin').value = sessionStorage.getItem('nb_pin_' + LIBKEY) || ''; $('enteredBy').value = localStorage.getItem('nb_by_' + LIBKEY) || ''; if ($('pin').value) { PIN = $('pin').value; refreshInit(); } } catch (e) {}
+</script>
+<script>
+// ======================= PHOTO BASKET =======================
+var BK = { groups: [], open: false, mode: 'auto', fix: { l: 5, t: 5, r: 5, b: 5 }, chain: Promise.resolve(), todo: 0, done: 0, stop: false, cards: 0, gid: 0, pid: 0, skipped: [], poll: null, sample: null };
+var BK_MODES = [['auto', 'Auto - find the book'], ['fixed', 'Fixed box'], ['none', 'Do not cut']];
+var BK_MAXSIDE = 900, BK_MAXKB = 70, BK_QR = 'LIBNB-NEXT';
+
+function bkModes() {
+  $('bkModes').innerHTML = BK_MODES.map(function (m) { return '<div class="tile' + (BK.mode === m[0] ? ' on' : '') + '" onclick="bkSetMode(\'' + m[0] + '\')">' + m[1] + '</div>'; }).join('');
+  $('bkFix').style.display = BK.mode === 'fixed' ? 'block' : 'none';
+}
+function bkSetMode(m) { BK.mode = m; bkModes(); }
+function bkFixChg() {
+  ['l', 't', 'r', 'b'].forEach(function (k) { BK.fix[k] = +$('fx_' + k).value; $('fx_' + k + '_v').textContent = BK.fix[k]; });
+  bkDrawPrev();
+}
+function bkSample(inp) {
+  var f = inp.files && inp.files[0]; if (!f) return;
+  createImageBitmap(f).then(function (bmp) { BK.sample = bmp; bkDrawPrev(); }).catch(function () { alert('Could not open this picture.'); });
+  inp.value = '';
+}
+function bkDrawPrev() {
+  var c = $('bkPrev'), b = BK.sample; if (!b) return;
+  var s = Math.min(1, 420 / Math.max(b.width, b.height)); c.width = Math.round(b.width * s); c.height = Math.round(b.height * s);
+  var x = c.getContext('2d'); x.drawImage(b, 0, 0, c.width, c.height);
+  var f = BK.fix, l = c.width * f.l / 100, t = c.height * f.t / 100, r = c.width * (1 - f.r / 100), bt = c.height * (1 - f.b / 100);
+  x.fillStyle = 'rgba(0,0,0,.45)'; x.fillRect(0, 0, c.width, t); x.fillRect(0, bt, c.width, c.height - bt); x.fillRect(0, t, l, bt - t); x.fillRect(r, t, c.width - r, bt - t);
+  x.strokeStyle = '#ffd24a'; x.lineWidth = 3; x.strokeRect(l, t, r - l, bt - t);
+}
+
+// ---------- the card ----------
+function bkCard() {
+  if (typeof qrcode !== 'function') { alert('The QR code tool did not load. Check the internet and reload the page.'); return; }
+  var q = qrcode(0, 'M'); q.addData(BK_QR); q.make();
+  var svg = q.createSvgTag({ cellSize: 14, margin: 2, scalable: true });
+  var w = window.open('', '_blank');
+  if (!w) { alert('The card window was blocked. Allow pop-ups for this page and try again.'); return; }
+  w.document.write('<!doctype html><meta charset="utf-8"><title>Next book card</title><style>body{font-family:Arial,sans-serif;text-align:center;margin:0;padding:12mm}.card{border:4px solid #000;border-radius:12px;padding:10mm;max-width:170mm;margin:0 auto}svg{width:110mm;height:110mm}h1{font-size:34px;margin:8px 0}h2{font-size:26px;margin:4px 0}p{font-size:15px}button{font-size:18px;padding:10px 18px;margin:10px}@media print{button{display:none}}</style>' +
+    '<div class="card"><h1>NEXT BOOK</h1><h2>ಮುಂದಿನ ಪುಸ್ತಕ</h2>' + svg + '<p>Photograph this card <b>before the first photo of every new book</b>.<br>Keep the whole card inside the photo.</p></div>' +
+    '<button onclick="window.print()">Print</button>');
+  w.document.close();
+}
+
+// ---------- adding photos ----------
+function natCmp(a, b) { return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' }); }
+function bkBusy(on) { $('bkStopBtn').style.display = on ? 'inline-block' : 'none'; $('bkProg').style.display = on ? 'block' : 'none'; }
+function bkProg() { var p = BK.todo ? Math.round(100 * BK.done / BK.todo) : 0; $('bkProg').firstChild.style.width = p + '%'; if (BK.todo) $('bkMsg').innerHTML = '<div class="msg i">Preparing photo ' + Math.min(BK.done + 1, BK.todo) + ' of ' + BK.todo + '...</div>'; }
+function bkStop() { BK.stop = true; }
+function bkPick(inp) {
+  var files = Array.prototype.slice.call(inp.files || []); inp.value = '';
+  if (!files.length) return;
+  files.sort(function (a, b) { return natCmp(a.name, b.name); });
+  BK.chain = BK.chain.then(function () { return bkProcessFiles(files); });
+}
+async function bkProcessFiles(files) {
+  BK.stop = false; BK.skipped = []; BK.todo = 0; BK.done = 0; bkBusy(true);
+  var jobs = [];
+  for (var i = 0; i < files.length; i++) {
+    var f = files[i], n = f.name.toLowerCase();
+    try {
+      if (/\.zip$/.test(n)) { var zs = await bkZipJobs(f); jobs = jobs.concat(zs); }
+      else if (/\.pdf$/.test(n)) { var ps = await bkPdfJobs(f); jobs = jobs.concat(ps); }
+      else jobs.push({ name: f.name, get: function (ff) { return function () { return Promise.resolve(ff); }; }(f) });
+    } catch (e) { BK.skipped.push(f.name + ' (' + e.message + ')'); }
+  }
+  BK.todo = jobs.length; bkProg();
+  var added = 0;
+  for (var j = 0; j < jobs.length; j++) {
+    if (BK.stop) break;
+    try { var blob = await jobs[j].get(); if (await bkAddImage(blob, jobs[j].name)) added++; }
+    catch (e) { BK.skipped.push(jobs[j].name + ' (' + e.message + ')'); }
+    BK.done++; bkProg(); if (j % 5 === 4) bkRender();
+    await new Promise(function (r) { setTimeout(r, 0); });
+  }
+  bkBusy(false); bkRender();
+  $('bkMsg').innerHTML = '<div class="msg ' + (BK.skipped.length ? 'w' : 'ok') + '">' + (BK.stop ? 'Stopped. ' : '') + added + ' photo(s) added.' + (BK.skipped.length ? '<br><b>Not added:</b> ' + BK.skipped.slice(0, 8).map(esc).join('; ') + (BK.skipped.length > 8 ? ' ...' : '') : '') + '</div>';
+}
+async function bkZipJobs(file) {
+  if (typeof JSZip === 'undefined') throw new Error('ZIP tool did not load');
+  var z = await JSZip.loadAsync(file), names = [];
+  z.forEach(function (p, e) { if (!e.dir && /\.(jpe?g|png|webp|bmp|gif)$/i.test(p) && !/(^|\/)(__MACOSX|\.)/.test(p)) names.push(p); });
+  names.sort(natCmp);
+  if (!names.length) throw new Error('no pictures inside');
+  return names.map(function (p) { return { name: p, get: function () { return z.file(p).async('blob').then(function (b) { return new Blob([b], { type: /png$/i.test(p) ? 'image/png' : 'image/jpeg' }); }); } }; });
+}
+async function bkPdfJobs(file) {
+  if (typeof pdfjsLib === 'undefined') throw new Error('PDF tool did not load');
+  try { pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'; } catch (e) {}
+  var pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise, jobs = [];
+  for (var p = 1; p <= pdf.numPages; p++) {
+    jobs.push({ name: file.name + ' page ' + p, get: function (pn) { return function () {
+      return pdf.getPage(pn).then(function (pg) {
+        var v1 = pg.getViewport({ scale: 1 }), sc = Math.min(3, 1800 / Math.max(v1.width, v1.height)), v = pg.getViewport({ scale: sc });
+        var c = document.createElement('canvas'); c.width = Math.round(v.width); c.height = Math.round(v.height);
+        return pg.render({ canvasContext: c.getContext('2d'), viewport: v }).promise.then(function () { return new Promise(function (res) { c.toBlob(res, 'image/jpeg', 0.9); }); });
+      });
+    }; }(p) });
+  }
+  return jobs;
+}
+
+function bkQrIn(bmp) {
+  if (typeof jsQR !== 'function') return false;
+  var s = Math.min(1, 900 / Math.max(bmp.width, bmp.height)), w = Math.max(1, Math.round(bmp.width * s)), h = Math.max(1, Math.round(bmp.height * s));
+  var c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(bmp, 0, 0, w, h);
+  var r = jsQR(x.getImageData(0, 0, w, h).data, w, h);
+  return !!(r && r.data && r.data.indexOf('LIBNB') === 0);
+}
+function bkDetect(bmp) {   // find the book on a plain background -> {x,y,w,h} in source pixels, or null
+  var s = Math.min(1, 360 / Math.max(bmp.width, bmp.height)), w = Math.max(8, Math.round(bmp.width * s)), h = Math.max(8, Math.round(bmp.height * s));
+  var c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(bmp, 0, 0, w, h);
+  var d = x.getImageData(0, 0, w, h).data, R = [], G = [], B = [], ring = 3;
+  for (var yy = 0; yy < h; yy++) for (var xx = 0; xx < w; xx++) {
+    if (yy < ring || yy >= h - ring || xx < ring || xx >= w - ring) { var i = (yy * w + xx) * 4; R.push(d[i]); G.push(d[i + 1]); B.push(d[i + 2]); }
+  }
+  function med(a) { a.sort(function (p, q) { return p - q; }); return a[a.length >> 1]; }
+  var br = med(R.slice()), bg = med(G.slice()), bb = med(B.slice());
+  var dev = 0; for (var k = 0; k < R.length; k++) dev += Math.abs(R[k] - br) + Math.abs(G[k] - bg) + Math.abs(B[k] - bb); dev = dev / R.length;
+  var thr = Math.max(60, dev * 4);
+  var rows = new Array(h).fill(0), cols = new Array(w).fill(0);
+  for (var y = 0; y < h; y++) for (var x2 = 0; x2 < w; x2++) {
+    var j = (y * w + x2) * 4;
+    if (Math.abs(d[j] - br) + Math.abs(d[j + 1] - bg) + Math.abs(d[j + 2] - bb) > thr) { rows[y]++; cols[x2]++; }
+  }
+  var rmin = w * 0.05, cmin = h * 0.05, y0 = -1, y1 = -1, x0 = -1, x1 = -1;
+  for (var a = 0; a < h; a++) if (rows[a] >= rmin) { if (y0 < 0) y0 = a; y1 = a; }
+  for (var b = 0; b < w; b++) if (cols[b] >= cmin) { if (x0 < 0) x0 = b; x1 = b; }
+  if (y0 < 0 || x0 < 0) return null;
+  var area = (x1 - x0 + 1) * (y1 - y0 + 1) / (w * h);
+  if (area < 0.15 || area > 0.97) return null;
+  var mx = w * 0.015, my = h * 0.015;
+  x0 = Math.max(0, x0 - mx); y0 = Math.max(0, y0 - my); x1 = Math.min(w - 1, x1 + mx); y1 = Math.min(h - 1, y1 + my);
+  return { x: x0 / s, y: y0 / s, w: (x1 - x0 + 1) / s, h: (y1 - y0 + 1) / s };
+}
+function bkBox(bmp) {
+  if (BK.mode === 'none') return { box: { x: 0, y: 0, w: bmp.width, h: bmp.height }, note: '' };
+  if (BK.mode === 'fixed') { var f = BK.fix; return { box: { x: bmp.width * f.l / 100, y: bmp.height * f.t / 100, w: bmp.width * (1 - (f.l + f.r) / 100), h: bmp.height * (1 - (f.t + f.b) / 100) }, note: '' }; }
+  var bx = bkDetect(bmp);
+  return bx ? { box: bx, note: '' } : { box: { x: 0, y: 0, w: bmp.width, h: bmp.height }, note: 'book not found - whole photo kept' };
+}
+function bkJpeg(bmp, box) {
+  var side = BK_MAXSIDE, out = '';
+  for (var round = 0; round < 6; round++) {
+    var sc = Math.min(1, side / Math.max(box.w, box.h)), c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(box.w * sc)); c.height = Math.max(1, Math.round(box.h * sc));
+    c.getContext('2d').drawImage(bmp, box.x, box.y, box.w, box.h, 0, 0, c.width, c.height);
+    for (var q = 0.86; q >= 0.4; q -= 0.08) { out = c.toDataURL('image/jpeg', q); if (out.length * 0.75 / 1024 <= BK_MAXKB) return out; }
+    side *= 0.85;
+  }
+  return out;
+}
+async function bkAddImage(blob, name) {
+  var bmp;
+  try { bmp = await createImageBitmap(blob); } catch (e) { throw new Error('cannot open this picture'); }
+  try {
+    if (bkQrIn(bmp)) { BK.cards++; BK.open = false; return false; }
+    var b = bkBox(bmp), url = bkJpeg(bmp, b.box);
+    if (!url) throw new Error('could not shrink');
+    var g = BK.open && BK.groups.length ? BK.groups[BK.groups.length - 1] : null;
+    if (!g || g.status !== 'draft') { g = { id: ++BK.gid, photos: [], status: 'draft', msg: '' }; BK.groups.push(g); }
+    BK.open = true;
+    g.photos.push({ id: ++BK.pid, url: url, kb: Math.round(url.length * 0.75 / 1024), note: b.note, name: name });
+    return true;
+  } finally { try { bmp.close(); } catch (e) {} }
+}
+
+// ---------- the groups ----------
+function bkStat() {
+  var photos = 0, books = 0, up = 0, fail = 0, wait = 0;
+  BK.groups.forEach(function (g) { if (!g.photos.length) return; books++; photos += g.photos.length; if (g.status === 'queued') up++; else if (g.status === 'failed') fail++; else wait++; });
+  return { photos: photos, books: books, up: up, fail: fail, wait: wait };
+}
+function bkRender() {
+  var s = bkStat();
+  $('bkCount').innerHTML = '<div>Books <b>' + s.books + '</b></div><div>Photos <b>' + s.photos + '</b></div><div>"Next book" cards <b>' + BK.cards + '</b></div><div class="good">Uploaded <b>' + s.up + '</b></div><div class="' + (s.fail ? 'bad' : '') + '">Failed <b>' + s.fail + '</b></div><div>Not sent yet <b>' + s.wait + '</b></div>';
+  $('bkGroups').innerHTML = BK.groups.map(function (g, gi) {
+    if (!g.photos.length) return '';
+    var st = { draft: 'not uploaded yet', uploading: 'uploading...', queued: 'uploaded - waiting to be read', failed: 'UPLOAD FAILED: ' + esc(g.msg) }[g.status];
+    var editable = g.status === 'draft' || g.status === 'failed';
+    return '<div class="bkg ' + g.status + '"><div class="bkh"><b>Book ' + (gi + 1) + '</b> &middot; ' + g.photos.length + ' photo(s) &middot; ' + st +
+      (editable && gi > 0 ? ' <button onclick="bkJoin(' + g.id + ')">Join with the book before</button>' : '') + (editable ? ' <button onclick="bkDelGroup(' + g.id + ')">Remove this book</button>' : '') + '</div><div class="bkp">' +
+      g.photos.map(function (p, pi) {
+        return '<div class="ph"><img src="' + p.url + '" alt="">' + p.kb + ' KB' + (p.note ? '<br><span style="color:#b3261e">' + esc(p.note) + '</span>' : '') +
+          (editable ? '<br><button class="x" onclick="bkDelPhoto(' + g.id + ',' + p.id + ')">&#10005;</button>' + (pi > 0 ? '<button onclick="bkSplit(' + g.id + ',' + p.id + ')">new book from here</button>' : '') : '') + '</div>';
+      }).join('') + '</div></div>';
+  }).join('');
+  $('bkSubmit').textContent = 'Upload ' + (s.wait + s.fail ? (s.wait + s.fail) + ' book(s)' : 'the books');
+}
+function bkG(id) { for (var i = 0; i < BK.groups.length; i++) if (BK.groups[i].id === id) return i; return -1; }
+function bkDelPhoto(gid, pid) { var gi = bkG(gid); if (gi < 0) return; var g = BK.groups[gi]; g.photos = g.photos.filter(function (p) { return p.id !== pid; }); if (!g.photos.length) BK.groups.splice(gi, 1); bkRender(); }
+function bkDelGroup(gid) { var gi = bkG(gid); if (gi >= 0) BK.groups.splice(gi, 1); bkRender(); }
+function bkJoin(gid) { var gi = bkG(gid); if (gi < 1) return; var a = BK.groups[gi - 1], b = BK.groups[gi]; if (a.status !== 'draft' && a.status !== 'failed') { alert('The book before is already sent.'); return; } a.photos = a.photos.concat(b.photos); a.status = 'draft'; BK.groups.splice(gi, 1); bkRender(); }
+function bkSplit(gid, pid) {
+  var gi = bkG(gid); if (gi < 0) return; var g = BK.groups[gi], k = -1; g.photos.forEach(function (p, i) { if (p.id === pid) k = i; });
+  if (k < 1) return; var rest = g.photos.splice(k); BK.groups.splice(gi + 1, 0, { id: ++BK.gid, photos: rest, status: 'draft', msg: '', known: g.known, scan: '' }); g.scan = ''; g.status = 'draft'; bkRender();
+}
+function bkBack() {
+  var gi = BK.groups.length - 1; if (gi < 0) return; var g = BK.groups[gi];
+  if (g.status !== 'draft') { $('bkMsg').innerHTML = '<div class="msg w">The last book is already sent.</div>'; return; }
+  g.photos.pop(); if (!g.photos.length) BK.groups.pop(); BK.open = BK.groups.length > 0; bkRender();
+  $('bkMsg').innerHTML = '<div class="msg i">Last photo removed.</div>';
+}
+function bkNext() { BK.open = false; $('bkMsg').innerHTML = '<div class="msg i">This book is closed. The next photo starts a new book.</div>'; }
+function bkClearBook() {
+  var gi = BK.groups.length - 1; if (gi < 0) return; var g = BK.groups[gi];
+  if (g.status !== 'draft' && g.status !== 'failed') { $('bkMsg').innerHTML = '<div class="msg w">The last book is already sent.</div>'; return; }
+  BK.groups.pop(); BK.open = false; bkRender(); $('bkMsg').innerHTML = '<div class="msg i">The last book was removed. Take its photos again.</div>';
+}
+function bkClearAll() {
+  var s = bkStat(); if (s.wait + s.fail && !confirm('Remove ALL ' + (s.wait + s.fail) + ' book(s) that are not sent yet?')) return;
+  BK.groups = BK.groups.filter(function (g) { return g.status === 'queued' || g.status === 'uploading'; }); BK.open = false; BK.cards = 0; bkRender();
+}
+
+// ---------- upload ----------
+// ---------- upload one book of the basket (2b) or of the ready photos (2c) ----------
+async function bkUploadOne(g) {
+  g.status = 'uploading'; g.msg = ''; bkRender();
+  var small = '';
+  try { small = await shrinkTo(g.photos[0].url, 520, 19); } catch (e) {}
+  for (var attempt = 0; attempt < 3; attempt++) {
+    try {
+      var r = await nb({ action: 'qadd', batch: BATCH.id, by: $('enteredBy').value.trim(), lang: BATCH.lang, photos: g.photos.map(function (p) { return p.url; }),
+        order: g.known ? 'known' : '', cover20: small, scan: g.scan || '' });
+      g.status = 'queued'; g.qkey = r.key; return true;
+    } catch (e) { g.msg = e.message; if (/PIN|Not allowed|Too many|At most/i.test(e.message)) break; await new Promise(function (res) { setTimeout(res, 1500 * (attempt + 1)); }); }
+  }
+  g.status = 'failed'; return false;
+}
+
+async function bkUpload() {
+  if (!PIN) { alert('Enter the PIN and press Connect first.'); return; }
+  var todo = BK.groups.filter(function (g) { return g.photos.length && (g.status === 'draft' || g.status === 'failed'); });
+  if (!todo.length) { $('bkMsg').innerHTML = '<div class="msg w">Nothing to upload.</div>'; return; }
+  var tooMany = todo.filter(function (g) { return g.photos.length > 8; });
+  if (tooMany.length) { $('bkMsg').innerHTML = '<div class="msg er">Book ' + (BK.groups.indexOf(tooMany[0]) + 1) + ' has more than 8 photos. Use "new book from here" to split it, then upload again.</div>'; return; }
+  if (BK.uploading) { $('bkMsg').innerHTML = '<div class="msg w">Uploading is still running. Wait until it finishes.</div>'; return; }
+  BK.uploading = true; $('bkSubmit').disabled = true; var ok = 0, bad = 0, i = 0;
+  async function worker() { while (i < todo.length) { var g = todo[i++]; if (await bkUploadOne(g)) ok++; else bad++; bkRender(); } }
+  await Promise.all([worker(), worker()]);
+  BK.uploading = false; $('bkSubmit').disabled = false; bkRender();
+  var imgs = todo.reduce(function (a, g) { return a + (g.status === 'queued' ? g.photos.length : 0); }, 0);
+  $('bkMsg').innerHTML = '<div class="msg ' + (bad ? 'er' : 'ok') + '"><b>' + ok + ' book(s) uploaded</b> (' + imgs + ' photos)' + (bad ? ', <b>' + bad + ' FAILED</b> - press "Upload the failed ones again".' : '. They are being read now.') + '</div>';
+  bkQueueRefresh(); bkPoll(true);
+}
+function bkRetry() { bkUpload(); }
+
+// ---------- the queue on the server ----------
+async function bkQueueRefresh() {
+  if (!PIN) return;
+  try {
+    var q = await nb({ action: 'qlist', batch: BATCH.id }), c = q.counts;
+    var h = '<div><b>This batch:</b> ' + q.total + ' book(s) - Waiting <b>' + c.Waiting + '</b>, Reading <b>' + c.Reading + '</b>, Ready <b>' + c.Ready + '</b>, Failed <b>' + c.Failed + '</b></div>';
+    q.items.filter(function (x) { return x.status === 'Failed'; }).forEach(function (x) {
+      h += '<div>' + esc(x.key) + ' - ' + esc(x.msg) + ' <button style="padding:3px 8px;font-size:12px" onclick="bkQ(\'qretry\',\'' + x.key + '\')">Try again</button> <button class="r" style="padding:3px 8px;font-size:12px" onclick="bkQ(\'qremove\',\'' + x.key + '\')">Remove</button></div>';
+    });
+    if (c.Waiting && !c.Reading) h += '<div style="color:#8a5a00">If nothing is read for more than 10 minutes, the Gemini free limit for today may be used up. It continues by itself tomorrow.</div>';
+    $('bkQueue').innerHTML = h;
+    if (c.Ready) loadBatch(true);
+    if (!c.Waiting && !c.Reading) bkPoll(false);
+  } catch (e) { $('bkQueue').innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+async function bkQ(act, key) { try { await nb({ action: act, key: key }); } catch (e) { alert(e.message); } bkQueueRefresh(); bkPoll(true); }
+function bkPoll(on) { if (BK.poll) { clearInterval(BK.poll); BK.poll = null; } if (on) BK.poll = setInterval(bkQueueRefresh, 15000); }
+
+// ---------- author portraits cut from the stored back-cover photo ----------
+function updAuthBtn() {
+  var n = LIST.filter(function (b) { return b.data.authorBox && b.data.authorSrc && !(b.data.urls && b.data.urls.author); }).length, bt = $('authBtn');
+  if (bt) { bt.style.display = n ? 'inline-block' : 'none'; bt.textContent = 'Make author photos (' + n + ')'; }
+}
+async function makeAuthorPhotos() {
+  var todo = LIST.filter(function (b) { return b.data.authorBox && b.data.authorSrc && !(b.data.urls && b.data.urls.author); }), bt = $('authBtn'), done = 0, bad = 0;
+  bt.disabled = true;
+  for (var i = 0; i < todo.length; i++) {
+    bt.textContent = 'Working ' + (i + 1) + '/' + todo.length;
+    try {
+      var d = todo[i].data, r = await nb({ action: 'qphoto', id: d.authorSrc }), src = await shrinkTo(await cropBox(r.dataUrl, d.authorBox), 170, 9);
+      if (src) { await nb({ action: 'bupdate', key: todo[i].key, rec: { authorOf: d.authorOf || 'author' }, images: { author: src } }); done++; } else bad++;
+    } catch (e) { bad++; }
+  }
+  bt.disabled = false; await loadBatch();
+  $('subMsg').innerHTML = '<div class="msg ' + (bad ? 'w' : 'ok') + '">Author photos made: ' + done + (bad ? ', not possible: ' + bad : '') + '.</div>';
+}
+bkModes(); bkFixChg(); bkRender();
+// ======================= 2c READY PHOTOS =======================
+var RC = { how: 'auto', cut: 'none', stop: false, busy: false };
+var RC_HOWS = [['auto', 'Auto - Gemini finds each new book (PDF of scans)'], ['folder', 'One folder per book'], ['name', 'Named by book (001_1.jpg, 001_2.jpg)'], ['fixed', 'Same number of photos per book']];
+var RC_HELP = {
+  auto: 'Best for a PDF or a long run of scans without separator cards. Gemini looks at about 12 pages at a time and marks where a new book starts (at its cover). About 1 Gemini request per 12 pages. Check the groups afterwards in tab 2b.',
+  folder: 'Each book is a folder (Book1, Book2 ...) with its photos inside. Choose the main folder, or a ZIP of it. Photos are taken in name order inside each folder.',
+  name: 'All photos in one place; the part of the name before the last number tells the book: 001_1.jpg, 001_2.jpg, 002_1.jpg ... or Book5-1.jpg, Book5-2.jpg.',
+  fixed: 'All photos in one place, in name order, and every book has the SAME number of photos (type the number below).'
+};
+var RC_CUTS = [['none', 'Do not cut (scans)'], ['auto', 'Auto - find the book'], ['fixed', 'Fixed box (set in 2b)']];
+function rcTiles() {
+  $('rcHow').innerHTML = RC_HOWS.map(function (m) { return '<div class="tile' + (RC.how === m[0] ? ' on' : '') + '" onclick="RC.how=\'' + m[0] + '\';rcTiles()">' + m[1] + '</div>'; }).join('');
+  $('rcCut').innerHTML = RC_CUTS.map(function (m) { return '<div class="tile' + (RC.cut === m[0] ? ' on' : '') + '" onclick="RC.cut=\'' + m[0] + '\';rcTiles()">' + m[1] + '</div>'; }).join('');
+  $('rcNwrap').style.display = RC.how === 'fixed' ? 'block' : 'none';
+  $('rcHelp').textContent = RC_HELP[RC.how];
+}
+function rcStop() { RC.stop = true; }
+function rcProg(done, todo, text) {
+  $('rcProg').style.display = todo ? 'block' : 'none';
+  $('rcProg').firstChild.style.width = (todo ? Math.round(100 * done / todo) : 0) + '%';
+  if (text) $('rcMsg').innerHTML = '<div class="msg i">' + text + '</div>';
+}
+function rcDir(name) { var i = name.lastIndexOf('/'); return i > 0 ? name.slice(0, i) : ''; }
+function rcBookKey(name) {
+  var base = name.split('/').pop().replace(/\.[^.]+$/, '');
+  var k = base.replace(/[\s_\-.(]*\d+\)?$/, '');
+  return k || base;
+}
+async function rcPick(inp) {
+  if (RC.busy) { alert('Still working on the last files. Wait or press Stop.'); return; }
+  if (!PIN) { alert('Enter the PIN and press Connect first.'); inp.value = ''; return; }
+  var files = Array.prototype.slice.call(inp.files || []); inp.value = '';
+  if (!files.length) return;
+  RC.busy = true; RC.stop = false; $('rcStopBtn').style.display = 'inline-block';
+  try {
+    // 1. list every picture (with its folder path / PDF page)
+    var jobs = [], skipped = [];
+    files.sort(function (a, b) { return natCmp(a.webkitRelativePath || a.name, b.webkitRelativePath || b.name); });
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i], n = (f.webkitRelativePath || f.name), low = n.toLowerCase();
+      try {
+        if (/\.zip$/.test(low)) { (await bkZipJobs(f)).forEach(function (j) { jobs.push({ name: j.name, get: j.get, page: '' }); }); }
+        else if (/\.pdf$/.test(low)) { (await bkPdfJobs(f)).forEach(function (j, k) { jobs.push({ name: n + '/page ' + String(k + 1).padStart(4, '0'), get: j.get, page: String(k + 1), pdf: true }); }); }
+        else if (/\.(jpe?g|png|webp|bmp|gif)$/.test(low) || /^image\//.test(f.type)) jobs.push({ name: n, get: function (ff) { return function () { return Promise.resolve(ff); }; }(f), page: '' });
+      } catch (e) { skipped.push(n + ' (' + e.message + ')'); }
+    }
+    if (!jobs.length) throw new Error('No pictures found.');
+    if (!jobs.some(function (j) { return j.pdf; })) jobs.sort(function (a, b) { return natCmp(a.name, b.name); });
+    // 2. make each picture small (and cut it, if chosen)
+    var pics = [], oldMode = BK.mode; BK.mode = RC.cut;
+    for (var j = 0; j < jobs.length; j++) {
+      if (RC.stop) break;
+      rcProg(j, jobs.length, 'Preparing picture ' + (j + 1) + ' of ' + jobs.length + '...');
+      try {
+        var blob = await jobs[j].get(), bmp = await createImageBitmap(blob);
+        if (bkQrIn(bmp)) { pics.push({ card: true }); bmp.close(); continue; }
+        var url = bkJpeg(bmp, bkBox(bmp).box); bmp.close();
+        pics.push({ url: url, name: jobs[j].name, page: jobs[j].page || String(j + 1), kb: Math.round(url.length * 0.75 / 1024) });
+      } catch (e) { skipped.push(jobs[j].name + ' (' + e.message + ')'); }
+      if (j % 4 === 3) await new Promise(function (r) { setTimeout(r, 0); });
+    }
+    BK.mode = oldMode;
+    // 3. decide where each book starts
+    var real = pics.filter(function (p) { return !p.card; });
+    if (!real.length) throw new Error('No pictures could be read.');
+    var starts = new Array(pics.length).fill(false);
+    if (RC.how === 'folder') pics.forEach(function (p, k) { if (!p.card) { var prev = pics.slice(0, k).reverse().filter(function (x) { return !x.card; })[0]; starts[k] = !prev || rcDir(prev.name) !== rcDir(p.name); } });
+    else if (RC.how === 'name') pics.forEach(function (p, k) { if (!p.card) { var prev = pics.slice(0, k).reverse().filter(function (x) { return !x.card; })[0]; starts[k] = !prev || rcBookKey(prev.name) !== rcBookKey(p.name); } });
+    else if (RC.how === 'fixed') { var N = Math.max(1, Math.min(8, parseInt($('rcN').value, 10) || 3)), c = 0; pics.forEach(function (p, k) { if (!p.card) { starts[k] = c % N === 0; c++; } }); }
+    else {
+      var idx = []; pics.forEach(function (p, k) { if (!p.card) idx.push(k); });
+      var small = {}, CH = 12;
+      for (var a = 0; a < idx.length; a += CH) {
+        if (RC.stop) break;
+        rcProg(a, idx.length, 'Gemini is finding where each book starts: pages ' + (a + 1) + ' to ' + Math.min(a + CH, idx.length) + ' of ' + idx.length + '...');
+        var part = idx.slice(a, a + CH), imgs = [];
+        for (var q = 0; q < part.length; q++) { small[part[q]] = small[part[q]] || await shrinkTo(pics[part[q]].url, 420, 30); imgs.push(small[part[q]]); }
+        var prevImg = a > 0 ? small[idx[a - 1]] : '';
+        var res = null;
+        for (var tr = 0; tr < 3 && !res; tr++) { try { res = await nb({ action: 'group', images: imgs, prev: prevImg }); } catch (e) { if (/limit/i.test(e.message) || tr === 2) throw e; await new Promise(function (r) { setTimeout(r, 3000); }); } }
+        res.pages.forEach(function (pg, m) { if (part[m] !== undefined) { starts[part[m]] = !!pg.starts; pics[part[m]].role = pg.role; pics[part[m]].title = pg.title; } });
+      }
+      if (idx.length) starts[idx[0]] = true;
+    }
+    // separator cards (if any) also start a new book
+    pics.forEach(function (p, k) { if (p.card && k + 1 < pics.length) starts[k + 1] = true; });
+    // 4. make the books
+    var made = 0, before = BK.groups.length, g = null;
+    pics.forEach(function (p, k) {
+      if (p.card) { g = null; return; }
+      if (starts[k] || !g) { g = { id: ++BK.gid, photos: [], status: 'draft', msg: '', known: true, pages: [] }; BK.groups.push(g); made++; }
+      g.photos.push({ id: ++BK.pid, url: p.url, kb: p.kb, note: p.title ? 'title: ' + p.title : (p.role || ''), name: p.name }); g.pages.push(p.page);
+    });
+    BK.groups.slice(before).forEach(function (x) {
+      x.scan = x.pages.length > 1 ? x.pages[0] + '-' + x.pages[x.pages.length - 1] : (x.pages[0] || '');
+      if (x.photos.length > 8) { x.msg = 'more than 8 photos - split it'; }
+    });
+    BK.open = false; bkRender();
+    var big = BK.groups.slice(before).filter(function (x) { return x.photos.length > 8; }).length;
+    $('rcMsg').innerHTML = '<div class="msg ' + (skipped.length || big || RC.stop ? 'w' : 'ok') + '"><b>' + made + ' book(s) made from ' + real.length + ' picture(s).</b>' + (RC.stop ? ' (stopped early)' : '') +
+      (big ? '<br>' + big + ' book(s) have more than 8 photos: split them in tab 2b ("new book from here").' : '') +
+      (skipped.length ? '<br><b>Not added:</b> ' + skipped.slice(0, 6).map(esc).join('; ') + (skipped.length > 6 ? ' ...' : '') : '') +
+      '<br>Now open tab <b>2b</b>, look at each book (Join / new book from here if needed), then press <b>Upload</b>. <button class="g" onclick="tab(4)">Go to 2b &rarr;</button></div>';
+  } catch (e) { $('rcMsg').innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+  RC.busy = false; $('rcStopBtn').style.display = 'none'; $('rcProg').style.display = 'none';
+}
+rcTiles();
+
+// ================= ISBN look-up, barcode scan, old-book editor =================
+var LANGN = { kn: 'Kannada', en: 'English', hi: 'Hindi', mr: 'Marathi', sa: 'Sanskrit', ta: 'Tamil', te: 'Telugu', ml: 'Malayalam', ur: 'Urdu', bn: 'Bengali', gu: 'Gujarati', pa: 'Punjabi', or: 'Odia' };
+var ISBN_KEYS = [['title', 'Title'], ['subtitle', 'Subtitle'], ['author', 'Author'], ['publisher', 'Publisher'], ['year', 'Year'], ['pages', 'Pages'], ['place', 'Place'], ['language', 'Language'], ['summary', 'Summary']];
+function zxDecode(canvas) {
+  try {
+    if (!window.ZXing) return '';
+    var hints = new Map();
+    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, [ZXing.BarcodeFormat.EAN_13]);
+    hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
+    var reader = new ZXing.MultiFormatReader(); reader.setHints(hints);
+    var bmp = new ZXing.BinaryBitmap(new ZXing.HybridBinarizer(new ZXing.HTMLCanvasElementLuminanceSource(canvas)));
+    var t = reader.decode(bmp).getText();
+    return /^97[89]\d{10}$/.test(t) && isbnValid(t) ? t : '';
+  } catch (e) { return ''; }
+}
+function scanOpen(cb) {
+  if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { alert('The camera cannot be used here. Use "Barcode photo" or type the ISBN.'); return; }
+  var ov = document.createElement('div'); ov.className = 'camov'; ov.id = 'scanOv';
+  ov.innerHTML = '<div class="cambox"><video id="scVid" playsinline muted></video><div class="row"><button class="s" id="scCancel">Cancel</button><span id="scMsg" style="font-size:14px;color:#14335f">Hold the barcode (the one with the number 978... under it) in front of the camera, flat and well lit.</span></div></div>';
+  document.body.appendChild(ov);
+  var stream = null, timer = null, busy = false;
+  function stop() { if (timer) clearInterval(timer); if (stream) stream.getTracks().forEach(function (t) { t.stop(); }); ov.remove(); }
+  $('scCancel').onclick = stop;
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false }).then(function (s) {
+    stream = s; var v = $('scVid'); v.srcObject = s; v.play();
+    timer = setInterval(function () {
+      if (busy || !v.videoWidth) return; busy = true;
+      try {
+        var c = document.createElement('canvas'); c.width = v.videoWidth; c.height = v.videoHeight; c.getContext('2d').drawImage(v, 0, 0);
+        var t = zxDecode(c); if (t) { stop(); cb(t); return; }
+      } catch (e) {}
+      busy = false;
+    }, 300);
+  }).catch(function (e) { stop(); alert('The camera could not be opened (' + (e && e.name || 'error') + '). Allow the camera for this page, or use "Barcode photo".'); });
+}
+function barFile(file, cb) {
+  var url = URL.createObjectURL(file), im = new Image();
+  im.onload = function () {
+    var found = '';
+    [1600, 1100, 2400].forEach(function (side) {
+      if (found) return;
+      var sc = Math.min(2, side / Math.max(im.width, im.height)), c = document.createElement('canvas');
+      c.width = Math.round(im.width * sc); c.height = Math.round(im.height * sc); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      found = zxDecode(c);
+    });
+    URL.revokeObjectURL(url); cb(found);
+  };
+  im.onerror = function () { cb(''); }; im.src = url;
+}
+function isbnFound(r) { return r && r.found; }
+function nbIsbn(isbn) { return nb({ action: 'isbn', isbn: isbn }); }
+
+// ---- tab 3: look up inside the new-book edit form ----
+async function edLookup() {
+  var m = $('edIsbnMsg'), isbn = ($('e_isbn').value || '').replace(/[^0-9Xx]/g, '');
+  if (isbn.length !== 10 && isbn.length !== 13) { m.innerHTML = '<span class="er">Type the ISBN (10 or 13 digits) first.</span>'; return; }
+  m.textContent = 'Looking up...';
+  try {
+    var r = await nbIsbn(isbn);
+    if (!r.found) { m.innerHTML = '<span class="er">' + esc(r.message || 'Not found.') + '</span>'; return; }
+    var filled = [];
+    ISBN_KEYS.forEach(function (k) {
+      var el = $('e_' + k[0]), v = r[k[0]]; if (k[0] === 'language' && v) v = LANGN[v] || v;
+      if (el && v && !String(el.value).trim()) { el.value = v; filled.push(k[1]); }
+    });
+    m.innerHTML = '<span class="ok">Found in ' + esc(r.source) + '. ' + (filled.length ? 'Filled: ' + esc(filled.join(', ')) : 'All boxes already had values - nothing changed') + '.</span>';
+  } catch (e) { m.innerHTML = '<span class="er">' + esc(e.message) + '</span>'; }
+}
+function edScan() { scanOpen(function (t) { $('e_isbn').value = t; edLookup(); }); }
+
+// ---- tab 4: old-book editor (your register columns) ----
+ISBN_KEYS = [['title', 'Title'], ['subtitle', 'Subtitle'], ['author', 'Author'], ['publisher', 'Publisher'], ['year', 'Year'], ['pages', 'Pages'], ['place', 'Place'], ['language', 'Language'], ['summary', 'Summary'], ['subjects', 'Subjects'], ['ddc', 'DDC', 'callNo'], ['lc', 'LC class']];
+var EB = { id: '', orig: null, extra: null, cover: '', coverUrl: '', isbn: null };
+var EBF = [['title', 'Title', 2], ['subtitle', 'Subtitle', 2], ['author', 'Author', 2], ['edition', 'Edition Statement', 1], ['publisher', 'Publisher Code', 2], ['place', 'Place of Publication', 1],
+  ['pages', 'Pages', 1], ['price', 'Price', 1], ['callNo', 'Item Call Number (o) - DDC', 1], ['shelf', 'Shelving Location (c)', 1], ['source', 'Source of Acquisition (e)', 2]];
+var EBX = [['year', 'Year of publication', 1], ['language', 'Language', 1], ['ccClass', 'Colon classification', 1], ['lc', 'LC class (050)', 1], ['resp', 'Statement of responsibility', 2], ['addAuthors', 'Other authors (; between)', 2],
+  ['size', 'Book size', 1], ['illus', 'Illustrations', 1], ['subjects', 'Subject headings (| between)', 3]];
+function ebMsg(h, cls) { $('eb_msg').innerHTML = h ? '<div class="msg ' + (cls || 'i') + '">' + h + '</div>' : ''; }
+async function ebOpen() {
+  var id = $('eb_id').value.trim(); if (!id) { ebMsg('Type the Acc No.', 'er'); return; }
+  ebMsg('Opening...'); $('eb_form').innerHTML = '';
+  try { var b = await nb({ action: 'eget', id: id }); ebShow(b); ebMsg(''); } catch (e) { ebMsg(esc(e.message), 'er'); }
+}
+function ebShow(b) {
+  EB.id = b.id; EB.orig = b.fields; EB.extra = b.extra || {}; EB.cover = ''; EB.coverUrl = ''; EB.isbn = null;
+  var h = '<div class="box" style="margin-top:10px;background:#fafbff"><p style="margin:0 0 6px"><b>Acc No ' + esc(b.id) + '</b> &middot; tab ' + esc(b.tab) + ', row ' + b.row + (b.accDate ? ' &middot; accessioned ' + esc(b.accDate) : '') + (b.status ? ' &middot; <span class="er">' + esc(b.status) + '</span>' : '') + (b.inKoha ? ' &middot; has a KOHA_MARC row' : '') + '</p>';
+  if (b.missing && b.missing.length) h += '<div class="msg w">These headings are not in tab ' + esc(b.tab) + ', so they cannot be changed: ' + esc(b.missing.join(', ')) + '.</div>';
+  h += '<div class="row" style="align-items:flex-start"><div style="flex:0 0 150px;min-width:150px"><label>Cover photo</label><div id="eb_cur">' + (b.cover ? '<img src="' + esc(b.cover) + '" style="width:140px;border-radius:6px;border:1px solid #ccd">' : '<div style="width:140px;height:190px;border:1px dashed #aab;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#778;font-size:13px;text-align:center">No cover photo yet</div>') + '</div><div id="eb_new" style="margin-top:6px"></div></div>' +
+    '<div style="flex:3;min-width:240px"><label>Cover photo - take or choose</label><div><button type="button" class="fbtn" onclick="camBtn(\'ebcover\',\'ebFile\')">Take a photo</button> <label class="fbtn s" style="display:inline-block">Choose a file<input type="file" id="ebFile" accept="image/*" onchange="ebCoverFile(this.files[0]);this.value=\'\'"></label> <button class="s" onclick="ebCoverClear()">Remove new photo</button></div>' +
+    '<label>ISBN</label><div class="row"><div style="flex:2"><input id="e_isbn_eb" inputmode="numeric" placeholder="978..." value="' + esc(b.fields.isbn || '') + '"></div><div style="flex:3;min-width:0"><button class="y" onclick="ebLookup()">Look up ISBN</button> <button class="s" onclick="ebScan()">Scan barcode</button> <label class="fbtn s" style="display:inline-block">Barcode photo<input type="file" accept="image/*" onchange="ebBarPhoto(this.files[0]);this.value=\'\'"></label></div></div>' +
+    '<div id="eb_isbnres"></div></div></div><div class="row">';
+  EBF.forEach(function (f) { if (b.fields[f[0]] === null) return; h += '<div style="flex:' + f[2] + ';min-width:150px"><label>' + f[1] + '</label><input id="eb_' + f[0] + '"></div>'; });
+  h += '</div><div class="kbox"><b>For Koha only (KOHA_MARC)</b> <small>- your register has no column for these</small> <button class="y" style="padding:6px 10px;font-size:13px" onclick="ebClassify()">Suggest DDC + Colon + subjects</button> <span id="eb_cls" style="font-size:13px"></span><div class="row">';
+  EBX.forEach(function (f) { h += '<div style="flex:' + f[2] + ';min-width:150px"><label>' + f[1] + '</label><input id="eb_' + f[0] + '"' + (f[0] === 'language' ? ' list="langList"' : '') + '></div>'; });
+  h += '</div><label>General note / summary (500$a)</label><textarea id="eb_summary" rows="2"></textarea><label>Contents (505$a)</label><textarea id="eb_contents" rows="2"></textarea>' +
+    '<label class="inline"><input type="checkbox" id="eb_marc"' + (b.inKoha ? ' checked' : '') + '> Make / refresh this book\'s row in KOHA_MARC when I save</label></div>' +
+    '<p style="margin-top:10px"><button class="g" onclick="ebSave()">Save changes</button> <button class="s" onclick="$(\'eb_form\').innerHTML=\'\'">Close</button></p><div id="eb_savemsg"></div></div>';
+  $('eb_form').innerHTML = h;
+  EBF.forEach(function (f) { var el = $('eb_' + f[0]); if (el) el.value = b.fields[f[0]] == null ? '' : b.fields[f[0]]; });
+  EBX.concat([['summary'], ['contents']]).forEach(function (f) { var el = $('eb_' + f[0]); if (el) el.value = EB.extra[f[0]] == null ? '' : EB.extra[f[0]]; });
+}
+function ebCoverFile(f) {
+  if (!f) return;
+  var url = URL.createObjectURL(f);
+  shrinkTo(url, 520, 19).then(function (d) {
+    URL.revokeObjectURL(url);
+    if (!d) { ebMsg('Could not open this picture.', 'er'); return; }
+    EB.cover = d; EB.coverUrl = '';
+    $('eb_new').innerHTML = '<div style="font-size:12px;color:#14335f">New photo (not saved yet, ' + Math.round(d.length * 0.75 / 1024) + ' KB):</div><img src="' + d + '" style="width:140px;border-radius:6px;border:2px solid #1a7f3c">';
+  });
+}
+function ebCoverClear() { EB.cover = ''; EB.coverUrl = ''; if ($('eb_new')) $('eb_new').innerHTML = ''; }
+async function ebLookup() {
+  var isbn = ($('e_isbn_eb').value || '').replace(/[^0-9Xx]/g, ''), box = $('eb_isbnres');
+  if (isbn.length !== 10 && isbn.length !== 13) { box.innerHTML = '<div class="msg er">Type the ISBN (10 or 13 digits).</div>'; return; }
+  box.innerHTML = '<div class="msg i">Looking up...</div>';
+  try {
+    var r = await nbIsbn(isbn);
+    if (!r.found) { box.innerHTML = '<div class="msg w">' + esc(r.message || 'Not found.') + '</div>'; return; }
+    EB.isbn = r; var rows = '';
+    ISBN_KEYS.forEach(function (k) {
+      var v = r[k[0]], target = k[2] || k[0]; if (k[0] === 'language' && v) v = LANGN[v] || v; if (!v) return; v = String(v);
+      var el = $('eb_' + target), cur = el ? String(el.value).trim() : ''; if (!el || cur === v) return;
+      rows += '<tr><td><input type="checkbox" class="ebck" data-k="' + target + '" ' + (cur === '' ? 'checked' : '') + ' style="width:auto"></td><td>' + k[1] + '</td><td><small>' + esc(cur) + '</small></td><td>' + esc(v.length > 160 ? v.slice(0, 160) + '...' : v) + '</td><td class="ebv" data-k="' + target + '" style="display:none">' + esc(v) + '</td></tr>';
+    });
+    box.innerHTML = '<div class="msg ok">Found in ' + esc(r.source) + '. Tick what to use (empty boxes are ticked already).</div>' +
+      (rows ? '<table class="bt"><tr><th></th><th>Field</th><th>Now</th><th>From ISBN</th></tr>' + rows + '</table>' : '<div class="msg i">Nothing new to fill.</div>') +
+      (r.cover && !EB.cover ? '<label class="inline"><input type="checkbox" id="eb_usecov" ' + (document.querySelector('#eb_cur img') ? '' : 'checked') + '> Use the cover picture from the ISBN service</label>' : '') +
+      '<p><button class="y" onclick="ebApply()">Use the ticked ones</button></p>';
+  } catch (e) { box.innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+function ebApply() {
+  var n = 0;
+  [].forEach.call(document.querySelectorAll('.ebck'), function (c) {
+    if (!c.checked) return; var k = c.getAttribute('data-k'), cell = document.querySelector('.ebv[data-k="' + k + '"]');
+    var el = $('eb_' + k); if (el && cell) { el.value = cell.textContent; n++; }
+  });
+  var uc = $('eb_usecov');
+  if (uc && uc.checked && EB.isbn && EB.isbn.cover) { EB.coverUrl = EB.isbn.cover; EB.cover = ''; $('eb_new').innerHTML = '<div style="font-size:12px;color:#14335f">Cover from the ISBN service (saved when you press Save)</div><img src="' + esc(EB.isbn.cover) + '" style="width:140px;border-radius:6px;border:2px solid #1a7f3c" onerror="this.outerHTML=\'<i>(no picture shown)</i>\'">'; }
+  $('eb_isbnres').innerHTML = '<div class="msg ok">' + n + ' box(es) filled. Check them, then press Save changes.</div>';
+}
+function ebScan() { scanOpen(function (t) { $('e_isbn_eb').value = t; ebLookup(); }); }
+function ebBarPhoto(f) { if (!f) return; barFile(f, function (t) { if (t) { $('e_isbn_eb').value = t; ebLookup(); } else $('eb_isbnres').innerHTML = '<div class="msg w">The barcode could not be read from this photo. Take it closer and straight, or type the number printed under the barcode.</div>'; }); }
+async function ebClassify() {
+  var m = $('eb_cls'); m.textContent = 'Asking Gemini...';
+  try {
+    var v = function (k) { var el = $('eb_' + k); return el ? el.value.trim() : ''; };
+    var r = await nb({ action: 'classify', info: { title: v('title'), author: v('author'), subtitle: v('subtitle'), publisher: v('publisher'), year: v('year'), language: v('language'), summary: v('summary'), contents: v('contents') } });
+    var said = [];
+    if (r.ddc) { if (!v('callNo')) { $('eb_callNo').value = r.ddc; said.push('DDC ' + r.ddc + ' filled'); } else if (v('callNo') !== r.ddc) said.push('DDC suggestion ' + r.ddc + ' (your number kept)'); }
+    if (r.cc && !v('ccClass')) $('eb_ccClass').value = r.cc;
+    if (r.subjects && !v('subjects')) $('eb_subjects').value = String(r.subjects).split(/\s*;\s*/).join(' | ');
+    if (r.language && !v('language')) $('eb_language').value = r.language;
+    m.innerHTML = '<span class="ok">' + esc(said.concat(['Colon ' + (r.cc || '-'), 'confidence ' + (r.confidence || '-')]).join(', ')) + '</span>';
+  } catch (e) { m.innerHTML = '<span class="er">' + esc(e.message) + '</span>'; }
+}
+async function ebSave() {
+  var changes = {}, o = EB.orig, n = 0;
+  EBF.forEach(function (f) { var el = $('eb_' + f[0]); if (el && String(el.value).trim() !== String(o[f[0]] == null ? '' : o[f[0]]).trim()) { changes[f[0]] = el.value.trim(); n++; } });
+  var isbn = ($('e_isbn_eb').value || '').replace(/[^0-9Xx]/g, '');
+  if (isbn !== String(o.isbn == null ? '' : o.isbn).replace(/[^0-9Xx]/g, '')) {
+    if (isbn && !isbnValid(isbn) && !confirm('The ISBN fails the check digit. Save anyway?')) return;
+    changes.isbn = isbn; n++;
+  }
+  var marc = $('eb_marc').checked, extra = {};
+  EBX.concat([['summary'], ['contents']]).forEach(function (f) { var el = $('eb_' + f[0]); if (el) extra[f[0]] = el.value.trim(); });
+  changes.extra = extra;
+  var cover = EB.cover ? { dataUrl: EB.cover } : (EB.coverUrl ? { url: EB.coverUrl } : {});
+  if (!n && !cover.dataUrl && !cover.url && !marc) { $('eb_savemsg').innerHTML = '<div class="msg i">Nothing was changed.</div>'; return; }
+  if (changes.title !== undefined && !changes.title) { alert('Title cannot be empty.'); return; }
+  $('eb_savemsg').innerHTML = '<div class="msg i">Saving...</div>';
+  try {
+    var r = await nb({ action: 'esave', id: EB.id, changes: changes, cover: cover, by: ($('enteredBy').value || '').trim(), marc: marc });
+    ebShow(r.book);
+    var parts = []; if (r.changed.length) parts.push(r.changed.join(', ')); if (r.cover) parts.push('cover photo'); if (r.marc) parts.push('KOHA_MARC row');
+    $('eb_savemsg').innerHTML = '<div class="msg ok">Saved: ' + esc(parts.join(', ') || 'nothing new') + '. ' + (r.skipped && r.skipped.length ? 'Not saved: ' + esc(r.skipped.join(', ')) : '') + '</div>';
+  } catch (e) { $('eb_savemsg').innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+
+// ---- tab 5: Koha file and covers ----
+async function makeMrc() {
+  var m = $('mrcMsg'); m.innerHTML = '<div class="msg i">Making the file...</div>';
+  try {
+    var r = await nb({ action: 'marcfile', all: $('mrcAll').checked });
+    m.innerHTML = '<div class="msg ok"><b>' + r.records + ' book(s), ' + r.copies + ' copy(ies)</b> in ' + esc(r.name) + '.<div class="links"><a href="' + esc(r.url) + '" target="_blank" rel="noopener">Download the .mrc file</a><a href="' + esc(r.view) + '" target="_blank" rel="noopener">Open in Drive</a></div></div>';
+  } catch (e) { m.innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+async function makeZip() {
+  var m = $('czMsg'); m.innerHTML = '<div class="msg i">Making the ZIP (about 1 second per cover)...</div>';
+  try {
+    var r = await nb({ action: 'coverzip', from: $('cz_from').value, to: $('cz_to').value, section: $('cz_sec').value, onlyNew: $('cz_new').checked });
+    m.innerHTML = '<div class="msg ok"><b>' + r.count + ' cover(s)</b> in ' + esc(r.name) + (r.skipped ? ' (' + r.skipped + ' not done - press again for the rest)' : '') + (r.overSize ? ' - ' + r.overSize + ' still above 20 KB' : '') + '.<div class="links"><a href="' + esc(r.url) + '" target="_blank" rel="noopener">Download the ZIP</a><a href="' + esc(r.view) + '" target="_blank" rel="noopener">Open in Drive</a></div></div>';
+  } catch (e) { m.innerHTML = '<div class="msg er">' + esc(e.message) + '</div>'; }
+}
+
+</script></body></html>
